@@ -1,4 +1,4 @@
-package lab262.leituradebolso.Login;
+package lab262.leituradebolso.Register;
 
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -9,36 +9,37 @@ import android.widget.TextView;
 
 import lab262.leituradebolso.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
-    private Typeface typeFaceQuick, typeFaceComfortaa,typeFaceComfortaaThin;
-    private TextView loginTextView;
-    private EditText emailEditText, passwordEditText;
-    private Button forgotPasswordButton;
+    private Typeface typeFaceQuick,typeFaceComfortaaThin;
+    private TextView registerTextView;
+    private EditText emailEditText, passwordEditText, confirmPasswordEditText;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         getInstanceViews();
         setPropertyView();
     }
 
     private void getInstanceViews(){
         typeFaceQuick =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
-        typeFaceComfortaa =Typeface.createFromAsset(getAssets(),"fonts/Comfortaa_Regular.ttf");
         typeFaceComfortaaThin =Typeface.createFromAsset(getAssets(),"fonts/Comfortaa_Thin.ttf");
 
-        loginTextView = (TextView) findViewById(R.id.loginTextView);
+        registerTextView = (TextView) findViewById(R.id.registerTextView);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
-        forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
+        confirmPasswordEditText = (EditText) findViewById(R.id.confirmPasswordEditText);
+        registerButton = (Button) findViewById(R.id.registerButton);
     }
 
     private void setPropertyView(){
-        loginTextView.setTypeface(typeFaceQuick);
-        forgotPasswordButton.setTypeface(typeFaceComfortaa);
+        registerTextView.setTypeface(typeFaceQuick);
+        registerButton.setTypeface(typeFaceQuick);
         emailEditText.setTypeface(typeFaceComfortaaThin);
         passwordEditText.setTypeface(typeFaceComfortaaThin);
+        confirmPasswordEditText.setTypeface(typeFaceComfortaaThin);
     }
 }

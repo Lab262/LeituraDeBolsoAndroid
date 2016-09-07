@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.os.Bundle;
 
 import lab262.leituradebolso.Extensions.ActivityManager;
-import lab262.leituradebolso.Login.LoginActivity;
+import lab262.leituradebolso.Login.InitialActivity;
 
 public class LaunchScreenActivity extends Activity {
 
@@ -20,7 +20,7 @@ public class LaunchScreenActivity extends Activity {
             @Override
             public void run() {
 
-                ActivityManager.changeActivity(LaunchScreenActivity.this, LoginActivity.class);
+                ActivityManager.changeActivity(LaunchScreenActivity.this, InitialActivity.class);
 
                 finish();
 
