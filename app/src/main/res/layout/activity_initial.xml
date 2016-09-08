@@ -5,62 +5,73 @@
     android:layout_height="match_parent"
     tools:context=".Login.InitialActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="57dp"
-        android:src="@drawable/logo" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginButton"
-        android:src="@drawable/rectangle_purple_50"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
-        android:background="@drawable/rectangle_purple_50"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:singleLine="false"
-        android:clickable="true"
-        android:contextClickable="false"
-        android:focusableInTouchMode="false"
-        android:forceHasOverlappingRendering="false"
-        android:text="@string/placeholder_login_button"
-        android:textAllCaps="false" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="57dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/registerButton"
-        android:src="@drawable/rectangle_purple_50"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rectangle_green_50"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:singleLine="false"
-        android:clickable="true"
-        android:contextClickable="false"
-        android:focusableInTouchMode="false"
-        android:forceHasOverlappingRendering="false"
-        android:text="@string/placeholder_register_button"
-        android:textAllCaps="false"
-        android:layout_below="@+id/loginButton"
-        android:layout_alignLeft="@+id/loginButton"
-        android:layout_alignStart="@+id/loginButton" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginButton"
+            android:src="@drawable/rectangle_purple_50"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="75dp"
+            android:background="@drawable/rectangle_purple_50"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:singleLine="false"
+            android:clickable="true"
+            android:contextClickable="false"
+            android:focusableInTouchMode="false"
+            android:forceHasOverlappingRendering="false"
+            android:text="@string/placeholder_login_button"
+            android:textAllCaps="false"
+            android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/facebookButton"
-        android:layout_below="@+id/registerButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/facebook_button" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/registerButton"
+            android:src="@drawable/rectangle_purple_50"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectangle_green_50"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:singleLine="false"
+            android:clickable="true"
+            android:contextClickable="false"
+            android:focusableInTouchMode="false"
+            android:forceHasOverlappingRendering="false"
+            android:text="@string/placeholder_register_button"
+            android:textAllCaps="false"
+            android:layout_below="@+id/loginButton"
+            android:layout_alignLeft="@+id/loginButton"
+            android:layout_alignStart="@+id/loginButton"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/facebookButton"
+            android:layout_below="@+id/registerButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/facebook_button"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
 </RelativeLayout>

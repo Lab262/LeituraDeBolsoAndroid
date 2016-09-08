@@ -4,6 +4,10 @@
     <string name="placeholder_register_button">Cadastro</string>
 
     <string name="title_activity_launch">LaunchActivity</string>
+    <string name="title_activity_reading">Leitura do Dia</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="placeholder_reading">The majestic Rocky Mountains are a major tourist location in the western United States. Visitors can participate in a quantity of activities, including hiking, skiing, snowboarding, mountain biking, and plenty of more. The Rockies are home to several campgrounds, ghost towns, gold prospecting sites, and national parks. a quantity of the biggest tourist attractions in the Rockies are Pike’s Peak and Royal Gorge. There are several world famous national parks in the Rockies, including Yellowstone, Rocky Mountain, Grand Teton, and Glacier.
+
+The legendary Rocky Mountains stretch from old Mexico up through the United States and into Canada. The Rocky Mountains are over 3000 miles long, spanning parts of california, Colorado, Idaho, Montana, and Wyoming before continuing into Canada.</string>
 </resources>
