@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/likeButton"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/like"
+        android:layout_marginLeft="16dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="31dp"
+            android:layout_marginBottom="13dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Rocky Mountains"
+                    android:id="@+id/titleTextView"
+                    android:textSize="16dp"
+                    android:textColor="@color/abc_primary_text_disable_only_material_light" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=":D :( :D"
+                    android:id="@+id/emojiTextView"
+                    android:layout_marginLeft="7dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Leandro OG"
+                android:id="@+id/authorTextView"
+                android:fontFamily="@string/abc_font_family_display_4_material"
+                android:textSize="16dp"
+                android:textColor="@color/grey_light_font"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView8"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/arrow_forward"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="23dp"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/alertImageView"
+            android:background="@drawable/alert"
+            android:layout_gravity="center_vertical|right"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</LinearLayout>

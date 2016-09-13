@@ -32,7 +32,8 @@
         <activity
             android:name=".Register.RegisterActivity"
             android:theme="@style/AppThemeNoActionBar" />
-        <activity android:name=".ReadingDay.ReadingDayActivity"></activity>
+        <activity android:name=".ReadingDay.ReadingDayActivity" />
+        <activity android:name=".ReadingHistory.ReadingHistoryActivity"></activity>
     </application>
 
 </manifest>
