@@ -18,6 +18,7 @@ package lab262.leituradebolso.External;
 
         import android.content.Context;
         import android.graphics.Typeface;
+        import android.os.Build;
         import android.support.v4.view.PagerAdapter;
         import android.support.v4.view.ViewPager;
         import android.util.AttributeSet;
@@ -188,7 +189,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     private void populateTabStrip() {
         final PagerAdapter adapter = mViewPager.getAdapter();
-        final View.OnClickListener tabClickListener = new TabClickListener();
+        final OnClickListener tabClickListener = new TabClickListener();
 
         for (int i = 0; i < adapter.getCount(); i++) {
             View tabView = null;
@@ -230,7 +231,12 @@ public class SlidingTabLayout extends HorizontalScrollView {
             //Customize view
             typeface = Typeface.create("sans-serif-light",0);
             //typeface =Typeface.createFromAsset(getContext().getAssets(),"fonts/Quicksand-Bold.otf");
-            tabTitleView.setTextColor(getResources().getColorStateList(R.color.white));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                tabTitleView.setTextColor(getResources().getColor(R.color.white,null));
+            }else {
+                tabTitleView.setTextColor(getResources().getColor(R.color.white));
+            }
+
             tabTitleView.setTypeface(typeface);
             tabTitleView.setTextSize(16);
             tabTitleView.setAllCaps(false);

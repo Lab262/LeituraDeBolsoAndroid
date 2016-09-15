@@ -1,37 +1,49 @@
 package lab262.leituradebolso.ReadingHistory;
 
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 
 import lab262.leituradebolso.Extensions.ActivityManager;
-import lab262.leituradebolso.External.SlidingTabLayout;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ReadingHistoryActivity extends AppCompatActivity implements View.OnClickListener, ReadingHistoryListFragment.OnFragmentInteractionListener {
+import android.support.v7.widget.SearchView;
 
-    ViewPager pager;
-    ViewPagerAdapter adapter;
-    SlidingTabLayout tabs;
-    int Numboftabs =3;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+public class ReadingHistoryActivity extends AppCompatActivity implements View.OnClickListener,
+        ReadingHistorySelectorFragment.OnFragmentInteractionListener,
+        ReadingHistoryListFragment.OnFragmentInteractionListener, SearchView.OnQueryTextListener{
+
+
+    private ImageButton rightButton, readingDayButton;
     private Typeface typeface;
-    private ImageButton searchButton, readingDayButton;
+    private SearchView searchView;
+
+    // Listview Adapter
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,49 +65,60 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
 
     private void getInstanceViews(){
         typeface =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
+
+        String products[] = {"Rocky Montains", "Amei te ver"};
+
+        adapter = new ArrayAdapter<>(this, R.layout.reading_history_list_row, R.id.titleTextView, products);
+        View fragment = findViewById(R.id.fragment);
+        View pager = fragment.findViewById(R.id.pager);
+        View readingListFragment = pager.findViewById(R.id.readingListView);
+        ListView listView = (ListView) readingListFragment.findViewById(R.id.readingHistoryListView);
+        listView.setAdapter(adapter);
     }
 
     private void setPropertyView(){
+
+        //Customize Action Bar
         TextView textView = (TextView) findViewById(R.id.titleActionBarTextView);
         textView.setTypeface(typeface);
         textView.setText(R.string.title_activity_history_reading);
-
         getSupportActionBar().setElevation(0);
 
         readingDayButton = (ImageButton) findViewById(R.id.leftButton);
-        searchButton = (ImageButton) findViewById(R.id.rightButton);
-
         readingDayButton.setBackgroundResource(R.drawable.ic_reading_day);
-        searchButton.setBackgroundResource(R.drawable.ic_search);
-
         readingDayButton.setOnClickListener(this);
-        searchButton.setOnClickListener(this);
+
+        rightButton = (ImageButton) findViewById(R.id.rightButton);
+        rightButton.setVisibility(View.INVISIBLE);
+
+    }
+
+    private void customizeSearch(){
 
 
-        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        CharSequence Titles[]={getString(R.string.title_selector_all),getString(R.string.title_selector_tanned),
-                getString(R.string.title_selector_unread)};
 
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+        int closeButtonId = android.support.v7.appcompat.R.id.search_close_btn;
+        ImageView closeButtonImage = (ImageView) searchView.findViewById(closeButtonId);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            closeButtonImage.setColorFilter(getResources().getColor(R.color.colorAccent,null));
+        }else {
+            closeButtonImage.setColorFilter(getResources().getColor(R.color.colorAccent));
+        }
 
-        // Assigning ViewPager View and setting the adapter
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
+        int searchEditId = android.support.v7.appcompat.R.id.search_src_text;
+        EditText editText = (EditText) searchView.findViewById(searchEditId);
 
-        // Assiging the Sliding Tab Layout View
-        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            editText.setTextColor(getResources().getColor(R.color.colorAccent,null));
+        }else {
+            editText.setTextColor(getResources().getColor(R.color.colorAccent));
+        }
 
-        // Setting Custom Color for the Scroll bar indicator of the Tab View
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.selector_color);
-            }
-        });
-
-        // Setting the ViewPager For the SlidingTabsLayout
-        tabs.setViewPager(pager);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            editText.setHintTextColor(getResources().getColor(R.color.colorAccent,null));
+        }else {
+            editText.setHintTextColor(getResources().getColor(R.color.colorAccent));
+        }
 
     }
 
@@ -105,8 +128,9 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
 
             //Reading Day button
             case R.id.leftButton:
-                ActivityManager.changeActivity(ReadingHistoryActivity.this, ReadingDayActivity.class);
+                ActivityManager.changeActivityAndRemoveParentActivity(ReadingHistoryActivity.this, ReadingDayActivity.class);
                 break;
+
         }
 
     }
@@ -114,5 +138,34 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnClickListener(this);
+        customizeSearch();
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        // perform query here
+
+        // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+        // see https://code.google.com/p/android/issues/detail?id=24599
+        searchView.clearFocus();
+
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.getFilter().filter(newText);
+        return true;
     }
 }
