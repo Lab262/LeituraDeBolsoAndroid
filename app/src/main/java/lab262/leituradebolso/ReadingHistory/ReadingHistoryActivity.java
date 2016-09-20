@@ -1,12 +1,10 @@
 package lab262.leituradebolso.ReadingHistory;
 
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,18 +18,12 @@ import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import android.support.v7.widget.SearchView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ReadingHistoryActivity extends AppCompatActivity implements View.OnClickListener,
         ReadingHistorySelectorFragment.OnFragmentInteractionListener,
@@ -42,8 +34,9 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
     private Typeface typeface;
     private SearchView searchView;
 
-    // Listview Adapter
-    ArrayAdapter<String> adapter;
+    ReadingHistoryListFragment fragmentListView, fragment2ListView, fragment3ListView;
+    ViewPagerAdapter viewPagerAdapter;
+    android.support.v4.view.ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +59,12 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
     private void getInstanceViews(){
         typeface =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
 
-        String products[] = {"Rocky Montains", "Amei te ver"};
-
-        adapter = new ArrayAdapter<>(this, R.layout.reading_history_list_row, R.id.titleTextView, products);
         View fragment = findViewById(R.id.fragment);
-        View pager = fragment.findViewById(R.id.pager);
-        View readingListFragment = pager.findViewById(R.id.readingListView);
-        ListView listView = (ListView) readingListFragment.findViewById(R.id.readingHistoryListView);
-        listView.setAdapter(adapter);
+        pager = (android.support.v4.view.ViewPager) fragment.findViewById(R.id.pager);
+        viewPagerAdapter = (ViewPagerAdapter) pager.getAdapter();
+        fragmentListView = (ReadingHistoryListFragment) viewPagerAdapter.getItem(0);
+        fragment2ListView = (ReadingHistoryListFragment) viewPagerAdapter.getItem(1);
+        fragment3ListView = (ReadingHistoryListFragment) viewPagerAdapter.getItem(2);
     }
 
     private void setPropertyView(){
@@ -94,8 +85,6 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
     }
 
     private void customizeSearch(){
-
-
 
         int closeButtonId = android.support.v7.appcompat.R.id.search_close_btn;
         ImageView closeButtonImage = (ImageView) searchView.findViewById(closeButtonId);
@@ -125,7 +114,6 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-
             //Reading Day button
             case R.id.leftButton:
                 ActivityManager.changeActivityAndRemoveParentActivity(ReadingHistoryActivity.this, ReadingDayActivity.class);
@@ -165,7 +153,21 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        adapter.getFilter().filter(newText);
+        filterListView(newText);
         return true;
+    }
+
+    private void filterListView(String textToFilter){
+        switch (pager.getCurrentItem()){
+            case 0:
+                fragmentListView.filterReadingList(textToFilter);
+                break;
+            case 1:
+                fragment2ListView.filterReadingList(textToFilter);
+                break;
+            case 2:
+                fragment3ListView.filterReadingList(textToFilter);
+                break;
+        }
     }
 }

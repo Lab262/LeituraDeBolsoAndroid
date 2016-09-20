@@ -72,17 +72,18 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/emailEditText"
-        android:layout_alignTop="@+id/imageView4"
-        android:layout_alignLeft="@+id/imageView3"
-        android:layout_alignStart="@+id/imageView3"
-        android:layout_marginTop="10dp"
         android:hint="Email"
         android:maxLines="1"
         android:textColor="@color/colorAccent"
         android:textColorHint="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:textSize="16dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/transparent"
+        android:textAlignment="center"
+        android:layout_alignBottom="@+id/imageView4"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/imageView4" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -95,10 +96,11 @@
         android:textColorHint="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:textSize="16dp"
-        android:layout_alignTop="@+id/imageView5"
-        android:layout_alignLeft="@+id/emailEditText"
-        android:layout_alignStart="@+id/emailEditText"
-        android:layout_marginTop="10dp"
         android:inputType="textPassword"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:textAlignment="center"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/imageView5" />
 </RelativeLayout>

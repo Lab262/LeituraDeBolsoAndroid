@@ -57,14 +57,16 @@
         android:textColorHint="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:textSize="16dp"
-        android:layout_alignTop="@+id/imageView4"
         android:layout_alignLeft="@+id/imageView4"
         android:layout_alignStart="@+id/imageView4"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_alignRight="@+id/imageView4"
         android:layout_alignEnd="@+id/imageView4"
-        android:layout_marginRight="15dp" />
+        android:layout_marginRight="15dp"
+        android:background="@android:color/transparent"
+        android:layout_alignBottom="@+id/imageView4"
+        android:layout_alignTop="@+id/imageView4"
+        android:textAlignment="center" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -77,13 +79,15 @@
         android:textColorHint="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:textSize="16dp"
-        android:layout_alignTop="@+id/imageView5"
         android:layout_alignLeft="@+id/emailEditText"
         android:layout_alignStart="@+id/emailEditText"
-        android:layout_marginTop="10dp"
         android:inputType="textPassword"
         android:layout_alignRight="@+id/emailEditText"
-        android:layout_alignEnd="@+id/emailEditText" />
+        android:layout_alignEnd="@+id/emailEditText"
+        android:background="@android:color/transparent"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_alignTop="@+id/imageView5"
+        android:textAlignment="center" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -106,12 +110,15 @@
         android:textColorLink="@color/colorAccent"
         android:textSize="16dp"
         android:inputType="textPassword"
-        android:layout_alignTop="@+id/imageView6"
         android:layout_alignRight="@+id/passwordEditText"
         android:layout_alignEnd="@+id/passwordEditText"
         android:layout_alignLeft="@+id/passwordEditText"
         android:layout_alignStart="@+id/passwordEditText"
-        android:layout_marginTop="10dp" />
+        android:autoText="false"
+        android:background="@android:color/transparent"
+        android:layout_alignBottom="@+id/imageView6"
+        android:layout_alignTop="@+id/imageView6"
+        android:textAlignment="center" />
 
     <Button
         android:layout_width="wrap_content"

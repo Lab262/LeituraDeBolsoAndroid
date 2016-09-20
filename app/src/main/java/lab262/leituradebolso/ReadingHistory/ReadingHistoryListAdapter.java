@@ -25,6 +25,10 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
         this.data = data;
     }
 
+    public void getFilter(){
+
+    }
+
     @Override
     public int getCount() {
         return data.length;

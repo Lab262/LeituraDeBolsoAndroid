@@ -41,6 +41,8 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
 
     private OnFragmentInteractionListener mListener;
 
+    private ReadingModel[] arrayReadingModels;
+
     public ReadingHistoryListFragment() {
         // Required empty public constructor
     }
@@ -70,7 +72,8 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_reading_history_list, container, false);
         getInstanceViews();
-        loadReadingList(getDummyData());
+        arrayReadingModels = getDummyData();
+        loadReadingList(arrayReadingModels);
 
         return view;
     }
@@ -144,5 +147,19 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
 
         return dummyData;
 
+    }
+
+    public void filterReadingList(String stringFilter){
+        ArrayList<ReadingModel> arrayFiltered = new ArrayList<>();
+        for (ReadingModel readingModel : arrayReadingModels){
+            if (readingModel.title.toLowerCase().contains(stringFilter.toLowerCase())){
+                arrayFiltered.add(readingModel);
+            }
+        }
+        if (!arrayFiltered.isEmpty()){
+            ReadingModel[] arrayFilteredReadingModels = new ReadingModel[arrayFiltered.size()];
+            arrayFilteredReadingModels = arrayFiltered.toArray(arrayFilteredReadingModels);
+            loadReadingList(arrayFilteredReadingModels);
+        }
     }
 }
