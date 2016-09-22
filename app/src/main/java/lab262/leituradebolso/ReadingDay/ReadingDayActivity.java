@@ -2,6 +2,7 @@ package lab262.leituradebolso.ReadingDay;
 
 import android.graphics.Typeface;
 import android.provider.ContactsContract;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingHistory.ReadingHistoryActivity;
 
@@ -25,6 +27,9 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     private Typeface typeFace;
     private ImageButton likeButton, historyButton, configurationButton;
     private Boolean likeReading;
+    private TextView titleTextView, emojiTextView, timeTextView, readingTextView, authorTextView;
+    private ReadingModel currentReadingModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,12 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_reading_day);
         getInstanceViews();
         setPropertyView();
+        Bundle bundleExtras = getIntent().getExtras();
+        if (bundleExtras!=null){
+            currentReadingModel = (ReadingModel) bundleExtras.get("modelreading");
+            setReading();
+            hideHistoryButton();
+        }
     }
 
     private void configureActionBar(){
@@ -47,6 +58,12 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     private void getInstanceViews(){
         typeFace =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
         likeButton = (ImageButton) findViewById(R.id.likeButton);
+
+        titleTextView = (TextView) findViewById(R.id.titleTextView);
+        emojiTextView = (TextView) findViewById(R.id.emojiTextView);
+        timeTextView = (TextView) findViewById(R.id.timeTextView);
+        readingTextView = (TextView) findViewById(R.id.readingTextView);
+        authorTextView = (TextView) findViewById(R.id.authorTextView);
     }
 
     private void setPropertyView(){
@@ -65,6 +82,26 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         likeButton.setOnClickListener(this);
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
+    }
+
+    private void hideHistoryButton(){
+        historyButton.setVisibility(View.INVISIBLE);
+    }
+
+    private void setReading(){
+        titleTextView.setText(currentReadingModel.title);
+        timeTextView.setText(currentReadingModel.duration);
+        readingTextView.setText(currentReadingModel.textReading);
+        authorTextView.setText(currentReadingModel.author);
+
+        StringBuilder allEmojis = new StringBuilder();
+        for(String emoji : currentReadingModel.emojis) {
+            if(allEmojis.length() > 0) {
+                allEmojis.append(" "); // some divider between the different texts
+            }
+            allEmojis.append(emoji);
+        }
+        emojiTextView.setText(allEmojis.toString());
     }
 
     @Override

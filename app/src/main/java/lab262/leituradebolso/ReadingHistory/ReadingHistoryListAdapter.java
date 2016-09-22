@@ -17,7 +17,7 @@ import lab262.leituradebolso.R;
  */
 public class ReadingHistoryListAdapter extends BaseAdapter {
 
-    private static ReadingModel[] data;
+    private ReadingModel[] data;
     private Context context;
 
     public ReadingHistoryListAdapter(Context context, ReadingModel[] data) {
@@ -25,9 +25,6 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
         this.data = data;
     }
 
-    public void getFilter(){
-
-    }
 
     @Override
     public int getCount() {
@@ -95,5 +92,10 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
         row.emojiTextView.setText(allEmojis.toString());
 
         return convertView;
+    }
+
+    public void updateData(ReadingModel[] data) {
+        this.data = data;
+        notifyDataSetChanged();
     }
 }

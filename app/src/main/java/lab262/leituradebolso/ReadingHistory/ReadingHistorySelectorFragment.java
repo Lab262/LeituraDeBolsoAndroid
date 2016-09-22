@@ -3,6 +3,7 @@ package lab262.leituradebolso.ReadingHistory;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -98,7 +99,11 @@ public class ReadingHistorySelectorFragment extends Fragment {
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.selector_color);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    return getResources().getColor(R.color.selector_color,null);
+                }else {
+                    return getResources().getColor(R.color.selector_color);
+                }
             }
         });
 

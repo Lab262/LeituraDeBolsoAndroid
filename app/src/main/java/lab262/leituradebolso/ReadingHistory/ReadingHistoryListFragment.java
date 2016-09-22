@@ -1,6 +1,8 @@
 package lab262.leituradebolso.ReadingHistory;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +30,7 @@ import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
  * Use the {@link ReadingHistoryListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReadingHistoryListFragment extends android.support.v4.app.Fragment {
+public class ReadingHistoryListFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,12 +40,13 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
     private String mParam1;
     private String mParam2;
 
-    private ListView readingHistoryListView;
+    public ListView readingListView;
     private View view;
 
     private OnFragmentInteractionListener mListener;
 
     private ReadingModel[] arrayReadingModels;
+    private ReadingHistoryListAdapter adapter;
 
     public ReadingHistoryListFragment() {
         // Required empty public constructor
@@ -74,9 +79,10 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         getInstanceViews();
         arrayReadingModels = getDummyData();
         loadReadingList(arrayReadingModels);
-
+        readingListView.setOnItemClickListener(this);
         return view;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -102,6 +108,15 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         mListener = null;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        ReadingModel readingModel = arrayReadingModels[i];
+        Bundle bundleExtras = new Bundle();
+        bundleExtras.putParcelable("modelreading",readingModel);
+        ActivityManager.changeActivity(getContext(),ReadingDayActivity.class,bundleExtras);
+    }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -118,14 +133,12 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
     }
 
     private void getInstanceViews(){
-        readingHistoryListView = (ListView) view.findViewById(R.id.readingHistoryListView);
+        readingListView = (ListView) view.findViewById(R.id.readingListView);
     }
 
-
-
     private void loadReadingList(ReadingModel[] servicesRequested) {
-        ReadingHistoryListAdapter adapter = new ReadingHistoryListAdapter(getContext().getApplicationContext(), servicesRequested);
-        readingHistoryListView.setAdapter(adapter);
+        adapter = new ReadingHistoryListAdapter(getContext().getApplicationContext(), servicesRequested);
+        readingListView.setAdapter(adapter);
     }
 
     private ReadingModel[] getDummyData() {
@@ -137,7 +150,7 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
 
         ReadingModel reading1 = new ReadingModel("1","Rocky Montains", "Leandro OG", "5 min", "bla bla bla bla",
                 emojis, false, true);
-        ReadingModel reading2 = new ReadingModel("1","Amei te ver", "Fernanda Vesquez", "5 min", "bla bla bla bla",
+        ReadingModel reading2 = new ReadingModel("1","Amei te ver", "Fernanda Vesquez", "5 min", getString(R.string.placeholder_reading),
                 emojis, true, false);
 
         ReadingModel[] dummyData = new ReadingModel[2];
@@ -159,7 +172,11 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         if (!arrayFiltered.isEmpty()){
             ReadingModel[] arrayFilteredReadingModels = new ReadingModel[arrayFiltered.size()];
             arrayFilteredReadingModels = arrayFiltered.toArray(arrayFilteredReadingModels);
-            loadReadingList(arrayFilteredReadingModels);
+            adapter.updateData(arrayFilteredReadingModels);
         }
+    }
+
+    public void resetFilter(){
+        adapter.updateData(arrayReadingModels);
     }
 }
