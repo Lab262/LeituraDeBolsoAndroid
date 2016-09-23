@@ -1,5 +1,7 @@
 package lab262.leituradebolso.ReadingDay;
 
+import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.provider.ContactsContract;
 import android.support.annotation.RequiresPermission;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TypefaceSpan;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -17,7 +20,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingHistory.ReadingHistoryActivity;
@@ -121,6 +126,18 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             case R.id.leftButton:
                 ActivityManager.changeActivity(ReadingDayActivity.this, ReadingHistoryActivity.class);
                 break;
+
+            //Configuration Button
+            case R.id.rightButton:
+                ActivityManager.changeActivity(ReadingDayActivity.this, ConfigurationActivity.class);
+                break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Set text size
+        readingTextView.setTextSize(ApplicationState.sharedState().getTextSize());
     }
 }

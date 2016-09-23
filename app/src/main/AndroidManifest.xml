@@ -33,7 +33,8 @@
             android:name=".Register.RegisterActivity"
             android:theme="@style/AppThemeNoActionBar" />
         <activity android:name=".ReadingDay.ReadingDayActivity" />
-        <activity android:name=".ReadingHistory.ReadingHistoryActivity"></activity>
+        <activity android:name=".ReadingHistory.ReadingHistoryActivity" />
+        <activity android:name=".Configuration.ConfigurationActivity"></activity>
     </application>
 
 </manifest>

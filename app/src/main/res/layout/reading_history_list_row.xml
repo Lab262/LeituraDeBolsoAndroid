@@ -56,7 +56,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Leandro OG"
                 android:id="@+id/authorTextView"
-                android:fontFamily="@string/abc_font_family_display_4_material"
+                android:fontFamily="sans-serif-light"
                 android:textSize="16dp"
                 android:textColor="@color/grey_light_font"
                 android:layout_marginTop="6dp" />

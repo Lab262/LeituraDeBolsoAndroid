@@ -6,9 +6,12 @@
     <string name="title_activity_launch">LaunchActivity</string>
     <string name="title_activity_reading">Leitura do Dia</string>
     <string name="title_activity_history_reading">Histórico de Leitura</string>
+    <string name="title_activity_configuration">Configurações</string>
     <string name="title_selector_all">Todos</string>
     <string name="title_selector_tanned">Curtidos</string>
     <string name="title_selector_unread">Não Lidos</string>
+
+
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="placeholder_reading">The majestic Rocky Mountains are a major tourist location in the western United States. Visitors can participate in a quantity of activities, including hiking, skiing, snowboarding, mountain biking, and plenty of more. The Rockies are home to several campgrounds, ghost towns, gold prospecting sites, and national parks. a quantity of the biggest tourist attractions in the Rockies are Pike’s Peak and Royal Gorge. There are several world famous national parks in the Rockies, including Yellowstone, Rocky Mountain, Grand Teton, and Glacier.

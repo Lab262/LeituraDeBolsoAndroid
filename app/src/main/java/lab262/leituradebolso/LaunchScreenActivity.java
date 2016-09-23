@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Handler;
 import android.os.Bundle;
 
+import java.util.Date;
+
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Login.InitialActivity;
 
 public class LaunchScreenActivity extends Activity {
@@ -19,6 +22,9 @@ public class LaunchScreenActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
+                //TODO: Modificar a forma de inicializar o State
+                ApplicationState applicationState = new ApplicationState(true,false,14,new Date());
 
                 ActivityManager.changeActivity(LaunchScreenActivity.this, InitialActivity.class);
 

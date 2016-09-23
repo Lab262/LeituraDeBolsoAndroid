@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:homeAsUpIndicator">@drawable/arrow_back</item>
+        <item name="colorSwitchThumbNormal">@color/unselector_color</item>
+        <item name="colorControlActivated">@color/selector_color</item>
     </style>
 
     <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
@@ -15,6 +17,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:homeAsUpIndicator">@drawable/arrow_back</item>
+        <item name="colorSwitchThumbNormal">@color/unselector_color</item>
+        <item name="colorControlActivated">@color/selector_color</item>
     </style>
 
     <style name="FullscreenTheme" parent="AppThemeActionBar">
@@ -27,6 +31,21 @@
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.DiscreteSeekBar" parent="android:Widget">
+        <item name="dsb_indicatorTextAppearance">@style/Widget.DiscreteIndicatorTextAppearance</item>
+        <item name="dsb_progressColor">@color/selector_color</item>
+        <item name="dsb_trackColor">@color/grey_label</item>
+        <item name="dsb_rippleColor">@color/unselector_color</item>
+        <item name="dsb_indicatorColor">@color/selector_color</item>
+        <item name="dsb_indicatorElevation">3dp</item>
+        <item name="dsb_mirrorForRtl">true</item>
+    </style>
+
+    <style name="Widget.DiscreteIndicatorTextAppearance" parent="android:TextAppearance.Small">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:padding">10dp</item>
     </style>
 
 </resources>
