@@ -1,5 +1,6 @@
 package lab262.leituradebolso.ReadingHistory;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.view.View;
 
 
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
@@ -117,6 +119,30 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
 
     }
 
+    private void setNoturneMode(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            pager.setBackgroundColor(getResources().getColor(R.color.colorNoturne,null));
+        }else {
+            pager.setBackgroundColor(getResources().getColor(R.color.colorNoturne));
+        }
+    }
+
+    private void resetNoturneMode(){
+        pager.setBackgroundColor(Color.WHITE);
+    }
+
+    private void refreshListsViews(){
+        if (fragmentAllListView.readingListView!=null){
+            fragmentAllListView.refreshListView();
+        }
+        if (fragmentNotReadListView.readingListView!=null){
+            fragmentNotReadListView.refreshListView();
+        }
+        if (fragmentTannedListView.readingListView!=null){
+            fragmentTannedListView.refreshListView();
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -187,5 +213,17 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
         fragmentAllListView.resetFilter();
         fragmentTannedListView.resetFilter();
         fragmentNotReadListView.resetFilter();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Configure Noturne Mode
+        refreshListsViews();
+        if (ApplicationState.sharedState().getNoturneMode()){
+            setNoturneMode();
+        }else {
+            resetNoturneMode();
+        }
     }
 }

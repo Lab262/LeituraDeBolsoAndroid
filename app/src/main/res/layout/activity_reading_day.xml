@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="lab262.leituradebolso.ReadingDay.ReadingDayActivity">
+    tools:context="lab262.leituradebolso.ReadingDay.ReadingDayActivity"
+    android:id="@+id/layoutReadingDay">
 
     <LinearLayout
         android:orientation="vertical"
@@ -72,7 +73,7 @@
             android:layout_marginRight="16dp"
             android:textColor="@color/abc_primary_text_disable_only_material_light"
             android:textSize="14dp"
-            android:fontFamily="@string/abc_font_family_display_4_material" />
+            android:fontFamily="sans-serif-light" />
 
         <TextView
             android:layout_width="wrap_content"

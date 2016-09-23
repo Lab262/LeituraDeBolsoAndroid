@@ -179,4 +179,8 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
     public void resetFilter(){
         adapter.updateData(arrayReadingModels);
     }
+
+    public void refreshListView(){
+        adapter.notifyDataSetChanged();
+    }
 }

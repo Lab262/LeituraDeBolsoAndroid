@@ -2,7 +2,9 @@ package lab262.leituradebolso.ReadingDay;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.annotation.RequiresPermission;
 import android.support.v7.app.ActionBar;
@@ -18,7 +20,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
@@ -34,6 +39,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     private Boolean likeReading;
     private TextView titleTextView, emojiTextView, timeTextView, readingTextView, authorTextView;
     private ReadingModel currentReadingModel;
+    private ScrollView layoutReadingDay;
 
 
     @Override
@@ -69,6 +75,8 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         timeTextView = (TextView) findViewById(R.id.timeTextView);
         readingTextView = (TextView) findViewById(R.id.readingTextView);
         authorTextView = (TextView) findViewById(R.id.authorTextView);
+
+        layoutReadingDay = (ScrollView) findViewById(R.id.layoutReadingDay);
     }
 
     private void setPropertyView(){
@@ -87,6 +95,20 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         likeButton.setOnClickListener(this);
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
+
+        ArrayList<String> emojis = new ArrayList<String>();
+        emojis.add(ReadingModel.getEmijoByUnicode(0x1F601));
+        emojis.add(ReadingModel.getEmijoByUnicode(0x1F602));
+        emojis.add(ReadingModel.getEmijoByUnicode(0x1F603));
+
+        StringBuilder allEmojis = new StringBuilder();
+        for(String emoji : emojis) {
+            if(allEmojis.length() > 0) {
+                allEmojis.append(" "); // some divider between the different texts
+            }
+            allEmojis.append(emoji);
+        }
+        emojiTextView.setText(allEmojis.toString());
     }
 
     private void hideHistoryButton(){
@@ -107,6 +129,24 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             allEmojis.append(emoji);
         }
         emojiTextView.setText(allEmojis.toString());
+    }
+
+    private void setNoturneMode(){
+        titleTextView.setTextColor(Color.WHITE);
+        readingTextView.setTextColor(Color.WHITE);
+        authorTextView.setTextColor(Color.WHITE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            layoutReadingDay.setBackgroundColor(getResources().getColor(R.color.colorNoturne,null));
+        }else {
+            layoutReadingDay.setBackgroundColor(getResources().getColor(R.color.colorNoturne));
+        }
+    }
+
+    private void resetNoturneMode(){
+        titleTextView.setTextColor(Color.BLACK);
+        readingTextView.setTextColor(Color.BLACK);
+        authorTextView.setTextColor(Color.BLACK);
+        layoutReadingDay.setBackgroundColor(Color.WHITE);
     }
 
     @Override
@@ -139,5 +179,12 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         super.onResume();
         //Set text size
         readingTextView.setTextSize(ApplicationState.sharedState().getTextSize());
+
+        //Configure Noturne Mode
+        if (ApplicationState.sharedState().getNoturneMode()){
+            setNoturneMode();
+        }else {
+            resetNoturneMode();
+        }
     }
 }

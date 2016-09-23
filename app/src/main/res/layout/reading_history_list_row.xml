@@ -72,7 +72,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView8"
+            android:id="@+id/arrowImageView"
             android:layout_gravity="center_vertical"
             android:background="@drawable/arrow_forward"
             android:layout_alignParentRight="true"

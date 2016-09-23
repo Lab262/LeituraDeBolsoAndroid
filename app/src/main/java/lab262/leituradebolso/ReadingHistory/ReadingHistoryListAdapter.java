@@ -1,6 +1,10 @@
 package lab262.leituradebolso.ReadingHistory;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.R;
 
@@ -78,6 +83,14 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
             row.likeButton.setBackgroundResource(R.drawable.like);
         }
 
+
+        //Configure Noturne Mode
+        if (ApplicationState.sharedState().getNoturneMode()){
+            setNoturneMode(row.titleTextView);
+        }else {
+            resetNoturneMode(row.titleTextView);
+        }
+
         row.titleTextView.setText(currentModel.title);
         row.authorTextView.setText(currentModel.author);
 
@@ -97,5 +110,13 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
     public void updateData(ReadingModel[] data) {
         this.data = data;
         notifyDataSetChanged();
+    }
+
+    private void setNoturneMode(TextView titleTextView){
+        titleTextView.setTextColor(Color.WHITE);
+    }
+
+    private void resetNoturneMode(TextView titleTextView){
+        titleTextView.setTextColor(Color.BLACK);
     }
 }
