@@ -1,31 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="lab262.leituradebolso.Register.RegisterActivity"
-    android:background="@color/white">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="57dp"
-        android:src="@drawable/logo" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cadastro"
-        android:id="@+id/registerTextView"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/imageView3"
-        android:layout_centerHorizontal="true" />
+    android:background="@color/colorAccent">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -34,14 +14,14 @@
         android:layout_below="@+id/registerTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:src="@drawable/rectangle_purple_48" />
+        android:src="@drawable/rectangle_email" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView5"
         android:layout_marginTop="15dp"
-        android:src="@drawable/rectangle_purple_48"
+        android:src="@drawable/rectangle_password"
         android:layout_below="@+id/imageView4"
         android:layout_centerHorizontal="true" />
 
@@ -66,7 +46,8 @@
         android:background="@android:color/transparent"
         android:layout_alignBottom="@+id/imageView4"
         android:layout_alignTop="@+id/imageView4"
-        android:textAlignment="center" />
+        android:textAlignment="textStart"
+        android:paddingLeft="50dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -87,13 +68,14 @@
         android:background="@android:color/transparent"
         android:layout_alignBottom="@+id/imageView5"
         android:layout_alignTop="@+id/imageView5"
-        android:textAlignment="center" />
+        android:textAlignment="textStart"
+        android:paddingLeft="50dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView6"
-        android:src="@drawable/rectangle_purple_48"
+        android:src="@drawable/rectangle_password"
         android:layout_below="@+id/imageView5"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp" />
@@ -118,7 +100,8 @@
         android:background="@android:color/transparent"
         android:layout_alignBottom="@+id/imageView6"
         android:layout_alignTop="@+id/imageView6"
-        android:textAlignment="center" />
+        android:textAlignment="textStart"
+        android:paddingLeft="50dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -129,8 +112,38 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:textAllCaps="false"
-        android:background="@drawable/rectangle_green_48"
+        android:background="@drawable/rectangle_orange_48"
         android:textSize="20dp"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastro"
+        android:id="@+id/registerTextView"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/imageView10"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/text_icon"
+        android:id="@+id/imageView10"
+        android:layout_marginTop="22dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

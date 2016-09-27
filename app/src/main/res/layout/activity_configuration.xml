@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context="lab262.leituradebolso.Configuration.ConfigurationActivity"
     android:weightSum="1"
+    android:animateLayoutChanges = "true"
     android:background="@color/white">
 
     <Switch
@@ -35,7 +36,8 @@
         android:paddingRight="14dp"
         android:paddingLeft="18dp"
         android:paddingBottom="20dp"
-        android:paddingTop="20dp">
+        android:paddingTop="20dp"
+        android:id="@+id/layoutHourReceive">
 
         <TextView
             android:text="Receber a Leitura"
@@ -59,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_line_layout"
-        />
+        android:id="@+id/viewLayoutHourReceive" />
 
     <Switch
         android:text="Modo Noturno"

@@ -14,7 +14,7 @@ public class LoginActivity extends AppCompatActivity {
     private Typeface typeFaceQuick, typeFaceComfortaa,typeFaceComfortaaThin;
     private TextView loginTextView;
     private EditText emailEditText, passwordEditText;
-    private Button forgotPasswordButton;
+    private Button forgotPasswordButton, loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
         forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
+        loginButton = (Button) findViewById(R.id.loginButton);
     }
 
     private void setPropertyView(){
@@ -40,5 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         forgotPasswordButton.setTypeface(typeFaceComfortaa);
         emailEditText.setTypeface(typeFaceComfortaaThin);
         passwordEditText.setTypeface(typeFaceComfortaaThin);
+        loginButton.setTypeface(typeFaceQuick);
     }
 }
