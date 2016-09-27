@@ -3,12 +3,9 @@ package lab262.leituradebolso.ReadingHistory;
 /**
  * Created by luisresende on 13/09/16.
  */
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
 
 import lab262.leituradebolso.R;
 

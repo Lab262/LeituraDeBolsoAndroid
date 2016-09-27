@@ -1,7 +1,6 @@
 package lab262.leituradebolso.ReadingHistory;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;

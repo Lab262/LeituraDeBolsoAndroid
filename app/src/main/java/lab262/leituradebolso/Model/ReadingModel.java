@@ -2,10 +2,7 @@ package lab262.leituradebolso.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.RequiresPermission;
-import android.support.annotation.StringRes;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
