@@ -17,14 +17,12 @@
             android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal">
 
-            <ImageView
+            <pl.droidsonroids.gif.GifImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/logo"
-                android:layout_gravity="center_vertical" />
+                android:layout_height="match_parent"
+                android:src="@drawable/gif_launch_screen"
+                android:id="@+id/gifImageView" />
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

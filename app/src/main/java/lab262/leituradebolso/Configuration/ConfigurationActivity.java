@@ -31,7 +31,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
     private Calendar currentCalendar;
     private LinearLayout layoutHourReceive;
     private View viewLayoutHourReceive;
-    private LinearLayout.LayoutParams layoutParamsHourReceive;
+    private int positionLayoutHourReceive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         hourReadingTextView = (TextView) findViewById(R.id.hourReadingTextView);
         layoutHourReceive = (LinearLayout) findViewById(R.id.layoutHourReceive);
         viewLayoutHourReceive = findViewById(R.id.viewLayoutHourReceive);
-        layoutParamsHourReceive = (LinearLayout.LayoutParams) layoutHourReceive.getLayoutParams();
+        positionLayoutHourReceive = layoutHourReceive.getChildCount();
     }
 
     private void setPropertyView(){
@@ -155,8 +155,8 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
     }
 
     private void showLayoutHourReceive(){
-        linearLayout.addView(layoutHourReceive,2);
-        linearLayout.addView(viewLayoutHourReceive,3);
+        linearLayout.addView(layoutHourReceive,positionLayoutHourReceive);
+        linearLayout.addView(viewLayoutHourReceive,positionLayoutHourReceive+1);
     }
 
     @Override
