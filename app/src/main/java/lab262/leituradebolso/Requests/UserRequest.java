@@ -12,14 +12,16 @@ import lab262.leituradebolso.Model.UserModel;
 
 public class UserRequest {
 
-    private static String url = Requester.baseUrl + "v0/users";
+    private static String urlCreate = Requester.baseUrl + Requester.versionWS + "/users";
+    private static String urlLogin = Requester.baseUrl + Requester.versionWS + "/auth/login";
+    private static String urlForgot = Requester.baseUrl + Requester.versionWS + "/auth/forgotPassword";
 
     public static void createAccountUser(UserModel userModel, String password, JsonHttpResponseHandler jsonHttpResponseHandler){
 
         RequestParams requestParams = userModel.getRequestParams();
         requestParams.add(UserModel.keyPassword,password);
 
-        Requester.client.post(url,requestParams,jsonHttpResponseHandler);
+        Requester.client.post(urlCreate,requestParams,jsonHttpResponseHandler);
 
     }
 
@@ -29,7 +31,7 @@ public class UserRequest {
         requestParams.add(UserModel.keyPassword,password);
         requestParams.add(UserModel.keyEmail, email);
 
-        Requester.client.post(url,requestParams,jsonHttpResponseHandler);
+        Requester.client.post(urlLogin,requestParams,jsonHttpResponseHandler);
 
     }
 
@@ -38,7 +40,7 @@ public class UserRequest {
         RequestParams requestParams = new RequestParams();
         requestParams.add(UserModel.keyEmail, email);
 
-        Requester.client.post(url,requestParams,jsonHttpResponseHandler);
+        Requester.client.post(urlForgot,requestParams,jsonHttpResponseHandler);
 
     }
 

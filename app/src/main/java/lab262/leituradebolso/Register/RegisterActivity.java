@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                //TODO: Alerta para confirmacao de password
+                //TODO: Alerta para confirmacao de cadastro
                 ActivityManager.changeActivityAndRemoveParentActivity(RegisterActivity.this, InitialActivity.class);
                 System.out.println(statusCode);
             }

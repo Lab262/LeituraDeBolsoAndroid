@@ -14,6 +14,7 @@ import lab262.leituradebolso.Enums.RequestType;
 public class Requester {
 
     public static String baseUrl = "https://leituradebolso.herokuapp.com/api/";
+    public static String versionWS = "v0";
     public static Header header;
     public static AsyncHttpClient client = new AsyncHttpClient();
 
