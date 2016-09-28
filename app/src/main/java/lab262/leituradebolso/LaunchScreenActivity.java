@@ -1,18 +1,15 @@
 package lab262.leituradebolso;
 
 import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
 import android.os.Handler;
 import android.os.Bundle;
 
-import java.io.IOException;
+
 import java.util.Date;
 
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Login.InitialActivity;
-import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageView;
 
 public class LaunchScreenActivity extends Activity {
 
