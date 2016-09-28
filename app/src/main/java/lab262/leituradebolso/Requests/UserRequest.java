@@ -2,6 +2,7 @@ package lab262.leituradebolso.Requests;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 
 
 import lab262.leituradebolso.Model.UserModel;

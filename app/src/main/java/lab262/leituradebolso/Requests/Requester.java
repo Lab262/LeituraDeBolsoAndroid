@@ -1,8 +1,11 @@
 package lab262.leituradebolso.Requests;
 
+import android.os.Looper;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 
 import cz.msebera.android.httpclient.Header;
 import lab262.leituradebolso.Enums.RequestType;

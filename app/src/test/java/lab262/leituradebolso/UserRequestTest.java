@@ -56,7 +56,7 @@ public class UserRequestTest extends TestCase{
             }
         });
 
-        latch.await(500, TimeUnit.SECONDS);
+        latch.await(100, TimeUnit.SECONDS);
         assertTrue(isSuccess[0]);
     }
 }
