@@ -10,7 +10,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import io.realm.RealmObject;
 import lab262.leituradebolso.Extensions.ApplicationState;
+import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.R;
 
@@ -92,11 +94,11 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
         row.authorTextView.setText(currentModel.author);
 
         StringBuilder allEmojis = new StringBuilder();
-        for(String emoji : currentModel.emojis) {
+        for(EmojiModel emoji : currentModel.emojis) {
             if(allEmojis.length() > 0) {
                 allEmojis.append(" "); // some divider between the different texts
             }
-            allEmojis.append(emoji);
+            allEmojis.append(emoji.code);
         }
 
         row.emojiTextView.setText(allEmojis.toString());

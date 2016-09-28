@@ -17,6 +17,7 @@ import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Login.InitialActivity;
 import lab262.leituradebolso.Model.UserModel;
+import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 import lab262.leituradebolso.Requests.UserRequest;
 
 public class LaunchScreenActivity extends Activity {
@@ -37,7 +38,7 @@ public class LaunchScreenActivity extends Activity {
                 //TODO: Modificar a forma de inicializar o State
                 ApplicationState applicationState = new ApplicationState(true,false,14,new Date());
 
-                ActivityManager.changeActivity(LaunchScreenActivity.this, InitialActivity.class);
+                ActivityManager.changeActivity(LaunchScreenActivity.this, ReadingDayActivity.class);
 
                 finish();
 

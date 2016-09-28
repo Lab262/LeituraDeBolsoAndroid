@@ -12,8 +12,14 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.RealmResults;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
@@ -137,20 +143,13 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
 
     private ReadingModel[] getDummyData() {
 
-        ArrayList<String> emojis = new ArrayList<String>();
-        emojis.add(ReadingModel.getEmijoByUnicode(0x1F601));
-        emojis.add(ReadingModel.getEmijoByUnicode(0x1F602));
-        emojis.add(ReadingModel.getEmijoByUnicode(0x1F603));
+        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>) DBManager.getAll(ReadingModel.class);
 
-        ReadingModel reading1 = new ReadingModel("1","Rocky Montains", "Leandro OG", "5 min", "bla bla bla bla",
-                emojis, false, true);
-        ReadingModel reading2 = new ReadingModel("1","Amei te ver", "Fernanda Vesquez", "5 min", getString(R.string.placeholder_reading),
-                emojis, true, false);
+        ReadingModel[] dummyData = new ReadingModel[realmResults.size()];
 
-        ReadingModel[] dummyData = new ReadingModel[2];
-
-        dummyData[0] = reading1;
-        dummyData[1] = reading2;
+        for (int i=0; i<realmResults.size(); i++){
+            dummyData[i] = realmResults.get(i);
+        }
 
         return dummyData;
 

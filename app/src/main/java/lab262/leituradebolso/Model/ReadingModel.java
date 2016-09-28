@@ -4,11 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
 /**
  * Created by luisresende on 12/09/16.
  */
-public class ReadingModel implements Parcelable {
+public class ReadingModel extends RealmObject implements Parcelable {
 
     public String idReading;
     public String title;
@@ -17,14 +21,14 @@ public class ReadingModel implements Parcelable {
     public String textReading;
     public Boolean isLiked;
     public Boolean isRead;
-    public ArrayList<String> emojis;
+    public RealmList<EmojiModel> emojis;
 
     public ReadingModel(){
 
     }
 
     public ReadingModel(String idReading, String title, String author, String duration, String textReading,
-                        ArrayList<String> emojis, Boolean isLiked, Boolean isRead) {
+                        RealmList<EmojiModel> emojis, Boolean isLiked, Boolean isRead) {
         this.idReading = idReading;
         this.title = title;
         this.author = author;
@@ -43,7 +47,7 @@ public class ReadingModel implements Parcelable {
         textReading = parcel.readString();
         isLiked = Boolean.valueOf(parcel.readString());
         isRead =Boolean.valueOf(parcel.readString());
-        emojis =  parcel.readArrayList(null);
+//        emojis =  parcel.readTypedList(null);
     }
 
 
@@ -77,6 +81,6 @@ public class ReadingModel implements Parcelable {
         parcel.writeString(textReading);
         parcel.writeString(isLiked.toString());
         parcel.writeString(isRead.toString());
-        parcel.writeList(emojis);
+        //parcel.writeList(emojis);
     }
 }

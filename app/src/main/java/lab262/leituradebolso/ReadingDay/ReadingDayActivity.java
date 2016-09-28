@@ -13,10 +13,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmList;
 import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.ApplicationState;
+import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingHistory.ReadingHistoryActivity;
 
@@ -84,19 +88,26 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
 
-        ArrayList<String> emojis = new ArrayList<String>();
-        emojis.add(ReadingModel.getEmijoByUnicode(0x1F601));
-        emojis.add(ReadingModel.getEmijoByUnicode(0x1F602));
-        emojis.add(ReadingModel.getEmijoByUnicode(0x1F603));
+        RealmList<EmojiModel> emojis = new RealmList<>();
+        emojis.add(new EmojiModel(ReadingModel.getEmijoByUnicode(0x1F601)));
+        emojis.add(new EmojiModel(ReadingModel.getEmijoByUnicode(0x1F602)));
+        emojis.add(new EmojiModel(ReadingModel.getEmijoByUnicode(0x1F603)));
 
         StringBuilder allEmojis = new StringBuilder();
-        for(String emoji : emojis) {
+        for(EmojiModel emoji : emojis) {
             if(allEmojis.length() > 0) {
                 allEmojis.append(" "); // some divider between the different texts
             }
-            allEmojis.append(emoji);
+            allEmojis.append(emoji.code);
         }
         emojiTextView.setText(allEmojis.toString());
+
+        //Save dummy reading for test
+        ReadingModel readingDummy = new ReadingModel("1",titleTextView.getText().toString(), authorTextView.getText().toString()
+                , timeTextView.getText().toString(), readingTextView.getText().toString(), emojis, false, true);
+        currentReadingModel = readingDummy;
+        Realm.init(this);
+        saveReading();
     }
 
     private void hideHistoryButton(){
@@ -110,13 +121,17 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         authorTextView.setText(currentReadingModel.author);
 
         StringBuilder allEmojis = new StringBuilder();
-        for(String emoji : currentReadingModel.emojis) {
+        for(EmojiModel emoji : currentReadingModel.emojis) {
             if(allEmojis.length() > 0) {
                 allEmojis.append(" "); // some divider between the different texts
             }
-            allEmojis.append(emoji);
+            allEmojis.append(emoji.code);
         }
         emojiTextView.setText(allEmojis.toString());
+    }
+
+    private void saveReading(){
+        DBManager.addObject(currentReadingModel);
     }
 
     private void setNoturneMode(){
