@@ -8,9 +8,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Login.InitialActivity;
+import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
+import lab262.leituradebolso.Requests.UserRequest;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,11 +58,40 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         registerButton.setOnClickListener(this);
     }
 
+    private void registerUser(){
+        UserModel userModel = new UserModel(emailEditText.getText().toString());
+        UserRequest.createAccountUser(userModel,passwordEditText.getText().toString(),new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                //TODO: Alerta para confirmacao de password
+                ActivityManager.changeActivityAndRemoveParentActivity(RegisterActivity.this, InitialActivity.class);
+                System.out.println(statusCode);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                //TODO: Alerta para falha
+                try {
+                    System.out.println(errorResponse.get("message").toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.registerButton:
-                ActivityManager.changeActivityAndRemoveParentActivity(RegisterActivity.this, ReadingDayActivity.class);
+                if (passwordEditText.getText().toString().equals(confirmPasswordEditText.getText().toString())){
+                    registerUser();
+                }else {
+                    //TODO: Alerta para erro de senha
+                }
                 break;
         }
     }

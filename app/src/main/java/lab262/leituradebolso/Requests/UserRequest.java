@@ -1,15 +1,9 @@
 package lab262.leituradebolso.Requests;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpRequest;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import cz.msebera.android.httpclient.Header;
 import lab262.leituradebolso.Model.UserModel;
 
 /**

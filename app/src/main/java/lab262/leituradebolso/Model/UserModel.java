@@ -15,7 +15,7 @@ public class UserModel {
     private String token;
     private ArrayList<ReadingModel> readings;
 
-    private static String keyID = "_id";
+    public static String keyID = "_id";
     public static String keyEmail = "email";
     private static String keyToken = "token";
     public static String keyPassword = "password";
