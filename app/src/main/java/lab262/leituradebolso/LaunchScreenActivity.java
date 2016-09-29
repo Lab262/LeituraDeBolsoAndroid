@@ -38,38 +38,12 @@ public class LaunchScreenActivity extends Activity {
                 //TODO: Modificar a forma de inicializar o State
                 ApplicationState applicationState = new ApplicationState(true,false,14,new Date());
 
-                ActivityManager.changeActivity(LaunchScreenActivity.this, ReadingDayActivity.class);
+                ActivityManager.changeActivity(LaunchScreenActivity.this, InitialActivity.class);
 
                 finish();
 
             }
         }, secondsDelayLaunch);
-    }
-
-    private void testCreateUser(){
-        UserModel userModel = new UserModel("teste@test.com");
-        UserRequest.createAccountUser(userModel,"1234",new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    JSONObject jsonObject = (JSONObject) ((JSONObject)((JSONObject)response.get("user")).get("data")).get("attributes");
-                    System.out.println(jsonObject.get("email"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                super.onSuccess(statusCode, headers, response);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    System.out.println(errorResponse.get("message"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-            }
-        });
     }
 
 }

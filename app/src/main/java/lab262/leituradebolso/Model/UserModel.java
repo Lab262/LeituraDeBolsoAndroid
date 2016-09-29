@@ -2,7 +2,15 @@ package lab262.leituradebolso.Model;
 
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import lab262.leituradebolso.Requests.Requester;
 
 /**
  * Created by luisresende on 27/09/16.
@@ -24,12 +32,36 @@ public class UserModel {
         this.email = email;
     }
 
-    public RequestParams getRequestParams(){
-        RequestParams requestParams = new RequestParams();
-        requestParams.add(keyID,this.getId());
-        requestParams.add(keyEmail,this.getEmail());
-        requestParams.add(keyToken,this.getToken());
-        return requestParams;
+    public RequestParams getRequestParams(String password) {
+
+        RequestParams dataRequestParams = new RequestParams();
+        Map<Object,Object> attributtesHashMap = new HashMap<>();
+        Map<Object,Object> informationsHashMap = new HashMap<>();
+
+        informationsHashMap.put(keyEmail,this.getEmail());
+        informationsHashMap.put(keyPassword,password);
+
+        attributtesHashMap.put(Requester.keyAttributes,informationsHashMap);
+
+        dataRequestParams.put(Requester.keyData,attributtesHashMap);
+
+        return dataRequestParams;
+    }
+
+    public JSONObject getJSONObject(String password) throws JSONException {
+
+        JSONObject dataJsonObject = new JSONObject();
+        JSONObject attributtesJsonObject = new JSONObject();
+        JSONObject informationsJsonObject = new JSONObject();
+
+        informationsJsonObject.put(keyEmail,this.getEmail());
+        informationsJsonObject.put(keyPassword,password);
+
+        attributtesJsonObject.put(Requester.keyAttributes,informationsJsonObject);
+
+        dataJsonObject.put(Requester.keyData,attributtesJsonObject);
+
+        return dataJsonObject;
     }
 
     public String getId() {

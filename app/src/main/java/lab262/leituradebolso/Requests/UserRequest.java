@@ -2,9 +2,16 @@ package lab262.leituradebolso.Requests;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.SyncHttpClient;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.entity.StringEntity;
 import lab262.leituradebolso.Model.UserModel;
 
 /**
@@ -19,10 +26,21 @@ public class UserRequest {
 
     public static void createAccountUser(UserModel userModel, String password, JsonHttpResponseHandler jsonHttpResponseHandler){
 
-        RequestParams requestParams = userModel.getRequestParams();
-        requestParams.add(UserModel.keyPassword,password);
+        JSONObject requestParams = null;
+        try {
+            requestParams = userModel.getJSONObject(password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        StringEntity entity = null;
+        try {
+             entity = new StringEntity(requestParams.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
-        Requester.client.post(urlCreate,requestParams,jsonHttpResponseHandler);
+        Requester.client.post(null,urlCreate,entity,"application/json",jsonHttpResponseHandler);
+        //Requester.client.post(urlCreate,userModel.getRequestParams2(password),jsonHttpResponseHandler);
 
     }
 
