@@ -26,22 +26,9 @@ public class UserRequest {
 
     public static void createAccountUser(UserModel userModel, String password, JsonHttpResponseHandler jsonHttpResponseHandler){
 
-        JSONObject requestParams = null;
-        try {
-            requestParams = userModel.getJSONObject(password);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        StringEntity entity = null;
-        try {
-             entity = new StringEntity(requestParams.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        StringEntity entity = Requester.getStringEntity(userModel.getJSONObject(password));
 
-        Requester.client.post(null,urlCreate,entity,"application/json",jsonHttpResponseHandler);
-        //Requester.client.post(urlCreate,userModel.getRequestParams2(password),jsonHttpResponseHandler);
-
+        Requester.client.post(null,urlCreate,entity,Requester.keyContentType,jsonHttpResponseHandler);
     }
 
     public static void loginUser(String email, String password, JsonHttpResponseHandler jsonHttpResponseHandler){

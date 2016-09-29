@@ -66,8 +66,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 //TODO: Alerta para confirmacao de cadastro
+                System.out.println(response.toString());
                 ActivityManager.changeActivityAndRemoveParentActivity(RegisterActivity.this, InitialActivity.class);
-                System.out.println(statusCode);
+
             }
 
             @Override
@@ -79,11 +80,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
     }

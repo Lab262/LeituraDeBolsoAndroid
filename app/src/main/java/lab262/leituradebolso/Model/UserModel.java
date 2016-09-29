@@ -48,18 +48,20 @@ public class UserModel {
         return dataRequestParams;
     }
 
-    public JSONObject getJSONObject(String password) throws JSONException {
+    public JSONObject getJSONObject(String password) {
 
         JSONObject dataJsonObject = new JSONObject();
         JSONObject attributtesJsonObject = new JSONObject();
         JSONObject informationsJsonObject = new JSONObject();
 
-        informationsJsonObject.put(keyEmail,this.getEmail());
-        informationsJsonObject.put(keyPassword,password);
-
-        attributtesJsonObject.put(Requester.keyAttributes,informationsJsonObject);
-
-        dataJsonObject.put(Requester.keyData,attributtesJsonObject);
+        try {
+            informationsJsonObject.put(keyEmail,this.getEmail());
+            informationsJsonObject.put(keyPassword,password);
+            attributtesJsonObject.put(Requester.keyAttributes,informationsJsonObject);
+            dataJsonObject.put(Requester.keyData,attributtesJsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return dataJsonObject;
     }
