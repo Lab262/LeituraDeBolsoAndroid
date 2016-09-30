@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,7 +18,6 @@ import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Login.InitialActivity;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.R;
-import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 import lab262.leituradebolso.Requests.UserRequest;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {

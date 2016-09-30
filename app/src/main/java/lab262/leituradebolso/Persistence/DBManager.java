@@ -3,7 +3,7 @@ package lab262.leituradebolso.Persistence;
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
-import lab262.leituradebolso.Model.ReadingModel;
+import lab262.leituradebolso.Model.UserModel;
 
 /**
  * Created by luisresende on 28/09/16.
@@ -23,6 +23,12 @@ public class DBManager {
 
         RealmResults<? extends RealmObject> resultGetAll = realm.where(className).findAll();
         return resultGetAll;
+    }
+
+    public static UserModel getCachedUser(){
+        RealmResults<UserModel> realmResults = (RealmResults<UserModel>) getAll(UserModel.class);
+        UserModel user = realmResults.first();
+        return user;
     }
 
 }

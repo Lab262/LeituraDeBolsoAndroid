@@ -10,42 +10,37 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
 import lab262.leituradebolso.Requests.Requester;
 
 /**
  * Created by luisresende on 27/09/16.
  */
 
-public class UserModel {
+public class UserModel extends RealmObject {
 
     private String id;
     private String email;
     private String token;
-    private ArrayList<ReadingModel> readings;
+    private RealmList<ReadingModel> readings;
 
     public static String keyID = "_id";
     public static String keyEmail = "email";
-    private static String keyToken = "token";
     public static String keyPassword = "password";
+    private static String keyToken = "token";
+    private static String keyModel = "user";
+
+    public UserModel (){
+
+    }
+
+    public UserModel (JSONObject jsonObject){
+        setObject(jsonObject);
+    }
 
     public UserModel (String email){
         this.email = email;
-    }
-
-    public RequestParams getRequestParams(String password) {
-
-        RequestParams dataRequestParams = new RequestParams();
-        Map<Object,Object> attributtesHashMap = new HashMap<>();
-        Map<Object,Object> informationsHashMap = new HashMap<>();
-
-        informationsHashMap.put(keyEmail,this.getEmail());
-        informationsHashMap.put(keyPassword,password);
-
-        attributtesHashMap.put(Requester.keyAttributes,informationsHashMap);
-
-        dataRequestParams.put(Requester.keyData,attributtesHashMap);
-
-        return dataRequestParams;
     }
 
     public JSONObject getJSONObject(String password) {
@@ -66,6 +61,19 @@ public class UserModel {
         return dataJsonObject;
     }
 
+    public void setObject(JSONObject jsonObject){
+        try {
+            JSONObject user = (JSONObject)jsonObject.get(keyModel);
+
+            this.setToken(jsonObject.getString(keyToken));
+            this.setId(user.getString(keyID));
+            this.setEmail(user.getString(keyEmail));
+            //TODO: Serializer para ler as leituras
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String getId() {
         return id;
     }
@@ -74,11 +82,11 @@ public class UserModel {
         this.id = id;
     }
 
-    public ArrayList<ReadingModel> getReadings() {
+    public RealmList<ReadingModel> getReadings() {
         return readings;
     }
 
-    public void setReadings(ArrayList<ReadingModel> readings) {
+    public void setReadings(RealmList<ReadingModel> readings) {
         this.readings = readings;
     }
 

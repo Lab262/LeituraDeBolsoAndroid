@@ -3,22 +3,12 @@ package lab262.leituradebolso;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Bundle;
-
-
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Date;
 
-import cz.msebera.android.httpclient.Header;
+import io.realm.Realm;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Login.InitialActivity;
-import lab262.leituradebolso.Model.UserModel;
-import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
-import lab262.leituradebolso.Requests.UserRequest;
 
 public class LaunchScreenActivity extends Activity {
 
@@ -28,8 +18,8 @@ public class LaunchScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_screen);
-
-        //testCreateUser();
+        //Initialize Relm
+        Realm.init(this);
 
         new Handler().postDelayed(new Runnable() {
             @Override

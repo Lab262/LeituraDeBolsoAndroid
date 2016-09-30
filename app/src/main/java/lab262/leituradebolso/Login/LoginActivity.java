@@ -14,7 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import io.realm.Realm;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Model.UserModel;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 import lab262.leituradebolso.Requests.UserRequest;
@@ -61,8 +64,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+                System.out.println(response.toString());
+
+                //Create user with JSONObject
+                UserModel userLogged = new UserModel(response);
+                //Save user in Relm.
+                DBManager.addObject(userLogged);
+
                 ActivityManager.changeActivityAndRemoveParentActivity(LoginActivity.this, ReadingDayActivity.class);
-                System.out.println(statusCode);
             }
 
             @Override

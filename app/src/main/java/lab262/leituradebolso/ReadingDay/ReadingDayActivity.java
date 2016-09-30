@@ -11,18 +11,29 @@ import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmResults;
 import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
+import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingHistory.ReadingHistoryActivity;
+import lab262.leituradebolso.Requests.ReadingRequest;
+import lab262.leituradebolso.Requests.Requester;
 
 public class ReadingDayActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +52,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_reading_day);
         getInstanceViews();
         setPropertyView();
+
         Bundle bundleExtras = getIntent().getExtras();
         if (bundleExtras!=null){
             currentReadingModel = (ReadingModel) bundleExtras.get("modelreading");
@@ -88,30 +100,41 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
 
-        RealmList<EmojiModel> emojis = new RealmList<>();
-        emojis.add(new EmojiModel(ReadingModel.getEmijoByUnicode(0x1F601)));
-        emojis.add(new EmojiModel(ReadingModel.getEmijoByUnicode(0x1F602)));
-        emojis.add(new EmojiModel(ReadingModel.getEmijoByUnicode(0x1F603)));
-
-        StringBuilder allEmojis = new StringBuilder();
-        for(EmojiModel emoji : emojis) {
-            if(allEmojis.length() > 0) {
-                allEmojis.append(" "); // some divider between the different texts
-            }
-            allEmojis.append(emoji.code);
-        }
-        emojiTextView.setText(allEmojis.toString());
-
-        //Save dummy reading for test
-        ReadingModel readingDummy = new ReadingModel("1",titleTextView.getText().toString(), authorTextView.getText().toString()
-                , timeTextView.getText().toString(), readingTextView.getText().toString(), emojis, false, true);
-        currentReadingModel = readingDummy;
-        Realm.init(this);
-        saveReading();
+        getReadingDay();
     }
 
     private void hideHistoryButton(){
         historyButton.setVisibility(View.INVISIBLE);
+    }
+
+    private void getReadingDay(){
+        UserModel user = DBManager.getCachedUser();
+        ReadingRequest.getReadings(user.getToken(),new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    JSONArray jsonArray = (JSONArray) response.get("data");
+                    for (int i=0; i<jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject(Requester.keyAttributes);
+                        ReadingModel readingModel = new ReadingModel(jsonObject);
+                        DBManager.addObject(readingModel);
+
+                        if (currentReadingModel==null){
+                            currentReadingModel = readingModel;
+                        }
+                    }
+                    setReading();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
     }
 
     private void setReading(){
@@ -128,10 +151,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             allEmojis.append(emoji.code);
         }
         emojiTextView.setText(allEmojis.toString());
-    }
-
-    private void saveReading(){
-        DBManager.addObject(currentReadingModel);
     }
 
     private void setNoturneMode(){

@@ -1,11 +1,7 @@
 package lab262.leituradebolso.Requests;
 
-import android.os.Looper;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.SyncHttpClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +10,8 @@ import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
-import lab262.leituradebolso.Enums.RequestType;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import lab262.leituradebolso.Model.UserModel;
 
 /**
  * Created by luisresende on 27/09/16.
@@ -27,6 +24,7 @@ public class Requester {
     public static String keyData = "data";
     public static String keyAttributes = "attributes";
     public static String keyContentType = "application/json";
+    private static String keyAccessToken = "x-access-token";
     public static AsyncHttpClient client = new AsyncHttpClient();
 
     public static StringEntity getStringEntity(JSONObject jsonObject){
@@ -39,6 +37,27 @@ public class Requester {
         }
 
         return entity;
+    }
+
+    public static Header[] getArrayHeaders(String token){
+        Header header = new BasicHeader(keyAccessToken,token);
+        Header headers[] = new Header[1];
+        headers[0] = header;
+        return headers;
+    }
+
+    public static JSONObject getJSONObject(String email, String password) {
+
+        JSONObject informationsJsonObject = new JSONObject();
+
+        try {
+            informationsJsonObject.put(UserModel.keyEmail,email);
+            informationsJsonObject.put(UserModel.keyPassword,password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return informationsJsonObject;
     }
 }
 

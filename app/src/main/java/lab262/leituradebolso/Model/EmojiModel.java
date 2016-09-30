@@ -14,6 +14,6 @@ public class EmojiModel extends RealmObject {
     }
 
     public EmojiModel (String code){
-        this.code = code;
+        this.code = "0x"+code;
     }
 }
