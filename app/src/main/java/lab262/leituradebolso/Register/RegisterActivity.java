@@ -23,7 +23,6 @@ import lab262.leituradebolso.Requests.UserRequest;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Typeface typeFaceQuick,typeFaceComfortaaThin;
-    private TextView registerTextView;
     private EditText emailEditText, passwordEditText, confirmPasswordEditText;
     private Button registerButton;
 
@@ -39,7 +38,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         typeFaceQuick =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
         typeFaceComfortaaThin =Typeface.createFromAsset(getAssets(),"fonts/Comfortaa_Thin.ttf");
 
-        registerTextView = (TextView) findViewById(R.id.registerTextView);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
         confirmPasswordEditText = (EditText) findViewById(R.id.confirmPasswordEditText);
@@ -47,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setPropertyView(){
-        registerTextView.setTypeface(typeFaceQuick);
         registerButton.setTypeface(typeFaceQuick);
         emailEditText.setTypeface(typeFaceComfortaaThin);
         passwordEditText.setTypeface(typeFaceComfortaaThin);

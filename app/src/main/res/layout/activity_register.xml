@@ -1,149 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context="lab262.leituradebolso.Register.RegisterActivity"
     android:background="@color/colorAccent">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView4"
-        android:layout_below="@+id/registerTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/rectangle_email" />
+        android:paddingTop="20dp">
 
-    <ImageView
-        android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/logo"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/text_icon"
+            android:id="@+id/imageView10"
+            android:layout_marginTop="22dp"
+            android:layout_below="@+id/imageView3"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView5"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/rectangle_password"
-        android:layout_below="@+id/imageView4"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginBottom="15dp"
+        android:paddingTop="40dp">
 
-    <EditText
-        android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/rectangle_email" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/emailEditText"
+            android:hint="Email"
+            android:maxLines="1"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
+            android:textColorLink="@color/colorAccent"
+            android:textSize="16dp"
+            android:layout_alignLeft="@+id/imageView4"
+            android:layout_alignStart="@+id/imageView4"
+            android:layout_marginLeft="15dp"
+            android:layout_alignRight="@+id/imageView4"
+            android:layout_alignEnd="@+id/imageView4"
+            android:layout_marginRight="15dp"
+            android:background="@android:color/transparent"
+            android:layout_alignBottom="@+id/imageView4"
+            android:layout_alignTop="@+id/imageView4"
+            android:paddingLeft="50dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/emailEditText"
-        android:hint="Email"
-        android:maxLines="1"
-        android:textColor="@color/colorAccent"
-        android:textColorHint="@color/colorAccent"
-        android:textColorLink="@color/colorAccent"
-        android:textSize="16dp"
-        android:layout_alignLeft="@+id/imageView4"
-        android:layout_alignStart="@+id/imageView4"
-        android:layout_marginLeft="15dp"
-        android:layout_alignRight="@+id/imageView4"
-        android:layout_alignEnd="@+id/imageView4"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/transparent"
-        android:layout_alignBottom="@+id/imageView4"
-        android:layout_alignTop="@+id/imageView4"
-        android:textAlignment="textStart"
-        android:paddingLeft="50dp" />
+        android:paddingBottom="15dp">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/passwordEditText"
-        android:hint="Senha"
-        android:maxLines="1"
-        android:textColor="@color/colorAccent"
-        android:textColorHint="@color/colorAccent"
-        android:textColorLink="@color/colorAccent"
-        android:textSize="16dp"
-        android:layout_alignLeft="@+id/emailEditText"
-        android:layout_alignStart="@+id/emailEditText"
-        android:inputType="textPassword"
-        android:layout_alignRight="@+id/emailEditText"
-        android:layout_alignEnd="@+id/emailEditText"
-        android:background="@android:color/transparent"
-        android:layout_alignBottom="@+id/imageView5"
-        android:layout_alignTop="@+id/imageView5"
-        android:textAlignment="textStart"
-        android:paddingLeft="50dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView5"
+            android:src="@drawable/rectangle_password"
+            android:layout_centerHorizontal="true"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView6"
-        android:src="@drawable/rectangle_password"
-        android:layout_below="@+id/imageView5"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        <EditText
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/passwordEditText"
+            android:hint="Senha"
+            android:maxLines="1"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
+            android:textColorLink="@color/colorAccent"
+            android:textSize="16dp"
+            android:inputType="textPassword"
+            android:background="@android:color/transparent"
+            android:paddingLeft="60dp"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@+id/imageView5"
+            android:layout_alignBottom="@+id/imageView5"
+            android:layout_alignLeft="@+id/imageView5"
+            android:layout_alignStart="@+id/imageView5"
+            android:layout_alignRight="@+id/imageView5"
+            android:layout_alignEnd="@+id/imageView5" />
+    </RelativeLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/confirmPasswordEditText"
-        android:hint="Confirmar Senha"
-        android:maxLines="1"
-        android:textColor="@color/colorAccent"
-        android:textColorHint="@color/colorAccent"
-        android:textColorLink="@color/colorAccent"
-        android:textSize="16dp"
-        android:inputType="textPassword"
-        android:layout_alignRight="@+id/passwordEditText"
-        android:layout_alignEnd="@+id/passwordEditText"
-        android:layout_alignLeft="@+id/passwordEditText"
-        android:layout_alignStart="@+id/passwordEditText"
-        android:autoText="false"
-        android:background="@android:color/transparent"
-        android:layout_alignBottom="@+id/imageView6"
-        android:layout_alignTop="@+id/imageView6"
-        android:textAlignment="textStart"
-        android:paddingLeft="50dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cadastrar"
-        android:id="@+id/registerButton"
-        android:layout_below="@+id/imageView6"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:textAllCaps="false"
-        android:background="@drawable/rectangle_orange_48"
-        android:textSize="20dp"
-        android:textColor="@color/white" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView6"
+            android:src="@drawable/rectangle_password"
+            android:layout_centerHorizontal="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cadastro"
-        android:id="@+id/registerTextView"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/imageView10"
-        android:layout_centerHorizontal="true" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/confirmPasswordEditText"
+            android:hint="Confirmar Senha"
+            android:maxLines="1"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
+            android:textColorLink="@color/colorAccent"
+            android:textSize="16dp"
+            android:inputType="textPassword"
+            android:background="@android:color/transparent"
+            android:paddingLeft="60dp"
+            android:layout_alignTop="@+id/imageView6"
+            android:layout_alignBottom="@+id/imageView6"
+            android:layout_alignLeft="@+id/imageView6"
+            android:layout_alignStart="@+id/imageView6"
+            android:layout_alignRight="@+id/imageView6"
+            android:layout_alignEnd="@+id/imageView6" />
+    </RelativeLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/text_icon"
-        android:id="@+id/imageView10"
-        android:layout_marginTop="22dp"
-        android:layout_below="@+id/imageView3"
-        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/logo"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cadastrar"
+            android:id="@+id/registerButton"
+            android:layout_below="@+id/imageView6"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:textAllCaps="false"
+            android:background="@drawable/rectangle_orange_48"
+            android:textSize="20dp"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

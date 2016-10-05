@@ -17,7 +17,7 @@ import lab262.leituradebolso.Requests.Requester;
 /**
  * Created by luisresende on 12/09/16.
  */
-public class ReadingModel extends RealmObject implements Parcelable {
+public class ReadingModel extends RealmObject {
 
     //Keys in WS
     public static String keyID = "-id";
@@ -46,7 +46,7 @@ public class ReadingModel extends RealmObject implements Parcelable {
             this.idReading = jsonObject.getString(keyID);
             this.title = jsonObject.getString(keyTitle);
             this.author = jsonObject.getString(keyAuthor);
-            this.duration = jsonObject.getString(keyDuration);
+            this.duration = jsonObject.getString(keyDuration) + " min";
             this.textReading = jsonObject.getString(keyTextReading);
 
             JSONArray jsonArrayEmojis = jsonObject.getJSONArray(ReadingModel.keyEmojis);
@@ -60,50 +60,5 @@ public class ReadingModel extends RealmObject implements Parcelable {
             e.printStackTrace();
         }
 
-    }
-
-    private ReadingModel(Parcel parcel){
-        idReading = parcel.readString();
-        title = parcel.readString();
-        author = parcel.readString();
-        duration = parcel.readString();
-        textReading = parcel.readString();
-        isLiked = Boolean.valueOf(parcel.readString());
-        isRead =Boolean.valueOf(parcel.readString());
-//        emojis =  parcel.readTypedList(null);
-    }
-
-
-    static public String getEmijoByUnicode(int unicode){
-        return new String(Character.toChars(unicode));
-    }
-
-    public static final Parcelable.Creator<ReadingModel> CREATOR = new Creator<ReadingModel>() {
-
-        public ReadingModel createFromParcel(Parcel source) {
-            return new ReadingModel(source);
-        }
-
-        public ReadingModel[] newArray(int size){
-            return new ReadingModel[size];
-        }
-    };
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(idReading);
-        parcel.writeString(title);
-        parcel.writeString(author);
-        parcel.writeString(duration);
-        parcel.writeString(textReading);
-        parcel.writeString(isLiked.toString());
-        parcel.writeString(isRead.toString());
-        //parcel.writeList(emojis);
     }
 }

@@ -77,7 +77,7 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_reading_history_list, container, false);
         getInstanceViews();
-        arrayReadingModels = getDummyData();
+        arrayReadingModels = getReadingData();
         loadReadingList(arrayReadingModels);
         readingListView.setOnItemClickListener(this);
         return view;
@@ -112,7 +112,7 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         ReadingModel readingModel = arrayReadingModels[i];
         Bundle bundleExtras = new Bundle();
-        bundleExtras.putParcelable("modelreading",readingModel);
+        bundleExtras.putString("modelreading",readingModel.idReading);
         ActivityManager.changeActivity(getContext(),ReadingDayActivity.class,bundleExtras);
     }
 
@@ -141,7 +141,7 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         readingListView.setAdapter(adapter);
     }
 
-    private ReadingModel[] getDummyData() {
+    private ReadingModel[] getReadingData() {
 
         RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>) DBManager.getAll(ReadingModel.class);
 

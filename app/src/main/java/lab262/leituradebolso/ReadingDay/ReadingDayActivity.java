@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
 import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
@@ -55,7 +56,10 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
         Bundle bundleExtras = getIntent().getExtras();
         if (bundleExtras!=null){
-            currentReadingModel = (ReadingModel) bundleExtras.get("modelreading");
+            String idReading = bundleExtras.getString("modelreading");
+            RealmResults<ReadingModel> readingModelRealmResults = (RealmResults<ReadingModel>)
+                    DBManager.getAllByParameter(ReadingModel.class,"idReading",idReading);
+            currentReadingModel = readingModelRealmResults.first();
             setReading();
             hideHistoryButton();
         }
@@ -118,11 +122,13 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject(Requester.keyAttributes);
                         ReadingModel readingModel = new ReadingModel(jsonObject);
-                        DBManager.addObject(readingModel);
-
+                        readingModel.isLiked = false;
+                        readingModel.isRead = false;
                         if (currentReadingModel==null){
+                            readingModel.isRead = true;
                             currentReadingModel = readingModel;
                         }
+                        DBManager.addObject(readingModel);
                     }
                     setReading();
                 } catch (JSONException e) {
@@ -148,7 +154,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             if(allEmojis.length() > 0) {
                 allEmojis.append(" "); // some divider between the different texts
             }
-            allEmojis.append(emoji.code);
+            allEmojis.append(emoji.getEmijoByUnicode());
         }
         emojiTextView.setText(allEmojis.toString());
     }

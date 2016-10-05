@@ -21,6 +21,13 @@
         <item name="colorControlActivated">@color/selector_color</item>
     </style>
 
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
     <style name="FullscreenTheme" parent="AppThemeActionBar">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
@@ -52,6 +59,8 @@
         <!-- this is new -->
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
+
+
 
 
 

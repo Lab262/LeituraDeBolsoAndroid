@@ -25,7 +25,6 @@ import lab262.leituradebolso.Requests.UserRequest;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Typeface typeFaceQuick, typeFaceComfortaa,typeFaceComfortaaThin;
-    private TextView loginTextView;
     private EditText emailEditText, passwordEditText;
     private Button forgotPasswordButton, loginButton;
 
@@ -42,7 +41,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         typeFaceComfortaa =Typeface.createFromAsset(getAssets(),"fonts/Comfortaa_Regular.ttf");
         typeFaceComfortaaThin =Typeface.createFromAsset(getAssets(),"fonts/Comfortaa_Thin.ttf");
 
-        loginTextView = (TextView) findViewById(R.id.loginTextView);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
         forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
@@ -50,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void setPropertyView(){
-        loginTextView.setTypeface(typeFaceQuick);
         forgotPasswordButton.setTypeface(typeFaceComfortaa);
         emailEditText.setTypeface(typeFaceComfortaaThin);
         passwordEditText.setTypeface(typeFaceComfortaaThin);
@@ -78,11 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 //TODO: Alerta para falha
-                try {
-                    System.out.println(errorResponse.get("message").toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                System.out.println(statusCode);
             }
 
         });

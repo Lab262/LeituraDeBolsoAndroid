@@ -6,6 +6,7 @@ import android.os.Bundle;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Login.InitialActivity;
