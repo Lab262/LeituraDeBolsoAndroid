@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -16,7 +17,10 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import java.util.Calendar;
 
+import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.ApplicationState;
+import lab262.leituradebolso.Login.InitialActivity;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 
 
@@ -32,6 +36,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
     private LinearLayout layoutHourReceive;
     private View viewLayoutHourReceive;
     private int positionLayoutHourReceive;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         layoutHourReceive = (LinearLayout) findViewById(R.id.layoutHourReceive);
         viewLayoutHourReceive = findViewById(R.id.viewLayoutHourReceive);
         positionLayoutHourReceive = layoutHourReceive.getChildCount();
+        logoutButton = (Button) findViewById(R.id.logoutButton);
     }
 
     private void setPropertyView(){
@@ -86,6 +92,8 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
 
         hourReadingTextView.setText(getStringHourNotification());
         hourReadingTextView.setOnClickListener(this);
+
+        logoutButton.setOnClickListener(this);
 
         //Configure Layout Hour Reading
         if (notificationSwitch.isChecked()==false){
@@ -217,6 +225,10 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
                 int minutes = currentCalendar.get(Calendar.MINUTE);
                 TimePickerDialog timePickerDialog = new TimePickerDialog(this,R.style.TimePickerDialogTheme, this, hours,minutes, false);
                 timePickerDialog.show();
+                break;
+            case R.id.logoutButton:
+                DBManager.getCachedUser().logoutUser();
+                ActivityManager.changeActivityAndRemoveParentActivity(ConfigurationActivity.this, InitialActivity.class);
                 break;
         }
     }

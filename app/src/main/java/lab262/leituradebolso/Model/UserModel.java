@@ -124,6 +124,13 @@ public class UserModel extends RealmObject {
         this.lastSessionTimeInterval = lastSessionTimeInterval;
     }
 
+    public void logoutUser() {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        this.token = null;
+        realm.commitTransaction();
+    }
+
     public void updateLastSessionTimeInterval(long lastSessionTimeInterval) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();

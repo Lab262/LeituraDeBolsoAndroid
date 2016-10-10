@@ -133,4 +133,28 @@
         android:background="@color/grey_line_layout"
         />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutLogout">
+
+
+        <Button
+            android:text="Logout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/logoutButton"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_line_layout"
+        />
+
 </LinearLayout>
