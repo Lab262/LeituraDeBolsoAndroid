@@ -6,12 +6,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import lab262.leituradebolso.Requests.Requester;
 
 /**
@@ -20,10 +25,14 @@ import lab262.leituradebolso.Requests.Requester;
 
 public class UserModel extends RealmObject {
 
+    @PrimaryKey
     private String id;
+
     private String email;
     private String token;
     private RealmList<ReadingModel> readings;
+
+    private long lastSessionTimeInterval;
 
     public static String keyID = "_id";
     public static String keyEmail = "email";
@@ -37,6 +46,7 @@ public class UserModel extends RealmObject {
 
     public UserModel (JSONObject jsonObject){
         setObject(jsonObject);
+        setLastSessionTimeInterval(0);
     }
 
     public UserModel (String email){
@@ -104,5 +114,40 @@ public class UserModel extends RealmObject {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public long getLastSessionTimeInterval() {
+        return lastSessionTimeInterval;
+    }
+
+    public void setLastSessionTimeInterval(long lastSessionTimeInterval) {
+        this.lastSessionTimeInterval = lastSessionTimeInterval;
+    }
+
+    public void updateLastSessionTimeInterval(long lastSessionTimeInterval) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        this.lastSessionTimeInterval = lastSessionTimeInterval;
+        realm.commitTransaction();
+    }
+
+    public int getDifferenceBetweenDateNow(){
+        if (this.getLastSessionTimeInterval()!=0){
+
+            //Get calendar day user
+            Calendar calendarUser = Calendar.getInstance();
+            calendarUser.setTimeInMillis(this.getLastSessionTimeInterval());
+
+            //Get calendar actual date
+            Calendar calendarActualDate = Calendar.getInstance();
+
+            int dayUser = calendarUser.get(Calendar.DAY_OF_YEAR);
+            int dayActualDate = calendarActualDate.get(Calendar.DAY_OF_YEAR);
+            int differenceDates = dayActualDate - dayUser;
+
+            return differenceDates;
+        }else {
+            return -1;
+        }
     }
 }

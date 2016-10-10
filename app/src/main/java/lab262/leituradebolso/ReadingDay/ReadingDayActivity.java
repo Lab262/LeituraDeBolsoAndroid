@@ -17,12 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
-import io.realm.Realm;
-import io.realm.RealmList;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
 import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
@@ -62,6 +59,12 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             currentReadingModel = readingModelRealmResults.first();
             setReading();
             hideHistoryButton();
+        }else {
+            if (verifiyIfFirstTime()){
+                getReadingDay();
+            }else {
+
+            }
         }
     }
 
@@ -103,16 +106,28 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         likeButton.setOnClickListener(this);
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
-
-        getReadingDay();
     }
 
     private void hideHistoryButton(){
         historyButton.setVisibility(View.INVISIBLE);
     }
 
-    private void getReadingDay(){
+    private Boolean verifiyIfFirstTime(){
+
         UserModel user = DBManager.getCachedUser();
+        int differenceDays = user.getDifferenceBetweenDateNow();
+        if (differenceDays<0){
+            return true;
+        }else {
+            //TODO: Verificar quantos dias de diferenca
+            return false;
+        }
+
+
+    }
+
+    private void getReadingDay(){
+        final UserModel user = DBManager.getCachedUser();
         ReadingRequest.getReadings(user.getToken(),new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -128,9 +143,10 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                             readingModel.isRead = true;
                             currentReadingModel = readingModel;
                         }
-                        DBManager.addObject(readingModel);
+                        DBManager.saveObject(readingModel);
                     }
                     setReading();
+                    user.updateLastSessionTimeInterval(Calendar.getInstance().getTime().getTime());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -70,13 +70,13 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
         }
 
 
-        if (!currentModel.isRead) {
+        if (currentModel.isRead) {
             row.alertImageView.setVisibility(View.INVISIBLE);
         } else {
             row.alertImageView.setVisibility(View.VISIBLE);
         }
 
-        if (!currentModel.isLiked) {
+        if (currentModel.isLiked) {
             row.likeButton.setBackgroundResource(R.drawable.liked);
         } else {
             row.likeButton.setBackgroundResource(R.drawable.like);

@@ -10,6 +10,7 @@ import io.realm.RealmConfiguration;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Login.InitialActivity;
+import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
 public class LaunchScreenActivity extends Activity {
 

@@ -6,15 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-import io.realm.Realm;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Persistence.DBManager;
@@ -66,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //Create user with JSONObject
                 UserModel userLogged = new UserModel(response);
                 //Save user in Relm.
-                DBManager.addObject(userLogged);
+                DBManager.saveObject(userLogged);
 
                 ActivityManager.changeActivityAndRemoveParentActivity(LoginActivity.this, ReadingDayActivity.class);
             }

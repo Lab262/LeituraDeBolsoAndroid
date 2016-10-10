@@ -12,6 +12,7 @@ import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import lab262.leituradebolso.Requests.Requester;
 
 /**
@@ -27,7 +28,10 @@ public class ReadingModel extends RealmObject {
     public static String keyTextReading = "content";
     public static String keyEmojis = "emojis";
 
+    @PrimaryKey
     public String idReading;
+
+
     public String title;
     public String author;
     public String duration;
