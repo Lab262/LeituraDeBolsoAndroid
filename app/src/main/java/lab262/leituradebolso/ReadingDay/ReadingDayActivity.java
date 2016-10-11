@@ -59,10 +59,13 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             setReading();
             hideHistoryButton();
         }else {
-            if (verifiyIfFirstTime()){
+            if (verifiyIfFirstTimeDay()){
                 getReadingDay();
             }else {
-
+                RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
+                        DBManager.getAllByParameter(ReadingModel.class,"idReading",DBManager.getCachedUser().getIdReadingDay());
+                currentReadingModel = realmResults.first();
+                setReading();
             }
         }
     }
@@ -111,11 +114,11 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         historyButton.setVisibility(View.INVISIBLE);
     }
 
-    private Boolean verifiyIfFirstTime(){
+    private Boolean verifiyIfFirstTimeDay(){
 
         UserModel user = DBManager.getCachedUser();
         int differenceDays = user.getDifferenceBetweenDateNow();
-        if (differenceDays<0){
+        if (differenceDays<0 || differenceDays==1){
             return true;
         }else {
             //TODO: Verificar quantos dias de diferenca
@@ -146,6 +149,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                     }
                     setReading();
                     user.updateLastSessionTimeInterval(Calendar.getInstance().getTime().getTime());
+                    user.updateIdReadingDay(currentReadingModel.idReading);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
