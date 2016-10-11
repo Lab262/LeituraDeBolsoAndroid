@@ -42,7 +42,9 @@ public class DBManager {
 
     public static void deleteDatabase(){
         Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
         realm.deleteAll();
+        realm.commitTransaction();
     }
 
 }

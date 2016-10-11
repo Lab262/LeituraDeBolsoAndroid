@@ -12,6 +12,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import io.realm.Realm;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Persistence.DBManager;
@@ -62,8 +63,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 //Create user with JSONObject
                 UserModel userLogged = new UserModel(response);
-                //Save user in Relm.
-                DBManager.saveObject(userLogged);
+
+                //Verify if the same user in previous database
+                if (!userLogged.getEmail().matches(DBManager.getCachedUser().getEmail())){
+                    //Save user in Relm.
+                    DBManager.deleteDatabase();
+                    DBManager.saveObject(userLogged);
+                }
 
                 ActivityManager.changeActivityAndRemoveParentActivity(LoginActivity.this, ReadingDayActivity.class);
             }

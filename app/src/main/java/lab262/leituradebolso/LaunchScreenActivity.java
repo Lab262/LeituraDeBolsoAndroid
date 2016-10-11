@@ -9,6 +9,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Login.InitialActivity;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
 public class LaunchScreenActivity extends Activity {
@@ -26,8 +27,12 @@ public class LaunchScreenActivity extends Activity {
             @Override
             public void run() {
 
-                ActivityManager.changeActivity(LaunchScreenActivity.this, InitialActivity.class);
-
+                //
+                if (DBManager.getCachedUser().getToken()!=null){
+                    ActivityManager.changeActivity(LaunchScreenActivity.this, ReadingDayActivity.class);
+                }else {
+                    ActivityManager.changeActivity(LaunchScreenActivity.this, InitialActivity.class);
+                }
                 finish();
 
             }
