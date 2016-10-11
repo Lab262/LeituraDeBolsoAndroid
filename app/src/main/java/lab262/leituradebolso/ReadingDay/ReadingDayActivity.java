@@ -24,6 +24,7 @@ import cz.msebera.android.httpclient.Header;
 import io.realm.RealmResults;
 import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.NotificationsManager;
 import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.Model.UserModel;
@@ -50,7 +51,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_reading_day);
         getInstanceViews();
         setPropertyView();
-
+        setNotifications();
         Bundle bundleExtras = getIntent().getExtras();
         if (bundleExtras!=null){
             String idReading = bundleExtras.getString("modelreading");
@@ -62,6 +63,8 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         }else {
             if (verifiyIfFirstTimeDay()){
                 getReadingDay();
+                NotificationsManager.cancelAllNotifications(this);
+                NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification().getTime());
             }else {
                 RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
                         DBManager.getAllByParameter(ReadingModel.class,"idReading",DBManager.getCachedUser().getIdReadingDay());
@@ -111,6 +114,10 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
         shareButton.setOnClickListener(this);
+    }
+
+    private void setNotifications(){
+        NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification().getTime());
     }
 
     private void hideHistoryButton(){

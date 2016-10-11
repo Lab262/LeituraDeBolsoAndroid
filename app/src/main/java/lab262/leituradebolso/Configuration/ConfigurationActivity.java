@@ -18,6 +18,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import java.util.Calendar;
 
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.NotificationsManager;
 import lab262.leituradebolso.Login.InitialActivity;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Persistence.DBManager;
@@ -218,6 +219,8 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         currentCalendar = calendar;
         currentUser.updateHourNotification(calendar.getTime());
         hourReadingTextView.setText(getStringHourNotification());
+        NotificationsManager.cancelAllNotifications(this);
+        NotificationsManager.setReadingDaysNotifications(this,currentUser.getHourNotification().getTime());
     }
 
     @Override
