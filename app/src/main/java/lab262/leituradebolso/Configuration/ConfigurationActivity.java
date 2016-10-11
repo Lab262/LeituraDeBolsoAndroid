@@ -18,8 +18,8 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import java.util.Calendar;
 
 import lab262.leituradebolso.Extensions.ActivityManager;
-import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Login.InitialActivity;
+import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 
@@ -37,6 +37,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
     private View viewLayoutHourReceive;
     private int positionLayoutHourReceive;
     private Button logoutButton;
+    private UserModel currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,8 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
     }
 
     private void setPropertyView(){
+        currentUser = DBManager.getCachedUser();
+
         discreteSeekBar.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
             @Override
             public int transform(int value) {
@@ -70,10 +73,10 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         });
 
         setTitle(R.string.title_activity_configuration);
-        notificationSwitch.setChecked(ApplicationState.sharedState().getReciveNotification());
-        noturneModeSwitch.setChecked(ApplicationState.sharedState().getNoturneMode());
+        notificationSwitch.setChecked(currentUser.getReciveNotification());
+        noturneModeSwitch.setChecked(currentUser.getNoturneMode());
 
-        int progressAditionalBar = (ApplicationState.sharedState().getTextSize()/CONSTANT_PROGRESS_BAR);
+        int progressAditionalBar = (currentUser.getTextSize()/CONSTANT_PROGRESS_BAR);
         discreteSeekBar.setProgress(progressAditionalBar);
 
         notificationSwitch.setOnCheckedChangeListener(this);
@@ -81,14 +84,14 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         discreteSeekBar.setOnProgressChangeListener(this);
 
         //Configure Noturne Mode
-        if (ApplicationState.sharedState().getNoturneMode()){
+        if (currentUser.getNoturneMode()){
             setNoturneMode();
         }else {
             resetNoturneMode();
         }
 
         currentCalendar = Calendar.getInstance();
-        currentCalendar.setTime(ApplicationState.sharedState().getHourNotification());
+        currentCalendar.setTime(currentUser.getHourNotification());
 
         hourReadingTextView.setText(getStringHourNotification());
         hourReadingTextView.setOnClickListener(this);
@@ -172,7 +175,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         compoundButton.setChecked(b);
         switch (compoundButton.getId()){
             case R.id.notificationSwitch:
-                ApplicationState.sharedState().setReciveNotification(b);
+                currentUser.updateReciveNotification(b);
                 //Configure Layout Hour Reading
                 if (notificationSwitch.isChecked()){
                     showLayoutHourReceive();
@@ -181,7 +184,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
                 }
                 break;
             case R.id.noturneModeSwitch:
-                ApplicationState.sharedState().setNoturneMode(b);
+                currentUser.updateNoturneMode(b);
                 //Configure Noturne Mode
                 if (b==true){
                     setNoturneMode();
@@ -204,7 +207,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
 
     @Override
     public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
-        ApplicationState.sharedState().setTextSize(seekBar.getProgress()*CONSTANT_PROGRESS_BAR);
+        currentUser.updateTextSize(seekBar.getProgress()*CONSTANT_PROGRESS_BAR);
     }
 
     @Override
@@ -213,7 +216,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         calendar.set(Calendar.HOUR, hour);
         calendar.set(Calendar.MINUTE, minute);
         currentCalendar = calendar;
-        ApplicationState.sharedState().setHourNotification(calendar.getTime());
+        currentUser.updateHourNotification(calendar.getTime());
         hourReadingTextView.setText(getStringHourNotification());
     }
 

@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.realm.RealmObject;
-import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 
 /**
@@ -84,7 +84,7 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
 
 
         //Configure Noturne Mode
-        if (ApplicationState.sharedState().getNoturneMode()){
+        if (DBManager.getCachedUser().getNoturneMode()){
             setNoturneMode(row.titleTextView);
         }else {
             resetNoturneMode(row.titleTextView);

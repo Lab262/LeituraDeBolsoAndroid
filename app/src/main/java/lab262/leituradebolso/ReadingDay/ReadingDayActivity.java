@@ -23,7 +23,6 @@ import cz.msebera.android.httpclient.Header;
 import io.realm.RealmResults;
 import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
-import lab262.leituradebolso.Extensions.ApplicationState;
 import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.Model.UserModel;
@@ -222,10 +221,11 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         //Set text size
-        readingTextView.setTextSize(ApplicationState.sharedState().getTextSize());
+        UserModel user = DBManager.getCachedUser();
+        readingTextView.setTextSize(user.getTextSize());
 
         //Configure Noturne Mode
-        if (ApplicationState.sharedState().getNoturneMode()){
+        if (user.getNoturneMode()){
             setNoturneMode();
         }else {
             resetNoturneMode();

@@ -15,7 +15,7 @@ import android.view.View;
 
 
 import lab262.leituradebolso.Extensions.ActivityManager;
-import lab262.leituradebolso.Extensions.ApplicationState;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
@@ -215,7 +215,7 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
         super.onResume();
         //Configure Noturne Mode
         refreshListsViews();
-        if (ApplicationState.sharedState().getNoturneMode()){
+        if (DBManager.getCachedUser().getNoturneMode()){
             setNoturneMode();
         }else {
             resetNoturneMode();

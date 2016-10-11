@@ -25,6 +25,7 @@ import lab262.leituradebolso.Requests.Requester;
 
 public class UserModel extends RealmObject {
 
+    //Variables in WS
     @PrimaryKey
     private String id;
 
@@ -32,7 +33,12 @@ public class UserModel extends RealmObject {
     private String token;
     private RealmList<ReadingModel> readings;
 
+    //Local Variables
     private long lastSessionTimeInterval;
+    private Boolean reciveNotification;
+    private Boolean noturneMode;
+    private int textSize;
+    private Date hourNotification;
 
     public static String keyID = "_id";
     public static String keyEmail = "email";
@@ -46,7 +52,7 @@ public class UserModel extends RealmObject {
 
     public UserModel (JSONObject jsonObject){
         setObject(jsonObject);
-        setLastSessionTimeInterval(0);
+        setDefaultPropertys();
     }
 
     public UserModel (String email){
@@ -82,6 +88,14 @@ public class UserModel extends RealmObject {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setDefaultPropertys(){
+        setLastSessionTimeInterval(0);
+        setReciveNotification(true);
+        setNoturneMode(false);
+        setTextSize(14);
+        setHourNotification(new Date());
     }
 
     public String getId() {
@@ -122,6 +136,66 @@ public class UserModel extends RealmObject {
 
     public void setLastSessionTimeInterval(long lastSessionTimeInterval) {
         this.lastSessionTimeInterval = lastSessionTimeInterval;
+    }
+
+    public Date getHourNotification() {
+        return hourNotification;
+    }
+
+    public void setHourNotification(Date hourNotification) {
+        this.hourNotification = hourNotification;
+    }
+
+    public int getTextSize() {
+        return textSize;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
+    }
+
+    public Boolean getNoturneMode() {
+        return noturneMode;
+    }
+
+    public void setNoturneMode(Boolean noturneMode) {
+        this.noturneMode = noturneMode;
+    }
+
+    public Boolean getReciveNotification() {
+        return reciveNotification;
+    }
+
+    public void setReciveNotification(Boolean reciveNotification) {
+        this.reciveNotification = reciveNotification;
+    }
+
+    public void updateHourNotification(Date hourNotification) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        this.hourNotification = hourNotification;
+        realm.commitTransaction();
+    }
+
+    public void updateTextSize(int textSize) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        this.textSize = textSize;
+        realm.commitTransaction();
+    }
+
+    public void updateNoturneMode(Boolean noturneMode) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        this.noturneMode = noturneMode;
+        realm.commitTransaction();
+    }
+
+    public void updateReciveNotification(Boolean reciveNotification) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        this.reciveNotification = reciveNotification;
+        realm.commitTransaction();
     }
 
     public void logoutUser() {
