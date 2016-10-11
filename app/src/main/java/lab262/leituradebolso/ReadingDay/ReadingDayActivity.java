@@ -1,5 +1,6 @@
 package lab262.leituradebolso.ReadingDay;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -35,7 +36,7 @@ import lab262.leituradebolso.Requests.Requester;
 public class ReadingDayActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Typeface typeFace;
-    private ImageButton likeButton, historyButton, configurationButton;
+    private ImageButton likeButton, historyButton, configurationButton, shareButton;
     private Boolean likeReading;
     private TextView titleTextView, emojiTextView, timeTextView, readingTextView, authorTextView;
     private ReadingModel currentReadingModel;
@@ -82,6 +83,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     private void getInstanceViews(){
         typeFace =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
         likeButton = (ImageButton) findViewById(R.id.likeButton);
+        shareButton = (ImageButton) findViewById(R.id.shareButton);
 
         titleTextView = (TextView) findViewById(R.id.titleTextView);
         emojiTextView = (TextView) findViewById(R.id.emojiTextView);
@@ -108,6 +110,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         likeButton.setOnClickListener(this);
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
+        shareButton.setOnClickListener(this);
     }
 
     private void hideHistoryButton(){
@@ -217,6 +220,14 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             //Configuration Button
             case R.id.rightButton:
                 ActivityManager.changeActivity(ReadingDayActivity.this, ConfigurationActivity.class);
+                break;
+
+            case R.id.shareButton:
+                Intent intentShare =new Intent(android.content.Intent.ACTION_SEND);
+                intentShare.setType("text/plain");
+                intentShare.putExtra(android.content.Intent.EXTRA_SUBJECT,"Leitura de Bolso");
+                intentShare.putExtra(android.content.Intent.EXTRA_TEXT, currentReadingModel.textReading);
+                startActivity(Intent.createChooser(intentShare,getString(R.string.placeholder_share_title)));
                 break;
         }
     }

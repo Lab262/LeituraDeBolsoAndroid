@@ -2,6 +2,7 @@
     <string name="app_name">Leitura de Bolso</string>
     <string name="placeholder_login_button">Login</string>
     <string name="placeholder_register_button">Cadastro</string>
+    <string name="placeholder_share_title">Compartilhar com</string>
 
     <string name="title_activity_launch">LaunchActivity</string>
     <string name="title_activity_reading">Leitura do Dia</string>
