@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Typeface typeFaceQuick, typeFaceComfortaa,typeFaceComfortaaThin;
     private EditText emailEditText, passwordEditText;
     private Button forgotPasswordButton, loginButton;
+    private EditText emailForgotPasswordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +99,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void createAlertDialog(){
 
         //Create custom edit text
-        final EditText emailEditText = new EditText(this);
-        emailEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        emailEditText.setHint(getString(R.string.placeholder_alert_forgot_hint));
-        emailEditText.setTypeface(typeFaceComfortaaThin);
-        emailEditText.setPaddingRelative(30,30,30,20);
+        emailForgotPasswordEditText = new EditText(this);
+        emailForgotPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        emailForgotPasswordEditText.setHint(getString(R.string.placeholder_alert_forgot_hint));
+        emailForgotPasswordEditText.setTypeface(typeFaceComfortaaThin);
+        emailForgotPasswordEditText.setPaddingRelative(30,30,30,20);
 
         //Create custom title
         TextView textView = new TextView(this);
@@ -112,26 +113,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textView.setPadding(30,30,30,20);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            emailEditText.setHintTextColor(getColor(R.color.colorPrimary));
-            emailEditText.setTextColor(getColor(R.color.colorPrimary));
-            emailEditText.setLinkTextColor(getColor(R.color.colorPrimary));
+            emailForgotPasswordEditText.setHintTextColor(getColor(R.color.colorPrimary));
+            emailForgotPasswordEditText.setTextColor(getColor(R.color.colorPrimary));
+            emailForgotPasswordEditText.setLinkTextColor(getColor(R.color.colorPrimary));
             textView.setTextColor(getColor(R.color.colorPrimary));
         }else {
-            emailEditText.setHintTextColor(getResources().getColor(R.color.colorPrimary));
-            emailEditText.setTextColor(getResources().getColor(R.color.colorPrimary));
-            emailEditText.setLinkTextColor(getResources().getColor(R.color.colorPrimary));
+            emailForgotPasswordEditText.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+            emailForgotPasswordEditText.setTextColor(getResources().getColor(R.color.colorPrimary));
+            emailForgotPasswordEditText.setLinkTextColor(getResources().getColor(R.color.colorPrimary));
             textView.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
 
         //Create Alert
         AlertDialog.Builder forgotAlert = new AlertDialog.Builder(this,R.style.AlertDialogCustomTheme);
         forgotAlert.setCustomTitle(textView);
-        forgotAlert.setView(emailEditText);
+        forgotAlert.setView(emailForgotPasswordEditText);
         forgotAlert.setPositiveButton(getString(R.string.placeholder_alert_forgot_positive_button), this);
         forgotAlert.setNegativeButton(getString(R.string.placeholder_alert_forgot_negative_button), null);
         forgotAlert.show();
     }
 
+    private void forgotPassword(){
+        UserRequest.forgotUser(emailForgotPasswordEditText.getText().toString(),new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                System.out.println("response: " + statusCode);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                System.out.println("falha: " + statusCode);
+            }
+        });
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -146,6 +161,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
-
+        //TODO: Verificar se o forgot funciona... implementar o toast ou alerta para avisar de sucesso ou erro.
+        forgotPassword();
     }
 }
