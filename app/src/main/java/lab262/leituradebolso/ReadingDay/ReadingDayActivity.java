@@ -206,17 +206,29 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         layoutReadingDay.setBackgroundColor(Color.WHITE);
     }
 
+    private void shareReading(){
+        Intent intentShare =new Intent(android.content.Intent.ACTION_SEND);
+        intentShare.setType("text/plain");
+        intentShare.putExtra(android.content.Intent.EXTRA_SUBJECT,"Leitura de Bolso");
+        intentShare.putExtra(android.content.Intent.EXTRA_TEXT, currentReadingModel.textReading);
+        startActivity(Intent.createChooser(intentShare,getString(R.string.placeholder_share_title)));
+    }
+
+    private void likeReading(){
+        if (likeReading){
+            likeReading = false;
+            likeButton.setBackgroundResource(R.drawable.like_circle);
+        }else {
+            likeReading = true;
+            likeButton.setBackgroundResource(R.drawable.liked_circle);
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.likeButton:
-                if (likeReading){
-                    likeReading = false;
-                    likeButton.setBackgroundResource(R.drawable.like_circle);
-                }else {
-                    likeReading = true;
-                    likeButton.setBackgroundResource(R.drawable.liked_circle);
-                }
+                likeReading();
                 break;
 
             //History Button
@@ -230,11 +242,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.shareButton:
-                Intent intentShare =new Intent(android.content.Intent.ACTION_SEND);
-                intentShare.setType("text/plain");
-                intentShare.putExtra(android.content.Intent.EXTRA_SUBJECT,"Leitura de Bolso");
-                intentShare.putExtra(android.content.Intent.EXTRA_TEXT, currentReadingModel.textReading);
-                startActivity(Intent.createChooser(intentShare,getString(R.string.placeholder_share_title)));
+                shareReading();
                 break;
         }
     }
