@@ -1,11 +1,17 @@
 package lab262.leituradebolso.Login;
 
+import android.content.DialogInterface;
 import android.graphics.Typeface;
+import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -19,7 +25,7 @@ import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 import lab262.leituradebolso.Requests.UserRequest;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, AlertDialog.OnClickListener {
 
     private Typeface typeFaceQuick, typeFaceComfortaa,typeFaceComfortaaThin;
     private EditText emailEditText, passwordEditText;
@@ -50,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         passwordEditText.setTypeface(typeFaceComfortaaThin);
         loginButton.setTypeface(typeFaceQuick);
         loginButton.setOnClickListener(this);
+        forgotPasswordButton.setOnClickListener(this);
     }
 
     private void loginUser(){
@@ -88,12 +95,57 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
+    private void createAlertDialog(){
+
+        //Create custom edit text
+        final EditText emailEditText = new EditText(this);
+        emailEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        emailEditText.setHint(getString(R.string.placeholder_alert_forgot_hint));
+        emailEditText.setTypeface(typeFaceComfortaaThin);
+        emailEditText.setPaddingRelative(30,30,30,20);
+
+        //Create custom title
+        TextView textView = new TextView(this);
+        textView.setTypeface(typeFaceQuick);
+        textView.setText(getString(R.string.title_alert_forgot_password));
+        textView.setTextSize(16);
+        textView.setPadding(30,30,30,20);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            emailEditText.setHintTextColor(getColor(R.color.colorPrimary));
+            emailEditText.setTextColor(getColor(R.color.colorPrimary));
+            emailEditText.setLinkTextColor(getColor(R.color.colorPrimary));
+            textView.setTextColor(getColor(R.color.colorPrimary));
+        }else {
+            emailEditText.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+            emailEditText.setTextColor(getResources().getColor(R.color.colorPrimary));
+            emailEditText.setLinkTextColor(getResources().getColor(R.color.colorPrimary));
+            textView.setTextColor(getResources().getColor(R.color.colorPrimary));
+        }
+
+        //Create Alert
+        AlertDialog.Builder forgotAlert = new AlertDialog.Builder(this,R.style.AlertDialogCustomTheme);
+        forgotAlert.setCustomTitle(textView);
+        forgotAlert.setView(emailEditText);
+        forgotAlert.setPositiveButton(getString(R.string.placeholder_alert_forgot_positive_button), this);
+        forgotAlert.setNegativeButton(getString(R.string.placeholder_alert_forgot_negative_button), null);
+        forgotAlert.show();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.loginButton:
                 loginUser();
                 break;
+            case R.id.forgotPasswordButton:
+                createAlertDialog();
+                break;
         }
+    }
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+
     }
 }

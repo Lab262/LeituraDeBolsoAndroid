@@ -13,7 +13,10 @@
     <string name="title_selector_unread">Não Lidos</string>
     <string name="title_notification">Leitura nova do dia!</string>
     <string name="content_notification">Abra o aplicativo e veja a nova leitura do dia de hoje</string>
-
+    <string name="title_alert_forgot_password">Digite seu email para recuperar sua senha: </string>
+    <string name="placeholder_alert_forgot_hint">Email</string>
+    <string name="placeholder_alert_forgot_positive_button">Enviar</string>
+    <string name="placeholder_alert_forgot_negative_button">Cancelar</string>
 
 
     <string name="dummy_button">Dummy Button</string>

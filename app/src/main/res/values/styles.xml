@@ -60,6 +60,15 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="AlertDialogCustomTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <!--dialog background-->
+        <!--<item name="android:windowBackground">@drawable/background_dialog</item>-->
+    </style>
+
 
 
 
