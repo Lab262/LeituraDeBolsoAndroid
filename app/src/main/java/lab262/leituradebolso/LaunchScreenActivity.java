@@ -27,11 +27,10 @@ public class LaunchScreenActivity extends Activity {
             @Override
             public void run() {
 
-                //
-                if (DBManager.getCachedUser().getToken()!=null){
-                    ActivityManager.changeActivity(LaunchScreenActivity.this, ReadingDayActivity.class);
-                }else {
+                if (DBManager.getCachedUser()==null || DBManager.getCachedUser().getToken()==null){
                     ActivityManager.changeActivity(LaunchScreenActivity.this, InitialActivity.class);
+                }else {
+                   ActivityManager.changeActivity(LaunchScreenActivity.this, ReadingDayActivity.class);
                 }
                 finish();
 

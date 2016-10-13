@@ -111,6 +111,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         heightTextView.setTextColor(Color.WHITE);
         notificationSwitch.setTextColor(Color.WHITE);
         noturneModeSwitch.setTextColor(Color.WHITE);
+        logoutButton.setTextColor(Color.WHITE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             linearLayout.setBackgroundColor(getResources().getColor(R.color.colorNoturne,null));
         }else {
@@ -125,6 +126,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         notificationSwitch.setTextColor(Color.BLACK);
         noturneModeSwitch.setTextColor(Color.BLACK);
         linearLayout.setBackgroundColor(Color.WHITE);
+        logoutButton.setTextColor(Color.BLACK);
     }
 
     private String getStringHourNotification(){
@@ -180,8 +182,10 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
                 //Configure Layout Hour Reading
                 if (notificationSwitch.isChecked()){
                     showLayoutHourReceive();
+                    NotificationsManager.setReadingDaysNotifications(this,currentUser.getHourNotification().getTime());
                 }else {
                     hideLayoutHourReceive();
+                    NotificationsManager.cancelAllNotifications(this);
                 }
                 break;
             case R.id.noturneModeSwitch:

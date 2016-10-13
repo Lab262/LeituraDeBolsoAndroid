@@ -11,6 +11,9 @@
     <string name="title_selector_all">Todos</string>
     <string name="title_selector_tanned">Curtidos</string>
     <string name="title_selector_unread">Não Lidos</string>
+    <string name="title_notification">Leitura nova do dia!</string>
+    <string name="content_notification">Abra o aplicativo e veja a nova leitura do dia de hoje</string>
+
 
 
     <string name="dummy_button">Dummy Button</string>

@@ -36,7 +36,13 @@ public class DBManager {
 
     public static UserModel getCachedUser(){
         RealmResults<UserModel> realmResults = (RealmResults<UserModel>) getAll(UserModel.class);
-        UserModel user = realmResults.first();
+        UserModel user;
+        if (realmResults.size()>0){
+            user = realmResults.first();
+        }else {
+            user = null;
+        }
+
         return user;
     }
 

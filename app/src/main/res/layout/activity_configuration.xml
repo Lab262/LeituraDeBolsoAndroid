@@ -148,7 +148,9 @@
             android:layout_weight="1"
             android:textAllCaps="false"
             android:textSize="16dp"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
     <View
