@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -64,5 +65,12 @@ public class ReadingModel extends RealmObject {
             e.printStackTrace();
         }
 
+    }
+
+    public void updateIsRead(Boolean isRead) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        this.isRead = isRead;
+        realm.commitTransaction();
     }
 }

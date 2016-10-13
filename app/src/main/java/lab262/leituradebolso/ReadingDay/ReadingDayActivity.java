@@ -186,6 +186,11 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             allEmojis.append(emoji.getEmijoByUnicode());
         }
         emojiTextView.setText(allEmojis.toString());
+
+        if (!currentReadingModel.isRead){
+            //TODO: Update WS
+            currentReadingModel.updateIsRead(true);
+        }
     }
 
     private void setNoturneMode(){
