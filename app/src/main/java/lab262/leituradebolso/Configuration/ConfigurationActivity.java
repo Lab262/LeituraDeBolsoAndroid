@@ -35,7 +35,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
     private LinearLayout linearLayout;
     private Calendar currentCalendar;
     private LinearLayout layoutHourReceive;
-    private View viewLayoutHourReceive;
+    private View viewLayoutHourReceive, viewLine0, viewLine1, viewLine2, viewLine3;
     private int positionLayoutHourReceive;
     private Button logoutButton;
     private UserModel currentUser;
@@ -61,6 +61,10 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         viewLayoutHourReceive = findViewById(R.id.viewLayoutHourReceive);
         positionLayoutHourReceive = layoutHourReceive.getChildCount();
         logoutButton = (Button) findViewById(R.id.logoutButton);
+        viewLine0 = findViewById(R.id.viewLine0);
+        viewLine1 = findViewById(R.id.viewLine1);
+        viewLine2 = findViewById(R.id.viewLine2);
+        viewLine3 = findViewById(R.id.viewLine3);
     }
 
     private void setPropertyView(){
@@ -114,9 +118,25 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         logoutButton.setTextColor(Color.WHITE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             linearLayout.setBackgroundColor(getResources().getColor(R.color.colorNoturne,null));
+
         }else {
             linearLayout.setBackgroundColor(getResources().getColor(R.color.colorNoturne));
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            viewLine0.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
+            viewLine1.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
+            viewLine2.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
+            viewLine3.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
+            viewLayoutHourReceive.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
+        }else {
+            viewLine0.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
+            viewLine1.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
+            viewLine2.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
+            viewLine3.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
+            viewLayoutHourReceive.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
+        }
+
     }
 
     private void resetNoturneMode(){
@@ -127,6 +147,20 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         noturneModeSwitch.setTextColor(Color.BLACK);
         linearLayout.setBackgroundColor(Color.WHITE);
         logoutButton.setTextColor(Color.BLACK);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            viewLine0.setBackground(getDrawable(R.color.grey_line_layout));
+            viewLine1.setBackground(getDrawable(R.color.grey_line_layout));
+            viewLine2.setBackground(getDrawable(R.color.grey_line_layout));
+            viewLine3.setBackground(getDrawable(R.color.grey_line_layout));
+            viewLayoutHourReceive.setBackground(getDrawable(R.color.grey_line_layout));
+        }else {
+            viewLine0.setBackground(getResources().getDrawable(R.color.grey_line_layout));
+            viewLine1.setBackground(getResources().getDrawable(R.color.grey_line_layout));
+            viewLine2.setBackground(getResources().getDrawable(R.color.grey_line_layout));
+            viewLine3.setBackground(getResources().getDrawable(R.color.grey_line_layout));
+            viewLayoutHourReceive.setBackground(getResources().getDrawable(R.color.grey_line_layout));
+        }
     }
 
     private String getStringHourNotification(){

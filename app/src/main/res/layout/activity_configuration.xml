@@ -24,6 +24,7 @@
         android:layout_height="60dp" />
 
     <View
+        android:id="@+id/viewLine0"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_line_layout"
@@ -94,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_line_layout"
-        />
+        android:id="@+id/viewLine1" />
 
     <TextView
         android:text="Tamanho do Texto"
@@ -131,7 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_line_layout"
-        />
+        android:id="@+id/viewLine2" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -157,6 +158,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_line_layout"
-        />
+        android:id="@+id/viewLine3" />
 
 </LinearLayout>
