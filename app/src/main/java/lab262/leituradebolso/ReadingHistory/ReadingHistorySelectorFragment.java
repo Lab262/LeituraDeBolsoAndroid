@@ -13,14 +13,7 @@ import android.view.ViewGroup;
 import lab262.leituradebolso.External.SlidingTabLayout;
 import lab262.leituradebolso.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ReadingHistorySelectorFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ReadingHistorySelectorFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ReadingHistorySelectorFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;

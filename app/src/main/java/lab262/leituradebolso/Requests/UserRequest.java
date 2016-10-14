@@ -1,7 +1,6 @@
 package lab262.leituradebolso.Requests;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import cz.msebera.android.httpclient.entity.StringEntity;
 import lab262.leituradebolso.Model.UserModel;

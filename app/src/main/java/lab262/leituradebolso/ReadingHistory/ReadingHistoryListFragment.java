@@ -12,24 +12,14 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import io.realm.Realm;
-import io.realm.RealmList;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
 import lab262.leituradebolso.Extensions.ActivityManager;
-import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
-/**
- * Activities that contain this fragment must implement the
- * {@link ReadingHistoryListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ReadingHistoryListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ReadingHistoryListFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
