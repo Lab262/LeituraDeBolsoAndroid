@@ -18,6 +18,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import java.util.Calendar;
 
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.FeedbackManager;
 import lab262.leituradebolso.Extensions.NotificationsManager;
 import lab262.leituradebolso.Login.InitialActivity;
 import lab262.leituradebolso.Model.UserModel;
@@ -272,6 +273,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
                 break;
             case R.id.logoutButton:
                 DBManager.getCachedUser().logoutUser();
+                FeedbackManager.createToast(getApplicationContext(),getString(R.string.placeholder_success_logout),false);
                 ActivityManager.changeActivityAndRemoveParentActivity(ConfigurationActivity.this, InitialActivity.class);
                 break;
         }

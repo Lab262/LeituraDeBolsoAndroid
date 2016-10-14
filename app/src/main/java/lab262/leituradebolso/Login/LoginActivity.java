@@ -1,5 +1,6 @@
 package lab262.leituradebolso.Login;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -15,10 +16,12 @@ import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.FeedbackManager;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
@@ -31,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText emailEditText, passwordEditText;
     private Button forgotPasswordButton, loginButton;
     private EditText emailForgotPasswordEditText;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +65,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loginUser(){
+        progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog));
         UserRequest.loginUser(emailEditText.getText().toString(), passwordEditText.getText().toString(),new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                System.out.println(response.toString());
+                progressDialog.dismiss();
+                FeedbackManager.createToast(getApplicationContext(),getString(R.string.placeholder_success_login),true);
 
                 //Create user with JSONObject
                 UserModel userLogged = new UserModel(response);
@@ -89,8 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                //TODO: Alerta para falha
-                System.out.println(statusCode);
+                FeedbackManager.feedbackErrorResponse(getApplicationContext(),progressDialog,statusCode,errorResponse);
             }
 
         });
@@ -134,19 +139,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void forgotPassword(){
+        progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog));
         UserRequest.forgotUser(emailForgotPasswordEditText.getText().toString(),new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                System.out.println("response: " + statusCode);
+                progressDialog.dismiss();
+                try {
+                    String message = response.getString("message");
+                    FeedbackManager.createToast(getApplicationContext(),message,false);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                System.out.println("falha: " + statusCode);
+                FeedbackManager.feedbackErrorResponse(getApplicationContext(),progressDialog,statusCode,errorResponse);
             }
         });
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -161,7 +174,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
-        //TODO: Verificar se o forgot funciona... implementar o toast ou alerta para avisar de sucesso ou erro.
         forgotPassword();
     }
 }

@@ -34,10 +34,9 @@ public class UserRequest {
 
     public static void forgotUser(String email, JsonHttpResponseHandler jsonHttpResponseHandler){
 
-        RequestParams requestParams = new RequestParams();
-        requestParams.add(UserModel.keyEmail, email);
+        StringEntity entity = Requester.getStringEntity(Requester.getJSONObject(email));
 
-        Requester.client.post(urlForgot,requestParams,jsonHttpResponseHandler);
+        Requester.client.post(null,urlForgot,entity,Requester.keyContentType,jsonHttpResponseHandler);
 
     }
 

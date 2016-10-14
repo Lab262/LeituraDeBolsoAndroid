@@ -1,5 +1,6 @@
 package lab262.leituradebolso.ReadingDay;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -24,6 +25,7 @@ import cz.msebera.android.httpclient.Header;
 import io.realm.RealmResults;
 import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.FeedbackManager;
 import lab262.leituradebolso.Extensions.NotificationsManager;
 import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
@@ -42,6 +44,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     private TextView titleTextView, emojiTextView, timeTextView, readingTextView, authorTextView;
     private ReadingModel currentReadingModel;
     private ScrollView layoutReadingDay;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -139,11 +142,13 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getReadingDay(){
+        progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog));
         final UserModel user = DBManager.getCachedUser();
         ReadingRequest.getReadings(user.getToken(),new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+                progressDialog.dismiss();
                 try {
                     JSONArray jsonArray = (JSONArray) response.get("data");
                     for (int i=0; i<jsonArray.length(); i++){
@@ -168,6 +173,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                FeedbackManager.feedbackErrorResponse(getApplicationContext(),progressDialog,statusCode,errorResponse);
             }
         });
     }

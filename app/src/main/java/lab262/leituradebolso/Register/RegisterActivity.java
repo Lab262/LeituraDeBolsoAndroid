@@ -1,5 +1,6 @@
 package lab262.leituradebolso.Register;
 
+import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.FeedbackManager;
 import lab262.leituradebolso.Login.InitialActivity;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.R;
@@ -25,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Typeface typeFaceQuick,typeFaceComfortaaThin;
     private EditText emailEditText, passwordEditText, confirmPasswordEditText;
     private Button registerButton;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,27 +57,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void registerUser(){
+        progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog));
         UserModel userModel = new UserModel(emailEditText.getText().toString());
         UserRequest.createAccountUser(userModel,passwordEditText.getText().toString(),new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                //TODO: Alerta para confirmacao de cadastro
-                System.out.println(response.toString());
+                progressDialog.dismiss();
+                FeedbackManager.createToast(getApplicationContext(),getString(R.string.placeholder_success_register),false);
                 ActivityManager.changeActivityAndRemoveParentActivity(RegisterActivity.this, InitialActivity.class);
-
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                //TODO: Alerta para falha
-                try {
-                    System.out.println(errorResponse.get("message").toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                FeedbackManager.feedbackErrorResponse(getApplicationContext(),progressDialog,statusCode,errorResponse);
             }
         });
     }
@@ -85,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (passwordEditText.getText().toString().equals(confirmPasswordEditText.getText().toString())){
                     registerUser();
                 }else {
-                    //TODO: Alerta para erro de senha
+                    FeedbackManager.createToast(getApplicationContext(),getString(R.string.placeholder_error_register_password),false);
                 }
                 break;
         }

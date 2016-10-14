@@ -59,5 +59,18 @@ public class Requester {
 
         return informationsJsonObject;
     }
+
+    public static JSONObject getJSONObject(String email) {
+
+        JSONObject informationsJsonObject = new JSONObject();
+
+        try {
+            informationsJsonObject.put(UserModel.keyEmail,email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return informationsJsonObject;
+    }
 }
 
