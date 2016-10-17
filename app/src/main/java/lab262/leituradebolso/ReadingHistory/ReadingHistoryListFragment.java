@@ -1,6 +1,7 @@
 package lab262.leituradebolso.ReadingHistory;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,23 +13,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import io.realm.RealmResults;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Model.ReadingModel;
-import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
 
 public class ReadingHistoryListFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ListView readingListView;
     private View view;
@@ -42,23 +33,20 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static ReadingHistoryListFragment newInstance(String param1, String param2) {
-        ReadingHistoryListFragment fragment = new ReadingHistoryListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+    @SuppressLint("ValidFragment")
+    public ReadingHistoryListFragment(ReadingModel[] readingModels) {
+        arrayReadingModels = readingModels;
+    }
+
+
+    public static ReadingHistoryListFragment newInstance(ReadingModel [] readingModels) {
+        ReadingHistoryListFragment fragment = new ReadingHistoryListFragment(readingModels);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -67,18 +55,9 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_reading_history_list, container, false);
         getInstanceViews();
-        arrayReadingModels = getReadingData();
         loadReadingList(arrayReadingModels);
         readingListView.setOnItemClickListener(this);
         return view;
-    }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -129,20 +108,6 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
     private void loadReadingList(ReadingModel[] servicesRequested) {
         adapter = new ReadingHistoryListAdapter(getContext().getApplicationContext(), servicesRequested);
         readingListView.setAdapter(adapter);
-    }
-
-    private ReadingModel[] getReadingData() {
-
-        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>) DBManager.getAll(ReadingModel.class);
-
-        ReadingModel[] dummyData = new ReadingModel[realmResults.size()];
-
-        for (int i=0; i<realmResults.size(); i++){
-            dummyData[i] = realmResults.get(i);
-        }
-
-        return dummyData;
-
     }
 
     public void filterReadingList(String stringFilter){

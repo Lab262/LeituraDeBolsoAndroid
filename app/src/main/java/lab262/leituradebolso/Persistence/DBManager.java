@@ -34,6 +34,14 @@ public class DBManager {
         return resultGetAll;
     }
 
+    public static RealmResults<? extends RealmObject> getAllByParameter(Class<? extends RealmObject> className,
+                                                                        String nameParameter, Boolean parameter){
+        Realm realm = Realm.getDefaultInstance();
+
+        RealmResults<? extends RealmObject> resultGetAll = realm.where(className).equalTo(nameParameter,parameter).findAll();
+        return resultGetAll;
+    }
+
     public static UserModel getCachedUser(){
         RealmResults<UserModel> realmResults = (RealmResults<UserModel>) getAll(UserModel.class);
         UserModel user;

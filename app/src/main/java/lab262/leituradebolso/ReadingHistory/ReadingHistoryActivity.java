@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 
+import io.realm.RealmResults;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;

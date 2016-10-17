@@ -10,7 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
+import io.realm.RealmResults;
 import lab262.leituradebolso.External.SlidingTabLayout;
+import lab262.leituradebolso.Model.ReadingModel;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 
 
@@ -77,7 +82,13 @@ public class ReadingHistorySelectorFragment extends Fragment {
         CharSequence Titles[]={getString(R.string.title_selector_all),getString(R.string.title_selector_tanned),
                 getString(R.string.title_selector_unread)};
 
-        adapter =  new ViewPagerAdapter(getFragmentManager(),Titles,Numboftabs);
+        ArrayList<ReadingModel []> arrayListReadingsModel = new ArrayList<>();
+
+        arrayListReadingsModel.add(getAllReadingData());
+        arrayListReadingsModel.add(getTannedReadingData());
+        arrayListReadingsModel.add(getNotReadReadingData());
+
+        adapter =  new ViewPagerAdapter(getFragmentManager(),Titles,Numboftabs, arrayListReadingsModel);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) view.findViewById(R.id.pager);
@@ -116,5 +127,33 @@ public class ReadingHistorySelectorFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private ReadingModel[] getAllReadingData() {
+        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>) DBManager.getAll(ReadingModel.class);
+        return getReadingsData(realmResults);
+    }
+
+    private ReadingModel[] getTannedReadingData() {
+        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
+                DBManager.getAllByParameter(ReadingModel.class,"isLiked",true);
+        return getReadingsData(realmResults);
+    }
+
+    private ReadingModel[] getNotReadReadingData() {
+        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
+                DBManager.getAllByParameter(ReadingModel.class,"isRead",false);
+        return getReadingsData(realmResults);
+    }
+
+    private ReadingModel[] getReadingsData(RealmResults<ReadingModel> realmResults){
+
+        ReadingModel[] readingsData = new ReadingModel[realmResults.size()];
+
+        for (int i=0; i<realmResults.size(); i++){
+            readingsData[i] = realmResults.get(i);
+        }
+
+        return readingsData;
     }
 }

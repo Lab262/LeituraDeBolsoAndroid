@@ -13,7 +13,9 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.Requests.Requester;
 
 /**
