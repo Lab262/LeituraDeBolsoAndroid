@@ -108,7 +108,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         historyButton = (ImageButton) findViewById(R.id.leftButton);
         configurationButton = (ImageButton) findViewById(R.id.rightButton);
 
-        historyButton.setBackgroundResource(R.drawable.ic_history_reading);
         configurationButton.setBackgroundResource(R.drawable.ic_configuration);
 
         likeReading = false;
@@ -265,11 +264,27 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         UserModel user = DBManager.getCachedUser();
         readingTextView.setTextSize(user.getTextSize());
 
+        if (haveNotReadReading()){
+            historyButton.setBackgroundResource(R.drawable.ic_alert_history_reading);
+        }else {
+            historyButton.setBackgroundResource(R.drawable.ic_history_reading);
+        }
+
         //Configure Noturne Mode
         if (user.getNoturneMode()){
             setNoturneMode();
         }else {
             resetNoturneMode();
+        }
+    }
+
+    private Boolean haveNotReadReading(){
+        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
+                DBManager.getAllByParameter(ReadingModel.class,"isRead",false);
+        if (realmResults.size()>0){
+            return true;
+        }else {
+            return false;
         }
     }
 }
