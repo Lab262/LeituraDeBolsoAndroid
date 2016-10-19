@@ -31,7 +31,7 @@ public class ReadingRequest {
         String contentWhere = "";
         for (int i=0; i<arrayIDs.size(); i++){
             if (i!=0){
-                contentWhere += "&&";
+                contentWhere += " || ";
             }
             contentWhere += keyUrlParamsWhereContent + "'" + arrayIDs.get(i) +"'";
         }

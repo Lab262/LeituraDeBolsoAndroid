@@ -38,7 +38,6 @@ public class UserModel extends RealmObject {
     private Boolean noturneMode;
     private int textSize;
     private Date hourNotification;
-    private String idReadingDay;
 
 
     public static String keyID = "_id";
@@ -85,7 +84,6 @@ public class UserModel extends RealmObject {
             this.setToken(jsonObject.getString(keyToken));
             this.setId(user.getString(keyID));
             this.setEmail(user.getString(keyEmail));
-            //TODO: Serializer para ler as leituras
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -97,7 +95,6 @@ public class UserModel extends RealmObject {
         setNoturneMode(false);
         setTextSize(14);
         setHourNotification(new Date());
-        setIdReadingDay("");
     }
 
     public String getId() {
@@ -164,14 +161,6 @@ public class UserModel extends RealmObject {
         this.reciveNotification = reciveNotification;
     }
 
-    public String getIdReadingDay() {
-        return idReadingDay;
-    }
-
-    public void setIdReadingDay(String idReadingDay) {
-        this.idReadingDay = idReadingDay;
-    }
-
     public void updateHourNotification(Date hourNotification) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -200,13 +189,6 @@ public class UserModel extends RealmObject {
         realm.commitTransaction();
     }
 
-    public void updateIdReadingDay(String idReadingDay) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        this.idReadingDay = idReadingDay;
-        realm.commitTransaction();
-    }
-
     public void logoutUser() {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -218,6 +200,13 @@ public class UserModel extends RealmObject {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         this.lastSessionTimeInterval = lastSessionTimeInterval;
+        realm.commitTransaction();
+    }
+
+    public void updateToken(String token) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        this.token = token;
         realm.commitTransaction();
     }
 

@@ -49,6 +49,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     private UserReadingModel currentUserReadingModel;
     private ScrollView layoutReadingDay;
     private ProgressDialog progressDialog;
+    private int number = 0;
 
 
     @Override
@@ -72,19 +73,23 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             hideHistoryButton();
         }else {
             if (differenceDaysEnter()==0){
-                RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
-                        DBManager.getAllByParameter(ReadingModel.class,"idReading",DBManager.getCachedUser().getIdReadingDay());
-                currentReadingModel = realmResults.first();
-                RealmResults<UserReadingModel> userReadingModelRealmResults = (RealmResults<UserReadingModel>)
-                        DBManager.getAllByParameter(UserReadingModel.class,"idReading",DBManager.getCachedUser().getIdReadingDay());
-                currentUserReadingModel = userReadingModelRealmResults.first();
-                setReading();
+                setLastReadingDay();
             }else {
                 getAllUserReadings();
                 NotificationsManager.cancelAllNotifications(this);
                 NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification().getTime());
             }
         }
+    }
+
+    private void setLastReadingDay(){
+        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
+                DBManager.getAll(ReadingModel.class);
+        currentReadingModel = realmResults.last();
+        RealmResults<UserReadingModel> userReadingModelRealmResults = (RealmResults<UserReadingModel>)
+                DBManager.getAllByParameter(UserReadingModel.class,"idReading",currentReadingModel.idReading);
+        currentUserReadingModel = userReadingModelRealmResults.first();
+        setReading();
     }
 
     private void configureActionBar(){
@@ -170,6 +175,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 FeedbackManager.feedbackErrorResponse(getApplicationContext(),null,statusCode,errorResponse);
             }
+
         });
     }
 
@@ -209,8 +215,8 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                         JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject(Requester.keyAttributes);
                         ReadingModel readingModel = new ReadingModel(jsonObject);
                         DBManager.saveObject(readingModel);
-                        getReadingDay(differenceDaysEnter());
                     }
+                    getReadingDay(differenceDaysEnter());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -221,11 +227,13 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 FeedbackManager.feedbackErrorResponse(getApplicationContext(),null,statusCode,errorResponse);
             }
+
         });
     }
 
     private void getReadingDay(int numberDaysOut){
-        progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog));
+        number++;
+        progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog)+number);
         final UserModel user = DBManager.getCachedUser();
         UserReadingRequest.getUserReadingsOfTheWeek(user,numberDaysOut,new JsonHttpResponseHandler(){
             @Override
@@ -234,22 +242,27 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 progressDialog.dismiss();
                 try {
                     JSONArray jsonArray = (JSONArray) response.get("data");
-                    for (int i=0; i<jsonArray.length(); i++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject(Requester.keyAttributes);
-                        ReadingModel readingModel = new ReadingModel(jsonObject);
-                        UserReadingModel userReadingModel = new UserReadingModel(readingModel.idReading);
-                        if (currentReadingModel==null && currentUserReadingModel==null){
-                            userReadingModel.setIsRead(true);
-                            currentReadingModel = readingModel;
-                            currentUserReadingModel = userReadingModel;
+
+                    if (jsonArray.length()>0){
+                        for (int i=0; i<jsonArray.length(); i++){
+                            JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject(Requester.keyAttributes);
+                            ReadingModel readingModel = new ReadingModel(jsonObject);
+                            UserReadingModel userReadingModel = new UserReadingModel(readingModel.idReading);
+                            if (currentReadingModel==null && currentUserReadingModel==null){
+                                userReadingModel.setIsRead(true);
+                                currentReadingModel = readingModel;
+                                currentUserReadingModel = userReadingModel;
+                            }
+                            DBManager.saveObject(readingModel);
+                            DBManager.saveObject(userReadingModel);
+                            createUserReading(userReadingModel);
                         }
-                        DBManager.saveObject(readingModel);
-                        DBManager.saveObject(userReadingModel);
-                        createUserReading(userReadingModel);
+                        setReading();
+                    }else {
+                        setLastReadingDay();
                     }
-                    setReading();
                     user.updateLastSessionTimeInterval(Calendar.getInstance().getTime().getTime());
-                    user.updateIdReadingDay(currentReadingModel.idReading);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -260,6 +273,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 FeedbackManager.feedbackErrorResponse(getApplicationContext(),progressDialog,statusCode,errorResponse);
             }
+
         });
     }
 

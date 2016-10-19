@@ -83,10 +83,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (!userLogged.getEmail().matches(userDatabase.getEmail())){
                         //Save user in Relm.
                         DBManager.deleteDatabase();
+                        DBManager.saveObject(userLogged);
+                    }else {
+                        DBManager.getCachedUser().updateToken(userLogged.getToken());
                     }
+                }else {
+                    DBManager.saveObject(userLogged);
                 }
-
-                DBManager.saveObject(userLogged);
                 ActivityManager.changeActivityAndRemoveParentActivity(LoginActivity.this, ReadingDayActivity.class);
             }
 
