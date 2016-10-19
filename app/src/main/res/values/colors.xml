@@ -10,7 +10,7 @@
     <color name="selector_color">#ee5f66</color>
     <color name="unselector_color">#e69a9f</color>
     <color name="grey_line_layout">#D3D3D3</color>
-    <color name="grey_line_layout_50_opc">#80D3D3D3</color>
+    <color name="grey_line_layout_10_opc">#1AD3D3D3</color>
     <color name="grey_label">#898989</color>
     <color name="colorNoturne">#190126</color>
 

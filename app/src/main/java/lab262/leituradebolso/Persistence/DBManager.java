@@ -1,10 +1,14 @@
 package lab262.leituradebolso.Persistence;
 
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import lab262.leituradebolso.Model.UserModel;
+import lab262.leituradebolso.Model.UserReadingModel;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
 /**
@@ -37,9 +41,23 @@ public class DBManager {
     public static RealmResults<? extends RealmObject> getAllByParameter(Class<? extends RealmObject> className,
                                                                         String nameParameter, Boolean parameter){
         Realm realm = Realm.getDefaultInstance();
-
         RealmResults<? extends RealmObject> resultGetAll = realm.where(className).equalTo(nameParameter,parameter).findAll();
         return resultGetAll;
+    }
+
+    public static RealmResults<? extends RealmObject> getAllByParameter(Class<? extends RealmObject> className,
+                                                                        String nameParameter, ArrayList<String> parameters){
+        Realm realm = Realm.getDefaultInstance();
+        RealmQuery<? extends RealmObject> resultGetAll = realm.where(className);
+        int i = 0;
+        for(String id : parameters) {
+            if(i != 0) {
+                resultGetAll = resultGetAll.or();
+            }
+            resultGetAll = resultGetAll.equalTo(nameParameter, id);
+            i++;
+        }
+        return resultGetAll.findAll();
     }
 
     public static UserModel getCachedUser(){
@@ -52,6 +70,12 @@ public class DBManager {
         }
 
         return user;
+    }
+
+    public static UserReadingModel getUserReadingModelByID(String idReading){
+        RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
+                DBManager.getAllByParameter(UserReadingModel.class,"idReading",idReading);
+        return realmResults.first();
     }
 
     public static void deleteDatabase(){

@@ -39,8 +39,6 @@ public class ReadingModel extends RealmObject {
     public String author;
     public String duration;
     public String textReading;
-    public Boolean isLiked;
-    public Boolean isRead;
     public RealmList<EmojiModel> emojis;
 
     public ReadingModel(){
@@ -69,10 +67,44 @@ public class ReadingModel extends RealmObject {
 
     }
 
-    public void updateIsRead(Boolean isRead) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        this.isRead = isRead;
-        realm.commitTransaction();
+    public static ReadingModel[] getAllReadingData() {
+        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>) DBManager.getAll(ReadingModel.class);
+        return getReadingsData(realmResults);
+    }
+
+    public static ReadingModel[] getTannedReadingData() {
+        RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
+                DBManager.getAllByParameter(UserReadingModel.class,"isFavorite",true);
+        ArrayList<String> arrayListIDs = new ArrayList<>();
+
+        if (realmResults.size()>0){
+            for (UserReadingModel userReadingModel : realmResults){
+                arrayListIDs.add(userReadingModel.getIdReading());
+            }
+            RealmResults<ReadingModel> readingModelRealmResults = (RealmResults<ReadingModel>)
+                    DBManager.getAllByParameter(ReadingModel.class,"idReading",arrayListIDs);
+            return getReadingsData(readingModelRealmResults);
+        }else {
+            return new ReadingModel[0];
+        }
+    }
+
+    public static ReadingModel[] getNotReadReadingData() {
+//        RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
+//                DBManager.getAllByParameter(UserReadingModel.class,"isRead",false);
+//
+//        return getReadingsData(realmResults);
+        return new ReadingModel[0];
+    }
+
+    public static ReadingModel[] getReadingsData(RealmResults<ReadingModel> realmResults){
+
+        ReadingModel[] readingsData = new ReadingModel[realmResults.size()];
+
+        for (int i=0; i<realmResults.size(); i++){
+            readingsData[i] = realmResults.get(i);
+        }
+
+        return readingsData;
     }
 }

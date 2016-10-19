@@ -25,6 +25,8 @@ public class Requester {
     public static String keyAttributes = "attributes";
     public static String keyContentType = "application/json";
     private static String keyAccessToken = "x-access-token";
+    public static String keyUrlParamsSkip = "skip";
+    public static String keyUrlParamsLimit = "limit";
     public static AsyncHttpClient client = new AsyncHttpClient();
 
     public static StringEntity getStringEntity(JSONObject jsonObject){

@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
@@ -30,11 +31,13 @@ import lab262.leituradebolso.Extensions.NotificationsManager;
 import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.Model.UserModel;
+import lab262.leituradebolso.Model.UserReadingModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingHistory.ReadingHistoryActivity;
 import lab262.leituradebolso.Requests.ReadingRequest;
 import lab262.leituradebolso.Requests.Requester;
+import lab262.leituradebolso.Requests.UserReadingRequest;
 
 public class ReadingDayActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -43,6 +46,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     private Boolean likeReading;
     private TextView titleTextView, emojiTextView, timeTextView, readingTextView, authorTextView;
     private ReadingModel currentReadingModel;
+    private UserReadingModel currentUserReadingModel;
     private ScrollView layoutReadingDay;
     private ProgressDialog progressDialog;
 
@@ -61,18 +65,24 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             RealmResults<ReadingModel> readingModelRealmResults = (RealmResults<ReadingModel>)
                     DBManager.getAllByParameter(ReadingModel.class,"idReading",idReading);
             currentReadingModel = readingModelRealmResults.first();
+            RealmResults<UserReadingModel> userReadingModelRealmResults = (RealmResults<UserReadingModel>)
+                    DBManager.getAllByParameter(UserReadingModel.class,"idReading",idReading);
+            currentUserReadingModel = userReadingModelRealmResults.first();
             setReading();
             hideHistoryButton();
         }else {
-            if (verifiyIfFirstTimeDay()){
-                getReadingDay();
-                NotificationsManager.cancelAllNotifications(this);
-                NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification().getTime());
-            }else {
+            if (differenceDaysEnter()==0){
                 RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
                         DBManager.getAllByParameter(ReadingModel.class,"idReading",DBManager.getCachedUser().getIdReadingDay());
                 currentReadingModel = realmResults.first();
+                RealmResults<UserReadingModel> userReadingModelRealmResults = (RealmResults<UserReadingModel>)
+                        DBManager.getAllByParameter(UserReadingModel.class,"idReading",DBManager.getCachedUser().getIdReadingDay());
+                currentUserReadingModel = userReadingModelRealmResults.first();
                 setReading();
+            }else {
+                getAllUserReadings();
+                NotificationsManager.cancelAllNotifications(this);
+                NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification().getTime());
             }
         }
     }
@@ -126,24 +136,100 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         historyButton.setVisibility(View.INVISIBLE);
     }
 
-    private Boolean verifiyIfFirstTimeDay(){
-
+    private int differenceDaysEnter(){
         UserModel user = DBManager.getCachedUser();
         int differenceDays = user.getDifferenceBetweenDateNow();
-        if (differenceDays<0 || differenceDays==1){
-            return true;
-        }else {
-            //TODO: Verificar quantos dias de diferenca
-            return false;
-        }
-
-
+        return differenceDays;
     }
 
-    private void getReadingDay(){
+    private void getAllUserReadings(){
+        UserModel user = DBManager.getCachedUser();
+        UserReadingRequest.getAllUserReadings(user,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    JSONObject dataJsonObject = (JSONObject) response.get("data");
+                    JSONObject attributesJsonObject = (JSONObject) dataJsonObject.get("attributes");
+                    JSONArray jsonArray = (JSONArray) attributesJsonObject.get("readings");
+
+                    ArrayList<String> arrayIDsReadings = new ArrayList<String>();
+                    for (int i=0; i<jsonArray.length(); i++){
+                        JSONObject userReading = jsonArray.getJSONObject(i);
+                        UserReadingModel userReadingModel = new UserReadingModel(userReading);
+                        arrayIDsReadings.add(userReadingModel.getIdReading());
+                        DBManager.saveObject(userReadingModel);
+                    }
+                    getDifferentReadings(arrayIDsReadings);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                FeedbackManager.feedbackErrorResponse(getApplicationContext(),null,statusCode,errorResponse);
+            }
+        });
+    }
+
+    private void getDifferentReadings(ArrayList<String> arrayIDsReadings){
+
+        //Get all ids locally
+        ReadingModel [] allReadingsModels = ReadingModel.getAllReadingData();
+        ArrayList<String> allReadingsModelsIDs = new ArrayList<String>();
+        for (ReadingModel readingModel : allReadingsModels){
+            allReadingsModelsIDs.add(readingModel.idReading);
+        }
+
+        //Difference betwenn arrays
+        ArrayList<String> differentReadingsIDs = arrayIDsReadings;
+        differentReadingsIDs.removeAll(allReadingsModelsIDs);
+
+        //Get readings
+        if (differentReadingsIDs.size()>0){
+            getReadings(differentReadingsIDs);
+        }else {
+            getReadingDay(differenceDaysEnter());
+        }
+    }
+
+    private void getReadings(ArrayList<String> differentReadingsIDs){
+        final UserModel user = DBManager.getCachedUser();
+        ReadingRequest.getReadings(user.getToken(), differentReadingsIDs,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    JSONArray jsonArray = (JSONArray) response.get("data");
+
+                    for (int i=0; i<jsonArray.length(); i++){
+
+                        //Create Reading in realm
+                        JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject(Requester.keyAttributes);
+                        ReadingModel readingModel = new ReadingModel(jsonObject);
+                        DBManager.saveObject(readingModel);
+                        getReadingDay(differenceDaysEnter());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                FeedbackManager.feedbackErrorResponse(getApplicationContext(),null,statusCode,errorResponse);
+            }
+        });
+    }
+
+    private void getReadingDay(int numberDaysOut){
         progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog));
         final UserModel user = DBManager.getCachedUser();
-        ReadingRequest.getReadings(user.getToken(),new JsonHttpResponseHandler(){
+        UserReadingRequest.getUserReadingsOfTheWeek(user,numberDaysOut,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
@@ -153,13 +239,15 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject(Requester.keyAttributes);
                         ReadingModel readingModel = new ReadingModel(jsonObject);
-                        readingModel.isLiked = false;
-                        readingModel.isRead = false;
-                        if (currentReadingModel==null){
-                            readingModel.isRead = true;
+                        UserReadingModel userReadingModel = new UserReadingModel(readingModel.idReading);
+                        if (currentReadingModel==null && currentUserReadingModel==null){
+                            userReadingModel.setIsRead(true);
                             currentReadingModel = readingModel;
+                            currentUserReadingModel = userReadingModel;
                         }
                         DBManager.saveObject(readingModel);
+                        DBManager.saveObject(userReadingModel);
+                        createUserReading(userReadingModel);
                     }
                     setReading();
                     user.updateLastSessionTimeInterval(Calendar.getInstance().getTime().getTime());
@@ -177,6 +265,24 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+    private void createUserReading(UserReadingModel userReadingModel){
+        UserReadingRequest.createUserReading(userReadingModel,DBManager.getCachedUser().getId(),new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                FeedbackManager.feedbackErrorResponse(getApplicationContext(),null,statusCode,errorResponse);
+            }
+
+        });
+
+    }
+
     private void setReading(){
         titleTextView.setText(currentReadingModel.title);
         timeTextView.setText(currentReadingModel.duration);
@@ -192,9 +298,13 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         }
         emojiTextView.setText(allEmojis.toString());
 
-        if (!currentReadingModel.isRead){
+        if (!currentUserReadingModel.getIsRead()){
             //TODO: Update WS
-            currentReadingModel.updateIsRead(true);
+            currentUserReadingModel.updateIsRead(true);
+        }
+
+        if (currentUserReadingModel.getFavorite()){
+            likeButton.setBackgroundResource(R.drawable.liked_circle);
         }
     }
 
@@ -225,12 +335,15 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void likeReading(){
+        //TODO: Update WS
         if (likeReading){
             likeReading = false;
             likeButton.setBackgroundResource(R.drawable.like_circle);
+            currentUserReadingModel.updateIsFavorite(false);
         }else {
             likeReading = true;
             likeButton.setBackgroundResource(R.drawable.liked_circle);
+            currentUserReadingModel.updateIsFavorite(true);
         }
     }
 
@@ -279,8 +392,8 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private Boolean haveNotReadReading(){
-        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
-                DBManager.getAllByParameter(ReadingModel.class,"isRead",false);
+        RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
+                DBManager.getAllByParameter(UserReadingModel.class,"isRead",false);
         if (realmResults.size()>0){
             return true;
         }else {

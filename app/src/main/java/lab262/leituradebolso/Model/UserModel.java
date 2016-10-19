@@ -31,7 +31,6 @@ public class UserModel extends RealmObject {
 
     private String email;
     private String token;
-    private RealmList<ReadingModel> readings;
 
     //Local Variables
     private long lastSessionTimeInterval;
@@ -107,14 +106,6 @@ public class UserModel extends RealmObject {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public RealmList<ReadingModel> getReadings() {
-        return readings;
-    }
-
-    public void setReadings(RealmList<ReadingModel> readings) {
-        this.readings = readings;
     }
 
     public String getToken() {
@@ -246,7 +237,7 @@ public class UserModel extends RealmObject {
 
             return differenceDates;
         }else {
-            return -1;
+            return 1;
         }
     }
 }

@@ -125,17 +125,17 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            viewLine0.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
-            viewLine1.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
-            viewLine2.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
-            viewLine3.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
-            viewLayoutHourReceive.setBackground(getDrawable(R.color.grey_line_layout_50_opc));
+            viewLine0.setBackground(getDrawable(R.color.grey_line_layout_10_opc));
+            viewLine1.setBackground(getDrawable(R.color.grey_line_layout_10_opc));
+            viewLine2.setBackground(getDrawable(R.color.grey_line_layout_10_opc));
+            viewLine3.setBackground(getDrawable(R.color.grey_line_layout_10_opc));
+            viewLayoutHourReceive.setBackground(getDrawable(R.color.grey_line_layout_10_opc));
         }else {
-            viewLine0.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
-            viewLine1.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
-            viewLine2.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
-            viewLine3.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
-            viewLayoutHourReceive.setBackground(getResources().getDrawable(R.color.grey_line_layout_50_opc));
+            viewLine0.setBackground(getResources().getDrawable(R.color.grey_line_layout_10_opc));
+            viewLine1.setBackground(getResources().getDrawable(R.color.grey_line_layout_10_opc));
+            viewLine2.setBackground(getResources().getDrawable(R.color.grey_line_layout_10_opc));
+            viewLine3.setBackground(getResources().getDrawable(R.color.grey_line_layout_10_opc));
+            viewLayoutHourReceive.setBackground(getResources().getDrawable(R.color.grey_line_layout_10_opc));
         }
 
     }

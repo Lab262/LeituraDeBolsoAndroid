@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
+import lab262.leituradebolso.Model.UserReadingModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 
@@ -49,6 +50,7 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
 
         ReadingHistoryListRow row;
         ReadingModel currentModel = data[position];
+        UserReadingModel currentUserReadingModel = DBManager.getUserReadingModelByID(currentModel.idReading);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -69,13 +71,13 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
         }
 
 
-        if (currentModel.isRead) {
+        if (currentUserReadingModel.getIsRead()) {
             row.alertImageView.setVisibility(View.INVISIBLE);
         } else {
             row.alertImageView.setVisibility(View.VISIBLE);
         }
 
-        if (currentModel.isLiked) {
+        if (currentUserReadingModel.getFavorite()) {
             row.likeButton.setBackgroundResource(R.drawable.liked);
         } else {
             row.likeButton.setBackgroundResource(R.drawable.like);

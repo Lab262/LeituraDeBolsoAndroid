@@ -84,9 +84,9 @@ public class ReadingHistorySelectorFragment extends Fragment {
 
         ArrayList<ReadingModel []> arrayListReadingsModel = new ArrayList<>();
 
-        arrayListReadingsModel.add(getAllReadingData());
-        arrayListReadingsModel.add(getTannedReadingData());
-        arrayListReadingsModel.add(getNotReadReadingData());
+        arrayListReadingsModel.add(ReadingModel.getAllReadingData());
+        arrayListReadingsModel.add(ReadingModel.getTannedReadingData());
+        arrayListReadingsModel.add(ReadingModel.getNotReadReadingData());
 
         adapter =  new ViewPagerAdapter(getFragmentManager(),Titles,Numboftabs, arrayListReadingsModel);
 
@@ -129,31 +129,5 @@ public class ReadingHistorySelectorFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private ReadingModel[] getAllReadingData() {
-        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>) DBManager.getAll(ReadingModel.class);
-        return getReadingsData(realmResults);
-    }
 
-    private ReadingModel[] getTannedReadingData() {
-        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
-                DBManager.getAllByParameter(ReadingModel.class,"isLiked",true);
-        return getReadingsData(realmResults);
-    }
-
-    private ReadingModel[] getNotReadReadingData() {
-        RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>)
-                DBManager.getAllByParameter(ReadingModel.class,"isRead",false);
-        return getReadingsData(realmResults);
-    }
-
-    private ReadingModel[] getReadingsData(RealmResults<ReadingModel> realmResults){
-
-        ReadingModel[] readingsData = new ReadingModel[realmResults.size()];
-
-        for (int i=0; i<realmResults.size(); i++){
-            readingsData[i] = realmResults.get(i);
-        }
-
-        return readingsData;
-    }
 }

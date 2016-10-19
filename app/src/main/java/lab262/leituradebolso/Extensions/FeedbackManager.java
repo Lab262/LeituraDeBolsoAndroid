@@ -39,7 +39,9 @@ public class FeedbackManager {
     }
 
     static public void feedbackErrorResponse(Context context, ProgressDialog progressDialog, int statusCode, JSONObject errorResponse){
-        progressDialog.dismiss();
+        if (progressDialog!=null){
+            progressDialog.dismiss();
+        }
         if (statusCode!=0){
             try {
                 JSONArray arrayErrors = errorResponse.getJSONArray(keyErrors);
