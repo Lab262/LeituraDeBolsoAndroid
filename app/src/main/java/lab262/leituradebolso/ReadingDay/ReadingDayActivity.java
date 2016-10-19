@@ -295,6 +295,21 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    private void updateUserReading(){
+        UserReadingRequest.updateUserReadings(DBManager.getCachedUser(),currentUserReadingModel,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                FeedbackManager.feedbackErrorResponse(getApplicationContext(),null,statusCode,errorResponse);
+            }
+        });
+    }
+
     private void setReading(){
         titleTextView.setText(currentReadingModel.title);
         timeTextView.setText(currentReadingModel.duration);
@@ -306,13 +321,13 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             if(allEmojis.length() > 0) {
                 allEmojis.append(" "); // some divider between the different texts
             }
-            allEmojis.append(emoji.getEmijoByUnicode());
+            allEmojis.append(emoji.getEmojiByUnicode());
         }
         emojiTextView.setText(allEmojis.toString());
 
         if (!currentUserReadingModel.getIsRead()){
-            //TODO: Update WS
             currentUserReadingModel.updateIsRead(true);
+            updateUserReading();
         }
 
         likeReading = currentUserReadingModel.getFavorite();
@@ -348,7 +363,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void likeReading(){
-        //TODO: Update WS
         if (likeReading){
             likeReading = false;
             likeButton.setBackgroundResource(R.drawable.like_circle);
@@ -358,19 +372,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             likeButton.setBackgroundResource(R.drawable.liked_circle);
             currentUserReadingModel.updateIsFavorite(true);
         }
-
-        UserReadingRequest.updateUserReadings(DBManager.getCachedUser(),currentUserReadingModel,new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                FeedbackManager.feedbackErrorResponse(getApplicationContext(),null,statusCode,errorResponse);
-            }
-        });
+        updateUserReading();
     }
 
     @Override

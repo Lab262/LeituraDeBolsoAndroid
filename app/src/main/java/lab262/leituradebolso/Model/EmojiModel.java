@@ -17,12 +17,12 @@ public class EmojiModel extends RealmObject {
         this.code = code;
     }
 
-    public String getEmijoByUnicode(){
+    public String getEmojiByUnicode(){
         //TODO: Arrumar codigos dos emojis
         String ws = "128513";
         int emojis = 0x1F601;
 
-        String emoji = new String(Character.toChars(Integer.parseInt(ws)));
+        String emoji = new String(Character.toChars(Integer.parseInt(this.code)));
         return emoji;
     }
 }

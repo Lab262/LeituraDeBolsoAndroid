@@ -99,7 +99,7 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
             if(allEmojis.length() > 0) {
                 allEmojis.append(" "); // some divider between the different texts
             }
-            allEmojis.append(emoji.getEmijoByUnicode());
+            allEmojis.append(emoji.getEmojiByUnicode());
         }
 
         row.emojiTextView.setText(allEmojis.toString());

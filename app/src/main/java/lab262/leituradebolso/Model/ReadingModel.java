@@ -75,7 +75,6 @@ public class ReadingModel extends RealmObject {
     public static ReadingModel[] getTannedReadingData() {
         RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
                 DBManager.getAllByParameter(UserReadingModel.class,"isFavorite",true);
-        ArrayList<String> arrayListIDs = new ArrayList<>();
 
         if (realmResults.size()>0){
             return getReadingsDataWithUserReadings(realmResults);
