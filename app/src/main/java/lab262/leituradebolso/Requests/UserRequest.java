@@ -14,6 +14,7 @@ public class UserRequest {
 
     private static String urlCreate = Requester.baseUrl + Requester.versionWS + "/users";
     private static String urlLogin = Requester.baseUrl + Requester.versionWS + "/auth/login";
+    private static String urlLoginFacebook = Requester.baseUrl + Requester.versionWS + "/auth/facebook";
     private static String urlForgot = Requester.baseUrl + Requester.versionWS + "/auth/forgotPassword";
 
     public static void createAccountUser(UserModel userModel, String password, JsonHttpResponseHandler jsonHttpResponseHandler){
@@ -28,6 +29,14 @@ public class UserRequest {
         StringEntity entity = Requester.getStringEntity(Requester.getJSONObject(email, password));
 
         Requester.client.post(null,urlLogin,entity,Requester.keyContentType,jsonHttpResponseHandler);
+
+    }
+
+    public static void loginFacebookUser(String email, String idFacebook, JsonHttpResponseHandler jsonHttpResponseHandler){
+
+        StringEntity entity = Requester.getStringEntity(Requester.getFacebookJSONObject(email, idFacebook));
+
+        Requester.client.post(null,urlLoginFacebook,entity,Requester.keyContentType,jsonHttpResponseHandler);
 
     }
 

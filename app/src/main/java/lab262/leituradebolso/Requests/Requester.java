@@ -29,6 +29,9 @@ public class Requester {
     private static String keyAccessToken = "x-access-token";
     public static String keyUrlParamsSkip = "skip";
     public static String keyUrlParamsLimit = "limit";
+    private static String keyIDFacebook = "id";
+    private static String keyFacebook = "facebook";
+    private static String passwordHash = "AQWgd$j[QGe]Bh.Ugkf>?B3y696?2$#B2xwfN3hrVhFrE348g";
     public static AsyncHttpClient client = new AsyncHttpClient();
 
     public static StringEntity getStringEntity(JSONObject jsonObject){
@@ -75,6 +78,23 @@ public class Requester {
         }
 
         return informationsJsonObject;
+    }
+
+    public static JSONObject getFacebookJSONObject(String email, String id) {
+
+        JSONObject facebookJsonObject = new JSONObject();
+        JSONObject informationsJsonObject = new JSONObject();
+
+        try {
+            informationsJsonObject.put(keyIDFacebook,id);
+            informationsJsonObject.put(UserModel.keyPassword,passwordHash+id);
+            facebookJsonObject.put(UserModel.keyEmail,email);
+            facebookJsonObject.put(keyFacebook,informationsJsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return facebookJsonObject;
     }
 }
 

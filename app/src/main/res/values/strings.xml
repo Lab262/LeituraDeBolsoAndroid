@@ -18,12 +18,13 @@
     <string name="placeholder_alert_forgot_positive_button">Enviar</string>
     <string name="placeholder_alert_forgot_negative_button">Cancelar</string>
     <string name="placeholder_success_login">Login Realizado</string>
+    <string name="placeholder_cancel_login">Login Cancelado</string>
     <string name="placeholder_success_register">Sucesso! Confirme seu cadastro no seu email</string>
     <string name="placeholder_success_logout">Logout Realizado</string>
     <string name="placeholder_error_register_password">As senhas não conferem. Digite novamente</string>
     <string name="placeholder_progress_dialog">Carregando...</string>
     <string name="placeholder_error_connection">Erro de Conexão</string>
-
+    <string name="facebook_app_id">188622058242449</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

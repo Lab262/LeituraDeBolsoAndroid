@@ -21,9 +21,9 @@ public class UserReadingModel extends RealmObject {
     private Boolean isRead;
 
 
-    public static String keyID = "readingId";
-    public static String keyIsRead = "alreadyRead";
-    public static String keyIsFavorite = "isFavorite";
+    public static String keyID = "reading-id";
+    public static String keyIsRead = "already-read";
+    public static String keyIsFavorite = "is-favorite";
 
 
     public UserReadingModel (){

@@ -49,7 +49,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     private UserReadingModel currentUserReadingModel;
     private ScrollView layoutReadingDay;
     private ProgressDialog progressDialog;
-    private int number = 0;
 
 
     @Override
@@ -152,18 +151,22 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
-                    JSONObject dataJsonObject = (JSONObject) response.get("data");
-                    JSONObject attributesJsonObject = (JSONObject) dataJsonObject.get("attributes");
-                    JSONArray jsonArray = (JSONArray) attributesJsonObject.get("readings");
+                    JSONArray jsonArray = (JSONArray) response.get(Requester.keyData);
+                    if (jsonArray.length()>0){
+                        ArrayList<String> arrayIDsReadings = new ArrayList<String>();
+                        for (int i=0; i<jsonArray.length(); i++){
 
-                    ArrayList<String> arrayIDsReadings = new ArrayList<String>();
-                    for (int i=0; i<jsonArray.length(); i++){
-                        JSONObject userReading = jsonArray.getJSONObject(i);
-                        UserReadingModel userReadingModel = new UserReadingModel(userReading);
-                        arrayIDsReadings.add(userReadingModel.getIdReading());
-                        DBManager.saveObject(userReadingModel);
+                            JSONObject userReading = jsonArray.getJSONObject(i).getJSONObject(Requester.keyAttributes);
+
+                            UserReadingModel userReadingModel = new UserReadingModel(userReading);
+                            arrayIDsReadings.add(userReadingModel.getIdReading());
+                            DBManager.saveObject(userReadingModel);
+                        }
+                        getDifferentReadings(arrayIDsReadings);
+                    }else {
+                        getReadingDay(differenceDaysEnter());
                     }
-                    getDifferentReadings(arrayIDsReadings);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -207,7 +210,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
-                    JSONArray jsonArray = (JSONArray) response.get("data");
+                    JSONArray jsonArray = (JSONArray) response.get(Requester.keyData);
 
                     for (int i=0; i<jsonArray.length(); i++){
 
@@ -232,8 +235,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getReadingDay(int numberDaysOut){
-        number++;
-        progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog)+number);
+        progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog));
         final UserModel user = DBManager.getCachedUser();
         UserReadingRequest.getUserReadingsOfTheWeek(user,numberDaysOut,new JsonHttpResponseHandler(){
             @Override
@@ -241,7 +243,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 super.onSuccess(statusCode, headers, response);
                 progressDialog.dismiss();
                 try {
-                    JSONArray jsonArray = (JSONArray) response.get("data");
+                    JSONArray jsonArray = (JSONArray) response.get(Requester.keyData);
 
                     if (jsonArray.length()>0){
                         for (int i=0; i<jsonArray.length(); i++){

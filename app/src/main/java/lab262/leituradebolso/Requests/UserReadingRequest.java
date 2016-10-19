@@ -63,9 +63,6 @@ public class UserReadingRequest {
 
         String urlUserReading = urlCreate + userModel.getId() + defaultAppendReadingsUrl + "/" + userReadingModel.getIdReading() + "/";
 
-
-        //"{\"data\": {\"attributes\": {\"alreadyRead\": true,\"isFavorite\": true}}}"
-
         StringEntity entity = Requester.getStringEntity(userReadingModel.getJSONObject());
 
         Requester.client.patch(null,urlUserReading,Requester.getArrayHeaders(userModel.getToken()),entity,Requester.keyContentType,jsonHttpResponseHandler);
