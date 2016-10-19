@@ -50,6 +50,7 @@ public class UserReadingModel extends RealmObject {
         try {
             informationsJsonObject.put(keyID,this.getIdReading());
             informationsJsonObject.put(keyIsRead,this.getIsRead());
+            informationsJsonObject.put(keyIsFavorite,this.getFavorite());
             attributtesJsonObject.put(Requester.keyAttributes,informationsJsonObject);
             dataJsonObject.put(Requester.keyData,attributtesJsonObject);
         } catch (JSONException e) {

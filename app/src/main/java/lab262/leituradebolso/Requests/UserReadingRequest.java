@@ -3,7 +3,18 @@ package lab262.leituradebolso.Requests;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.NameValuePair;
+import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import cz.msebera.android.httpclient.entity.BasicHttpEntity;
 import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.message.BasicNameValuePair;
+import cz.msebera.android.httpclient.protocol.HTTP;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Model.UserReadingModel;
 
@@ -47,5 +58,20 @@ public class UserReadingRequest {
         Requester.client.get(null,urlUserReadingsOfTheWeek,Requester.getArrayHeaders(userModel.getToken()),requestParams,jsonHttpResponseHandler);
 
     }
+
+    public static void updateUserReadings(UserModel userModel, UserReadingModel userReadingModel, JsonHttpResponseHandler jsonHttpResponseHandler){
+
+        String urlUserReading = urlCreate + userModel.getId() + defaultAppendReadingsUrl + "/" + userReadingModel.getIdReading() + "/";
+
+
+        //"{\"data\": {\"attributes\": {\"alreadyRead\": true,\"isFavorite\": true}}}"
+
+        StringEntity entity = Requester.getStringEntity(userReadingModel.getJSONObject());
+
+        Requester.client.patch(null,urlUserReading,Requester.getArrayHeaders(userModel.getToken()),entity,Requester.keyContentType,jsonHttpResponseHandler);
+
+    }
+
+
 
 }

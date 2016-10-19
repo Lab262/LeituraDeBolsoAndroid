@@ -16,12 +16,6 @@ public class ReadingRequest {
 
     private static String urlGetAll = Requester.baseUrl + Requester.versionWS + "/readings";
 
-    public static void getReadings(String token, JsonHttpResponseHandler jsonHttpResponseHandler){
-
-        Requester.client.get(null,urlGetAll,Requester.getArrayHeaders(token),null,jsonHttpResponseHandler);
-
-    }
-
     public static void getReadings(String token, ArrayList<String> arrayIDs, JsonHttpResponseHandler jsonHttpResponseHandler){
 
         RequestParams requestParams = new RequestParams();
@@ -41,5 +35,4 @@ public class ReadingRequest {
         Requester.client.get(null,urlGetAll,Requester.getArrayHeaders(token),requestParams,jsonHttpResponseHandler);
 
     }
-
 }

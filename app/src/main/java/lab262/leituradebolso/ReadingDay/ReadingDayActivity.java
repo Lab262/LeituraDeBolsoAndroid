@@ -358,6 +358,19 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             likeButton.setBackgroundResource(R.drawable.liked_circle);
             currentUserReadingModel.updateIsFavorite(true);
         }
+
+        UserReadingRequest.updateUserReadings(DBManager.getCachedUser(),currentUserReadingModel,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                FeedbackManager.feedbackErrorResponse(getApplicationContext(),null,statusCode,errorResponse);
+            }
+        });
     }
 
     @Override
