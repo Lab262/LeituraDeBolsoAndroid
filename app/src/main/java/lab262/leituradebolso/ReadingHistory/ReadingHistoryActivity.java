@@ -130,13 +130,16 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
 
     private void refreshListsViews(){
         if (fragmentAllListView.readingListView!=null){
-            fragmentAllListView.refreshListView();
+            fragmentAllListView.arrayReadingModels = ReadingModel.getAllReadingData();
+            fragmentAllListView.refreshListView(this);
         }
         if (fragmentNotReadListView.readingListView!=null){
-            fragmentNotReadListView.refreshListView();
+            fragmentNotReadListView.arrayReadingModels = ReadingModel.getNotReadReadingData();
+            fragmentNotReadListView.refreshListView(this);
         }
         if (fragmentTannedListView.readingListView!=null){
-            fragmentTannedListView.refreshListView();
+            fragmentTannedListView.arrayReadingModels = ReadingModel.getTannedReadingData();
+            fragmentTannedListView.refreshListView(this);
         }
     }
 
@@ -213,8 +216,8 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         //Configure Noturne Mode
         refreshListsViews();
         if (DBManager.getCachedUser().getNoturneMode()){

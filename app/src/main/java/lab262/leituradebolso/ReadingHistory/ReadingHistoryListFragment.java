@@ -26,7 +26,7 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
 
     private OnFragmentInteractionListener mListener;
 
-    private ReadingModel[] arrayReadingModels;
+    public ReadingModel[] arrayReadingModels;
     private ReadingHistoryListAdapter adapter;
 
     public ReadingHistoryListFragment() {
@@ -55,7 +55,7 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_reading_history_list, container, false);
         getInstanceViews();
-        loadReadingList(arrayReadingModels);
+        loadReadingList();
         readingListView.setOnItemClickListener(this);
         return view;
     }
@@ -105,8 +105,8 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         readingListView = (ListView) view.findViewById(R.id.readingListView);
     }
 
-    private void loadReadingList(ReadingModel[] servicesRequested) {
-        adapter = new ReadingHistoryListAdapter(getContext().getApplicationContext(), servicesRequested);
+    private void loadReadingList() {
+        adapter = new ReadingHistoryListAdapter(getContext().getApplicationContext(), arrayReadingModels);
         readingListView.setAdapter(adapter);
     }
 
@@ -128,7 +128,8 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         adapter.updateData(arrayReadingModels);
     }
 
-    public void refreshListView(){
-        adapter.notifyDataSetChanged();
+    public void refreshListView(Context context){
+        adapter = new ReadingHistoryListAdapter(context, arrayReadingModels);
+        readingListView.setAdapter(adapter);
     }
 }

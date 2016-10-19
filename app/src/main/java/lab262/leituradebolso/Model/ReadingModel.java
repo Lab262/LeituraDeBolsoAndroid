@@ -78,23 +78,32 @@ public class ReadingModel extends RealmObject {
         ArrayList<String> arrayListIDs = new ArrayList<>();
 
         if (realmResults.size()>0){
-            for (UserReadingModel userReadingModel : realmResults){
-                arrayListIDs.add(userReadingModel.getIdReading());
-            }
-            RealmResults<ReadingModel> readingModelRealmResults = (RealmResults<ReadingModel>)
-                    DBManager.getAllByParameter(ReadingModel.class,"idReading",arrayListIDs);
-            return getReadingsData(readingModelRealmResults);
+            return getReadingsDataWithUserReadings(realmResults);
         }else {
             return new ReadingModel[0];
         }
     }
 
     public static ReadingModel[] getNotReadReadingData() {
-//        RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
-//                DBManager.getAllByParameter(UserReadingModel.class,"isRead",false);
-//
-//        return getReadingsData(realmResults);
-        return new ReadingModel[0];
+        RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
+                DBManager.getAllByParameter(UserReadingModel.class,"isRead",false);
+
+        if (realmResults.size()>0){
+            return getReadingsDataWithUserReadings(realmResults);
+        }else {
+            return new ReadingModel[0];
+        }
+    }
+
+    public static ReadingModel[] getReadingsDataWithUserReadings(RealmResults<UserReadingModel> realmResults){
+        ArrayList<String> arrayListIDs = new ArrayList<>();
+
+        for (UserReadingModel userReadingModel : realmResults){
+            arrayListIDs.add(userReadingModel.getIdReading());
+        }
+        RealmResults<ReadingModel> readingModelRealmResults = (RealmResults<ReadingModel>)
+                DBManager.getAllByParameter(ReadingModel.class,"idReading",arrayListIDs);
+        return getReadingsData(readingModelRealmResults);
     }
 
     public static ReadingModel[] getReadingsData(RealmResults<ReadingModel> realmResults){

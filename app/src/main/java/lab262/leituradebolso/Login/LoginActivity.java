@@ -80,15 +80,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //Verify if the same user in previous database
                 UserModel userDatabase = DBManager.getCachedUser();
                 if (userDatabase!=null){
-                    if (!userLogged.getToken().matches(userDatabase.getToken())){
+                    if (!userLogged.getEmail().matches(userDatabase.getEmail())){
                         //Save user in Relm.
                         DBManager.deleteDatabase();
-                        DBManager.saveObject(userLogged);
                     }
-                }else {
-                    DBManager.saveObject(userLogged);
                 }
 
+                DBManager.saveObject(userLogged);
                 ActivityManager.changeActivityAndRemoveParentActivity(LoginActivity.this, ReadingDayActivity.class);
             }
 

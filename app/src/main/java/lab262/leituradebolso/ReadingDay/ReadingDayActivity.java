@@ -120,8 +120,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
         configurationButton.setBackgroundResource(R.drawable.ic_configuration);
 
-        likeReading = false;
-
         likeButton.setOnClickListener(this);
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
@@ -303,7 +301,8 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             currentUserReadingModel.updateIsRead(true);
         }
 
-        if (currentUserReadingModel.getFavorite()){
+        likeReading = currentUserReadingModel.getFavorite();
+        if (likeReading){
             likeButton.setBackgroundResource(R.drawable.liked_circle);
         }
     }
@@ -371,8 +370,8 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         //Set text size
         UserModel user = DBManager.getCachedUser();
         readingTextView.setTextSize(user.getTextSize());
