@@ -34,6 +34,7 @@ public class NotificationsManager {
     }
 
     private static void setNewReadingDayNotification(Context context, long dateNotification) {
+        //TODO: Mudar os textos das notificacoes
         NotificationCompat.Builder builderNotification =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_reading_day)

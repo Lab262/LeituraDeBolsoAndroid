@@ -1,20 +1,13 @@
 package lab262.leituradebolso.Model;
 
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lab262.leituradebolso.Requests.Requester;
@@ -45,6 +38,9 @@ public class UserModel extends RealmObject {
     public static String keyPassword = "password";
     private static String keyToken = "token";
     private static String keyModel = "user";
+
+    private static int defaultTextSize = 14;
+    private static int defaultTimeInterval = 0;
 
     public UserModel (){
 
@@ -90,10 +86,10 @@ public class UserModel extends RealmObject {
     }
 
     private void setDefaultPropertys(){
-        setLastSessionTimeInterval(0);
+        setLastSessionTimeInterval(defaultTimeInterval);
         setReciveNotification(true);
         setNoturneMode(false);
-        setTextSize(14);
+        setTextSize(defaultTextSize);
         setHourNotification(new Date());
     }
 
@@ -211,7 +207,7 @@ public class UserModel extends RealmObject {
     }
 
     public int getDifferenceBetweenDateNow(){
-        if (this.getLastSessionTimeInterval()!=0){
+        if (this.getLastSessionTimeInterval()!=defaultTimeInterval){
 
             //Get calendar day user
             Calendar calendarUser = Calendar.getInstance();

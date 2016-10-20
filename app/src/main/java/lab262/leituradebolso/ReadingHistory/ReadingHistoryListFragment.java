@@ -81,7 +81,7 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         ReadingModel readingModel = arrayReadingModels[i];
         Bundle bundleExtras = new Bundle();
-        bundleExtras.putString("modelreading",readingModel.idReading);
+        bundleExtras.putString(ReadingModel.keyModelSelected,readingModel.idReading);
         ActivityManager.changeActivity(getContext(),ReadingDayActivity.class,bundleExtras);
     }
 

@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 
 import lab262.leituradebolso.Model.ReadingModel;
-import lab262.leituradebolso.R;
 
 /**
  * Created by hp1 on 21-01-2015.

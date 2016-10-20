@@ -12,10 +12,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import io.realm.RealmResults;
 import lab262.leituradebolso.External.SlidingTabLayout;
 import lab262.leituradebolso.Model.ReadingModel;
-import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 
 

@@ -1,8 +1,6 @@
 package lab262.leituradebolso.Login;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +25,7 @@ import java.util.Arrays;
 import cz.msebera.android.httpclient.Header;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.FeedbackManager;
+import lab262.leituradebolso.Extensions.LayoutManager;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
@@ -37,7 +36,6 @@ import lab262.leituradebolso.Requests.UserRequest;
 public class InitialActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button loginButton, registerButton, facebookButton;
-    private Typeface typeFace;
     private CallbackManager callbackManager;
 
     @Override
@@ -49,15 +47,14 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void getInstanceViews(){
-        typeFace =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
         loginButton = (Button)findViewById(R.id.loginButton);
         registerButton = (Button)findViewById(R.id.registerButton);
         facebookButton = (Button)findViewById(R.id.facebookButton);
     }
 
     private void setPropertyView(){
-        loginButton.setTypeface(typeFace);
-        registerButton.setTypeface(typeFace);
+        loginButton.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
+        registerButton.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
 
         loginButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
@@ -117,7 +114,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
 
     private void loginFacebook(){
         configureFacebook();
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(UserRequest.keyFieldEmailFacebook));
     }
 
     private void configureFacebook(){
@@ -140,8 +137,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                                         String emailFacebook = "";
                                         String idFacebook = "";
                                         try {
-                                            emailFacebook = object.getString("email");
-                                            idFacebook = object.getString("id");
+                                            emailFacebook = object.getString(UserRequest.keyFieldEmailFacebook);
+                                            idFacebook = object.getString(UserRequest.keyFieldIDFacebook);
                                             loginWithFacebook(emailFacebook,idFacebook);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -149,7 +146,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                                     }
                                 });
                         Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,email");
+                        String valueParams =  UserRequest.keyFieldIDFacebook + ","+UserRequest.keyFieldEmailFacebook;
+                        parameters.putString(UserRequest.keyFieldsLoginFacebook,valueParams);
                         request.setParameters(parameters);
                         request.executeAsync();
 

@@ -17,6 +17,11 @@ public class UserRequest {
     private static String urlLoginFacebook = Requester.baseUrl + Requester.versionWS + "/auth/facebook";
     private static String urlForgot = Requester.baseUrl + Requester.versionWS + "/auth/forgotPassword";
 
+    public static String keyMessageForgotPassword = "message";
+    public static String keyFieldsLoginFacebook = "fields";
+    public static String keyFieldEmailFacebook = "email";
+    public static String keyFieldIDFacebook = "id";
+
     public static void createAccountUser(UserModel userModel, String password, JsonHttpResponseHandler jsonHttpResponseHandler){
 
         StringEntity entity = Requester.getStringEntity(userModel.getJSONObject(password));

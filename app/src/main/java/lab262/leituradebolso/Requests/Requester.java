@@ -9,10 +9,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.BasicHttpEntity;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
-import cz.msebera.android.httpclient.protocol.HTTP;
 import lab262.leituradebolso.Model.UserModel;
 
 /**
@@ -32,6 +30,7 @@ public class Requester {
     private static String keyIDFacebook = "id";
     private static String keyFacebook = "facebook";
     private static String passwordHash = "AQWgd$j[QGe]Bh.Ugkf>?B3y696?2$#B2xwfN3hrVhFrE348g";
+
     public static AsyncHttpClient client = new AsyncHttpClient();
 
     public static StringEntity getStringEntity(JSONObject jsonObject){

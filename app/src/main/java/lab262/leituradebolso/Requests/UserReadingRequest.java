@@ -3,18 +3,7 @@ package lab262.leituradebolso.Requests;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.NameValuePair;
-import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
-import cz.msebera.android.httpclient.entity.BasicHttpEntity;
 import cz.msebera.android.httpclient.entity.StringEntity;
-import cz.msebera.android.httpclient.message.BasicHeader;
-import cz.msebera.android.httpclient.message.BasicNameValuePair;
-import cz.msebera.android.httpclient.protocol.HTTP;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Model.UserReadingModel;
 
@@ -26,10 +15,10 @@ public class UserReadingRequest {
 
     private static String defaultAppendUsersUrl = "/users/";
     private static String defaultAppendReadingsUrl = "/readings";
-    private static String defaultAppendReadingOfTheWeekUrl = "/readingsOfTheWeek";
+    private static String defaultAppendReadingOfTheDayUrl = "/readingsOfTheDay";
 
     private static String urlCreate = Requester.baseUrl + Requester.versionWS + defaultAppendUsersUrl;
-    private static String urlGetReadingOfTheWeek = Requester.baseUrl + Requester.versionWS + defaultAppendUsersUrl;
+    private static String urlGetReadingOfTheDay = Requester.baseUrl + Requester.versionWS + defaultAppendUsersUrl;
 
     public static void createUserReading(UserReadingModel userReadingModel, String idUser, JsonHttpResponseHandler jsonHttpResponseHandler){
 
@@ -47,15 +36,15 @@ public class UserReadingRequest {
 
     }
 
-    public static void getUserReadingsOfTheWeek(UserModel userModel, int numberReadings, JsonHttpResponseHandler jsonHttpResponseHandler){
+    public static void getUserReadingsOfTheDay(UserModel userModel, int numberReadings, JsonHttpResponseHandler jsonHttpResponseHandler){
 
-        String urlUserReadingsOfTheWeek = urlGetReadingOfTheWeek + userModel.getId() + defaultAppendReadingOfTheWeekUrl;
+        String urlUserReadingsOfTheDay = urlGetReadingOfTheDay + userModel.getId() + defaultAppendReadingOfTheDayUrl;
 
         RequestParams requestParams = new RequestParams();
         requestParams.put(Requester.keyUrlParamsSkip,0);
         requestParams.put(Requester.keyUrlParamsLimit,numberReadings);
 
-        Requester.client.get(null,urlUserReadingsOfTheWeek,Requester.getArrayHeaders(userModel.getToken()),requestParams,jsonHttpResponseHandler);
+        Requester.client.get(null,urlUserReadingsOfTheDay,Requester.getArrayHeaders(userModel.getToken()),requestParams,jsonHttpResponseHandler);
 
     }
 

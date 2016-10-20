@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import io.realm.Realm;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.LayoutManager;
 import lab262.leituradebolso.Login.InitialActivity;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
@@ -18,8 +19,12 @@ public class LaunchScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_screen);
+
         //Initialize Relm
         Realm.init(this);
+
+        //Initialize LayoutManager
+        new LayoutManager(this);
 
         new Handler().postDelayed(new Runnable() {
             @Override

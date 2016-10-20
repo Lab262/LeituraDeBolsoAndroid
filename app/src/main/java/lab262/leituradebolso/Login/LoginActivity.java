@@ -2,8 +2,6 @@ package lab262.leituradebolso.Login;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +21,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.FeedbackManager;
+import lab262.leituradebolso.Extensions.LayoutManager;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
@@ -31,11 +30,14 @@ import lab262.leituradebolso.Requests.UserRequest;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, AlertDialog.OnClickListener {
 
-    private Typeface typeFaceQuick, typeFaceComfortaa,typeFaceComfortaaThin;
     private EditText emailEditText, passwordEditText;
     private Button forgotPasswordButton, loginButton;
     private EditText emailForgotPasswordEditText;
     private ProgressDialog progressDialog;
+
+    private static int defaultTextSize = 16;
+    private static int defaultFirstPaddingValue = 30;
+    private static int defaultSecondPaddingValue = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +48,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void getInstanceViews(){
-        typeFaceQuick =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
-        typeFaceComfortaa =Typeface.createFromAsset(getAssets(),"fonts/Comfortaa_Regular.ttf");
-        typeFaceComfortaaThin =Typeface.createFromAsset(getAssets(),"fonts/Comfortaa_Thin.ttf");
-
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
         forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
@@ -57,10 +55,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void setPropertyView(){
-        forgotPasswordButton.setTypeface(typeFaceComfortaa);
-        emailEditText.setTypeface(typeFaceComfortaaThin);
-        passwordEditText.setTypeface(typeFaceComfortaaThin);
-        loginButton.setTypeface(typeFaceQuick);
+        forgotPasswordButton.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+        emailEditText.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaThin);
+        passwordEditText.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaThin);
+        loginButton.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
         loginButton.setOnClickListener(this);
         forgotPasswordButton.setOnClickListener(this);
     }
@@ -109,15 +107,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         emailForgotPasswordEditText = new EditText(this);
         emailForgotPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         emailForgotPasswordEditText.setHint(getString(R.string.placeholder_alert_forgot_hint));
-        emailForgotPasswordEditText.setTypeface(typeFaceComfortaaThin);
-        emailForgotPasswordEditText.setPaddingRelative(30,30,30,20);
+        emailForgotPasswordEditText.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaThin);
+        emailForgotPasswordEditText.setPaddingRelative(defaultFirstPaddingValue,defaultFirstPaddingValue,defaultFirstPaddingValue,defaultSecondPaddingValue);
 
         //Create custom title
         TextView textView = new TextView(this);
-        textView.setTypeface(typeFaceQuick);
+        textView.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
         textView.setText(getString(R.string.title_alert_forgot_password));
-        textView.setTextSize(16);
-        textView.setPadding(30,30,30,20);
+        textView.setTextSize(defaultTextSize);
+        textView.setPadding(defaultFirstPaddingValue,defaultFirstPaddingValue,defaultFirstPaddingValue,defaultSecondPaddingValue);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             emailForgotPasswordEditText.setHintTextColor(getColor(R.color.colorPrimary));
@@ -148,7 +146,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 progressDialog.dismiss();
                 try {
-                    String message = response.getString("message");
+                    String message = response.getString(UserRequest.keyMessageForgotPassword);
                     FeedbackManager.createToast(getApplicationContext(),message,false);
                 } catch (JSONException e) {
                     e.printStackTrace();

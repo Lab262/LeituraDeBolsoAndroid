@@ -9,7 +9,6 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import lab262.leituradebolso.Model.UserModel;
 import lab262.leituradebolso.Model.UserReadingModel;
-import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
 /**
  * Created by luisresende on 28/09/16.
@@ -74,7 +73,7 @@ public class DBManager {
 
     public static UserReadingModel getUserReadingModelByID(String idReading){
         RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
-                DBManager.getAllByParameter(UserReadingModel.class,"idReading",idReading);
+                DBManager.getAllByParameter(UserReadingModel.class,UserReadingModel.nameParameterIDReading,idReading);
         return realmResults.first();
     }
 

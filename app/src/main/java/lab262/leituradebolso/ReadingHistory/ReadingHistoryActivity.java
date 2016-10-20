@@ -1,7 +1,6 @@
 package lab262.leituradebolso.ReadingHistory;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.view.MenuItemCompat;
@@ -14,8 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-import io.realm.RealmResults;
 import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.Extensions.LayoutManager;
 import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
@@ -35,7 +34,6 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
 
 
     private ImageButton rightButton, readingDayButton;
-    private Typeface typeface;
     private SearchView searchView;
 
     ReadingHistoryListFragment fragmentAllListView, fragmentTannedListView, fragmentNotReadListView;
@@ -62,8 +60,6 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
     }
 
     private void getInstanceViews(){
-        typeface =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
-
         View fragment = findViewById(R.id.fragment);
         pager = (android.support.v4.view.ViewPager) fragment.findViewById(R.id.pager);
         viewPagerAdapter = (ViewPagerAdapter) pager.getAdapter();
@@ -76,7 +72,7 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
 
         //Customize Action Bar
         TextView textView = (TextView) findViewById(R.id.titleActionBarTextView);
-        textView.setTypeface(typeface);
+        textView.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
         textView.setText(R.string.title_activity_history_reading);
         getSupportActionBar().setElevation(0);
 

@@ -3,7 +3,6 @@ package lab262.leituradebolso.ReadingDay;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +26,7 @@ import io.realm.RealmResults;
 import lab262.leituradebolso.Configuration.ConfigurationActivity;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.FeedbackManager;
+import lab262.leituradebolso.Extensions.LayoutManager;
 import lab262.leituradebolso.Extensions.NotificationsManager;
 import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
@@ -41,7 +41,6 @@ import lab262.leituradebolso.Requests.UserReadingRequest;
 
 public class ReadingDayActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Typeface typeFace;
     private ImageButton likeButton, historyButton, configurationButton, shareButton;
     private Boolean likeReading;
     private TextView titleTextView, emojiTextView, timeTextView, readingTextView, authorTextView;
@@ -61,12 +60,12 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         setNotifications();
         Bundle bundleExtras = getIntent().getExtras();
         if (bundleExtras!=null){
-            String idReading = bundleExtras.getString("modelreading");
+            String idReading = bundleExtras.getString(ReadingModel.keyModelSelected);
             RealmResults<ReadingModel> readingModelRealmResults = (RealmResults<ReadingModel>)
-                    DBManager.getAllByParameter(ReadingModel.class,"idReading",idReading);
+                    DBManager.getAllByParameter(ReadingModel.class,UserReadingModel.nameParameterIDReading,idReading);
             currentReadingModel = readingModelRealmResults.first();
             RealmResults<UserReadingModel> userReadingModelRealmResults = (RealmResults<UserReadingModel>)
-                    DBManager.getAllByParameter(UserReadingModel.class,"idReading",idReading);
+                    DBManager.getAllByParameter(UserReadingModel.class,UserReadingModel.nameParameterIDReading,idReading);
             currentUserReadingModel = userReadingModelRealmResults.first();
             setReading();
             hideHistoryButton();
@@ -86,7 +85,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 DBManager.getAll(ReadingModel.class);
         currentReadingModel = realmResults.last();
         RealmResults<UserReadingModel> userReadingModelRealmResults = (RealmResults<UserReadingModel>)
-                DBManager.getAllByParameter(UserReadingModel.class,"idReading",currentReadingModel.idReading);
+                DBManager.getAllByParameter(UserReadingModel.class,UserReadingModel.nameParameterIDReading,currentReadingModel.idReading);
         currentUserReadingModel = userReadingModelRealmResults.first();
         setReading();
     }
@@ -101,7 +100,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getInstanceViews(){
-        typeFace =Typeface.createFromAsset(getAssets(),"fonts/Quicksand-Bold.otf");
         likeButton = (ImageButton) findViewById(R.id.likeButton);
         shareButton = (ImageButton) findViewById(R.id.shareButton);
 
@@ -116,7 +114,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
     private void setPropertyView(){
         TextView textView = (TextView) findViewById(R.id.titleActionBarTextView);
-        textView.setTypeface(typeFace);
+        textView.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
         textView.setText(R.string.title_activity_reading);
 
         historyButton = (ImageButton) findViewById(R.id.leftButton);
@@ -153,7 +151,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 try {
                     JSONArray jsonArray = (JSONArray) response.get(Requester.keyData);
                     if (jsonArray.length()>0){
-                        ArrayList<String> arrayIDsReadings = new ArrayList<String>();
+                        ArrayList<String> arrayIDsReadings = new ArrayList<>();
                         for (int i=0; i<jsonArray.length(); i++){
 
                             JSONObject userReading = jsonArray.getJSONObject(i).getJSONObject(Requester.keyAttributes);
@@ -186,7 +184,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
         //Get all ids locally
         ReadingModel [] allReadingsModels = ReadingModel.getAllReadingData();
-        ArrayList<String> allReadingsModelsIDs = new ArrayList<String>();
+        ArrayList<String> allReadingsModelsIDs = new ArrayList<>();
         for (ReadingModel readingModel : allReadingsModels){
             allReadingsModelsIDs.add(readingModel.idReading);
         }
@@ -237,7 +235,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     private void getReadingDay(int numberDaysOut){
         progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog));
         final UserModel user = DBManager.getCachedUser();
-        UserReadingRequest.getUserReadingsOfTheWeek(user,numberDaysOut,new JsonHttpResponseHandler(){
+        UserReadingRequest.getUserReadingsOfTheDay(user,numberDaysOut,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
@@ -275,7 +273,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 FeedbackManager.feedbackErrorResponse(getApplicationContext(),progressDialog,statusCode,errorResponse);
             }
-
         });
     }
 
@@ -357,6 +354,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void shareReading(){
+        //TODO: Mudar os textos de compartilhar
         Intent intentShare =new Intent(android.content.Intent.ACTION_SEND);
         intentShare.setType("text/plain");
         intentShare.putExtra(android.content.Intent.EXTRA_SUBJECT,"Leitura de Bolso");
@@ -423,7 +421,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
     private Boolean haveNotReadReading(){
         RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
-                DBManager.getAllByParameter(UserReadingModel.class,"isRead",false);
+                DBManager.getAllByParameter(UserReadingModel.class,UserReadingModel.nameParameterIsRead,false);
         if (realmResults.size()>0){
             return true;
         }else {

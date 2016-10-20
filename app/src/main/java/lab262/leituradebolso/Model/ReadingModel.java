@@ -1,22 +1,17 @@
 package lab262.leituradebolso.Model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 import lab262.leituradebolso.Persistence.DBManager;
-import lab262.leituradebolso.Requests.Requester;
 
 /**
  * Created by luisresende on 12/09/16.
@@ -30,6 +25,9 @@ public class ReadingModel extends RealmObject {
     public static String keyDuration = "time-to-read-in-minutes";
     public static String keyTextReading = "content";
     public static String keyEmojis = "emojis";
+
+    public static String keyModelSelected = "modelreading";
+    private static String defaultAppendDuration = " min";
 
     @PrimaryKey
     public String idReading;
@@ -51,7 +49,7 @@ public class ReadingModel extends RealmObject {
             this.idReading = jsonObject.getString(keyID);
             this.title = jsonObject.getString(keyTitle);
             this.author = jsonObject.getString(keyAuthor);
-            this.duration = jsonObject.getString(keyDuration) + " min";
+            this.duration = jsonObject.getString(keyDuration) + defaultAppendDuration;
             this.textReading = jsonObject.getString(keyTextReading);
 
             JSONArray jsonArrayEmojis = jsonObject.getJSONArray(ReadingModel.keyEmojis);
@@ -74,7 +72,7 @@ public class ReadingModel extends RealmObject {
 
     public static ReadingModel[] getTannedReadingData() {
         RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
-                DBManager.getAllByParameter(UserReadingModel.class,"isFavorite",true);
+                DBManager.getAllByParameter(UserReadingModel.class,UserReadingModel.nameParameterIsFavorite,true);
 
         if (realmResults.size()>0){
             return getReadingsDataWithUserReadings(realmResults);
@@ -85,7 +83,7 @@ public class ReadingModel extends RealmObject {
 
     public static ReadingModel[] getNotReadReadingData() {
         RealmResults<UserReadingModel> realmResults = (RealmResults<UserReadingModel>)
-                DBManager.getAllByParameter(UserReadingModel.class,"isRead",false);
+                DBManager.getAllByParameter(UserReadingModel.class,UserReadingModel.nameParameterIsRead,false);
 
         if (realmResults.size()>0){
             return getReadingsDataWithUserReadings(realmResults);
@@ -101,7 +99,7 @@ public class ReadingModel extends RealmObject {
             arrayListIDs.add(userReadingModel.getIdReading());
         }
         RealmResults<ReadingModel> readingModelRealmResults = (RealmResults<ReadingModel>)
-                DBManager.getAllByParameter(ReadingModel.class,"idReading",arrayListIDs);
+                DBManager.getAllByParameter(ReadingModel.class,UserReadingModel.nameParameterIDReading,arrayListIDs);
         return getReadingsData(readingModelRealmResults);
     }
 
