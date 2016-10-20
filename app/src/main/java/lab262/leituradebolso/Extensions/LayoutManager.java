@@ -35,6 +35,6 @@ public class LayoutManager {
     }
 
     private Typeface getTypeface(String nameFont){
-        return Typeface.createFromAsset(this.context.getAssets(),nameFont);
+        return Typeface.createFromAsset(sharedInstance().context.getAssets(),nameFont);
     }
 }
