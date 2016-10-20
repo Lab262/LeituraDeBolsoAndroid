@@ -146,7 +146,6 @@
             android:layout_height="wrap_content"
             android:text="Cadastrar"
             android:id="@+id/registerButton"
-            android:layout_below="@+id/imageView6"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:textAllCaps="false"

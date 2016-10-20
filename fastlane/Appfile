@@ -1,0 +1,3 @@
+json_key_file "fastlane/secret.json" # Path to the json secret file - Follow https://github.com/fastlane/supply#setup to get one
+package_name "lab262.leituradebolso" # e.g. com.krausefx.app
+slack_url "https://hooks.slack.com/services/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"
