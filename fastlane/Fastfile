@@ -35,8 +35,11 @@ end
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
+    gradle(task: 'clean')
     gradle(task: "assembleRelease")
-    supply
+    supply(apk: "app/build/outputs/apk/app-release.apk", json_key: "fastlane/secret.json", package_name: "lab262.leituradebolso")
+    slack(slack_url: "https://hooks.slack.com/services/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", message: 'Successfully distributed a new build in Play Store')
+
   end
 
   # You can define as many lanes as you want
