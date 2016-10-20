@@ -41,6 +41,8 @@ public class UserModel extends RealmObject {
 
     private static int defaultTextSize = 14;
     private static int defaultTimeInterval = 0;
+    private static int numberDaysLeapYear = 366;
+    private static int numberDaysYear = 365;
 
     public UserModel (){
 
@@ -222,12 +224,25 @@ public class UserModel extends RealmObject {
 
             //Case if change year
             if (differenceDates<0){
-                differenceDates = differenceDates*-1;
+                int numberDays = numberDaysYear;
+                if (isLeapYear(calendarUser.get(Calendar.YEAR))){
+                    numberDays = numberDaysLeapYear;
+                }
+                differenceDates = (dayUser+numberDays) - dayActualDate;
             }
 
             return differenceDates;
         }else {
             return 1;
+        }
+    }
+
+    private Boolean isLeapYear(int year){
+        if((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))){
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }
