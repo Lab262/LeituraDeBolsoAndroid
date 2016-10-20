@@ -220,6 +220,11 @@ public class UserModel extends RealmObject {
             int dayActualDate = calendarActualDate.get(Calendar.DAY_OF_YEAR);
             int differenceDates = dayActualDate - dayUser;
 
+            //Case if change year
+            if (differenceDates<0){
+                differenceDates = differenceDates*-1;
+            }
+
             return differenceDates;
         }else {
             return 1;
