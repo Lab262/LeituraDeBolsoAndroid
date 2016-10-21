@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Handler;
 import android.os.Bundle;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.LayoutManager;
@@ -18,6 +20,7 @@ public class LaunchScreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_launch_screen);
 
         //Initialize Relm
@@ -25,6 +28,7 @@ public class LaunchScreenActivity extends Activity {
 
         //Initialize LayoutManager
         new LayoutManager(this);
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
