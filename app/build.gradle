@@ -38,10 +38,14 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField "String", "SERVER_URL", '"https://leituradebolso-stagging.herokuapp.com/api/"'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            buildConfigField "String", "SERVER_URL", '"https://leituradebolso-production.herokuapp.com/api/"'
         }
     }
 

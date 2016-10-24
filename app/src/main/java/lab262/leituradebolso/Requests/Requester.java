@@ -2,6 +2,7 @@ package lab262.leituradebolso.Requests;
 
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.BuildConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +20,7 @@ import lab262.leituradebolso.Model.UserModel;
 
 public class Requester {
 
-    public static String baseUrl = "https://leituradebolso.herokuapp.com/api/";
+    public static String baseUrl = lab262.leituradebolso.BuildConfig.SERVER_URL;
     public static String versionWS = "v0";
     public static String keyData = "data";
     public static String keyAttributes = "attributes";
