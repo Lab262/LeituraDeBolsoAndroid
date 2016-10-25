@@ -271,6 +271,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                setLastReadingDay();
                 FeedbackManager.feedbackErrorResponse(getApplicationContext(),progressDialog,statusCode,errorResponse);
             }
         });

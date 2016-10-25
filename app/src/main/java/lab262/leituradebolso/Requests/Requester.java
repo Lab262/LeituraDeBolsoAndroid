@@ -26,7 +26,7 @@ public class Requester {
     public static String keyAttributes = "attributes";
     public static String keyContentType = "application/json";
     private static String keyAccessToken = "x-access-token";
-    public static String keyUrlParamsSkip = "skip";
+    public static String keyUrlParamsSkip = "page";
     public static String keyUrlParamsLimit = "limit";
     private static String keyIDFacebook = "id";
     private static String keyFacebook = "facebook";
