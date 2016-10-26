@@ -29,15 +29,15 @@ platform :android do
   lane :beta do
    gradle(task: 'clean')
    gradle(task: "assembleRelease")
-   supply(track: "beta", apk: "app/build/outputs/apk/app-release.apk")
-   slack(message: 'Successfully distributed a new beta build')
+   supply(track: "beta", apk: "app/build/outputs/apk/app-release.apk", json_key: "fastlane/secret.json", package_name: "lab262.leituradebolso", skip_upload_metadata: true, skip_upload_images: true, skip_upload_screenshots:true)
+   slack(slack_url: "https://hooks.slack.com/services/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", message: 'Successfully distributed a new beta build')
 end
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     gradle(task: 'clean')
     gradle(task: "assembleRelease")
-    supply(apk: "app/build/outputs/apk/app-release.apk", json_key: "fastlane/secret.json", package_name: "lab262.leituradebolso")
+    supply(apk: "app/build/outputs/apk/app-release.apk", json_key: "fastlane/secret.json", package_name: "lab262.leituradebolso", skip_upload_metadata: true, skip_upload_images: true, skip_upload_screenshots:true)
     slack(slack_url: "https://hooks.slack.com/services/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", message: 'Successfully distributed a new build in Play Store')
 
   end
