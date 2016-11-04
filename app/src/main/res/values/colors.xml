@@ -5,4 +5,13 @@
     <color name="colorAccent">#1bdbad</color>
     <color name="white">#ffffff</color>
     <color name="black_overlay">#66000000</color>
+    <color name="grey_font">#9b9b9b</color>
+    <color name="grey_light_font">#5b5b5b</color>
+    <color name="selector_color">#ee5f66</color>
+    <color name="unselector_color">#e69a9f</color>
+    <color name="grey_line_layout">#D3D3D3</color>
+    <color name="grey_line_layout_10_opc">#1AD3D3D3</color>
+    <color name="grey_label">#898989</color>
+    <color name="colorNoturne">#190126</color>
+
 </resources>

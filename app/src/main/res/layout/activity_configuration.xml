@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_configuration"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="lab262.leituradebolso.Configuration.ConfigurationActivity"
+    android:weightSum="1"
+    android:animateLayoutChanges = "true"
+    android:background="@color/white">
+
+    <Switch
+        android:text="Notificações"
+        android:id="@+id/notificationSwitch"
+        android:layout_width="match_parent"
+        android:layout_weight="0.04"
+        android:paddingLeft="18dp"
+        android:paddingRight="15dp"
+        android:textSize="16dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif"
+        android:layout_height="60dp" />
+
+    <View
+        android:id="@+id/viewLine0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_line_layout"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="14dp"
+        android:paddingLeft="18dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:id="@+id/layoutHourReceive">
+
+        <TextView
+            android:text="Receber a Leitura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/receiveReadingTextView"
+            android:textSize="16dp"
+            android:textColor="@android:color/black"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="14:00"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="16dp"
+            android:textColor="@color/grey_label"
+            android:id="@+id/hourReadingTextView" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_line_layout"
+        android:id="@+id/viewLayoutHourReceive" />
+
+    <Switch
+        android:text="Modo Noturno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04"
+        android:paddingRight="15dp"
+        android:paddingLeft="18dp"
+        android:textSize="16dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif"
+        android:paddingTop="18dp"
+        android:id="@+id/noturneModeSwitch" />
+
+    <TextView
+        android:text="A sua tela ficará com o fundo preto e texto branco, tornando mais agradável sua leitura durante a noite."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mensageTextView"
+        android:lines="2"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="10dp"
+        android:textSize="14dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-light"
+        android:paddingBottom="12dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_line_layout"
+        android:id="@+id/viewLine1" />
+
+    <TextView
+        android:text="Tamanho do Texto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/heightTextView"
+        android:textSize="16dp"
+        android:textColor="@android:color/black"
+        android:paddingTop="18dp"
+        android:paddingLeft="18dp" />
+
+    <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textSizeSeekBar"
+        dsb_min="3dp"
+        dsb_max="7dp"
+        dsb_progressColor="@color/selector_color"
+        app:dsb_progressColor="@color/selector_color"
+        app:dsb_rippleColor="@color/unselector_color"
+        app:dsb_indicatorColor="@color/selector_color"
+        app:dsb_max="7dp"
+        app:dsb_min="3dp"
+        app:dsb_trackHeight="3dp"
+        app:dsb_indicatorSeparation="3dp"
+        app:dsb_indicatorPopupEnabled="true"
+        android:theme="@style/Widget.DiscreteSeekBar"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_line_layout"
+        android:id="@+id/viewLine2" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutLogout">
+
+
+        <Button
+            android:text="Logout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/logoutButton"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_line_layout"
+        android:id="@+id/viewLine3" />
+
+</LinearLayout>

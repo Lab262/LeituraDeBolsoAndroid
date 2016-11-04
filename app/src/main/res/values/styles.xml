@@ -6,6 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:homeAsUpIndicator">@drawable/arrow_back</item>
+        <item name="colorSwitchThumbNormal">@color/unselector_color</item>
+        <item name="colorControlActivated">@color/selector_color</item>
     </style>
 
     <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
@@ -13,6 +16,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:homeAsUpIndicator">@drawable/arrow_back</item>
+        <item name="colorSwitchThumbNormal">@color/unselector_color</item>
+        <item name="colorControlActivated">@color/selector_color</item>
+    </style>
+
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="FullscreenTheme" parent="AppThemeActionBar">
@@ -26,5 +39,38 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+
+    <style name="Widget.DiscreteSeekBar" parent="android:Widget">
+        <item name="dsb_indicatorTextAppearance">@style/Widget.DiscreteIndicatorTextAppearance</item>
+        <item name="dsb_progressColor">@color/selector_color</item>
+        <item name="dsb_trackColor">@color/grey_label</item>
+        <item name="dsb_rippleColor">@color/unselector_color</item>
+        <item name="dsb_indicatorColor">@color/selector_color</item>
+        <item name="dsb_indicatorElevation">3dp</item>
+        <item name="dsb_mirrorForRtl">true</item>
+    </style>
+
+    <style name="Widget.DiscreteIndicatorTextAppearance" parent="android:TextAppearance.Small">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="TimePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- this is new -->
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="AlertDialogCustomTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <!--dialog background-->
+        <!--<item name="android:windowBackground">@drawable/background_dialog</item>-->
+    </style>
+
+
+
+
 
 </resources>
