@@ -1,6 +1,5 @@
 before_script:
   - if ! gem list "fastlane" -i > /dev/null 2>&1; then echo "fastlane not installed. Installing..."; gem install fastlane; fi 
-  - export PATH="$JAVA_HOME/bin:$ANT_HOME/bin:$PATH"
 stages:
   - deploy
 deploy_beta:
