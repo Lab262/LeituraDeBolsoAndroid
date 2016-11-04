@@ -34,7 +34,7 @@ platform :android do
 end
 
   desc "Deploy a new version to the Google Play"
-  lane :deploy do
+  lane :release do
     gradle(task: 'clean')
     gradle(task: "assembleRelease")
     supply(apk: "app/build/outputs/apk/app-release.apk", json_key: "fastlane/secret.json", package_name: "lab262.leituradebolso", skip_upload_metadata: true, skip_upload_images: true, skip_upload_screenshots:true)
