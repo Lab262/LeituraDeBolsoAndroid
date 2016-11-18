@@ -39,7 +39,9 @@ android {
 
     buildTypes {
         debug{
-            buildConfigField "String", "SERVER_URL", '"https://leituradebolso-stagging.herokuapp.com/api/"'
+            //buildConfigField "String", "SERVER_URL", '"https://leituradebolso-stagging.herokuapp.com/api/"'
+            buildConfigField "String", "SERVER_URL", '"https://leituradebolso-production.herokuapp.com/api/"'
+
         }
         release {
             minifyEnabled false
