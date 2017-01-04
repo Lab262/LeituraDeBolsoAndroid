@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_on_board"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="lab262.leituradebolso.OnBoard.OnBoardActivity"
+    android:background="@drawable/background_onboard">
+
+    <Button
+        android:text="skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/skipButton"
+        android:background="@null"
+        android:textAllCaps="false"
+        android:textColor="@color/color_green_button"
+        android:layout_gravity="right"
+        android:textSize="17sp"
+        android:layout_weight="0" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:clickable="false"
+        android:contextClickable="false"
+        android:layout_weight="1"></android.support.v4.view.ViewPager>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.05"
+        android:gravity="top">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView12"
+            android:src="@drawable/background_button_step" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrowImageView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="5dp"
+            android:src="@drawable/arrow_pass_step" />
+
+        <TextView
+            android:text="@string/placeholder_done_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/doneTextView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="21sp"
+            android:paddingTop="5dp"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="bottom">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/firstStepImageView"
+            android:layout_weight="1"
+            android:baselineAlignBottom="true"
+            android:src="@drawable/bar_selected_onboard" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/secondStepImageView"
+            android:layout_weight="1"
+            android:baselineAlignBottom="true"
+            android:src="@drawable/bar_unselected_onboard" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/thirdStepImageView"
+            android:layout_weight="1"
+            android:baselineAlignBottom="true"
+            android:src="@drawable/bar_unselected_onboard" />
+
+    </LinearLayout>
+
+</LinearLayout>

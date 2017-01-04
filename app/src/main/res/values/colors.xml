@@ -13,5 +13,7 @@
     <color name="grey_line_layout_10_opc">#1AD3D3D3</color>
     <color name="grey_label">#898989</color>
     <color name="colorNoturne">#190126</color>
+    <color name="color_green_button">#02a17b</color>
+    <color name="color_purple_light">#9142be</color>
 
 </resources>

@@ -25,6 +25,7 @@
     <string name="placeholder_progress_dialog">Carregando...</string>
     <string name="placeholder_error_connection">Erro de Conexão</string>
     <string name="facebook_app_id">188622058242449</string>
+    <string name="placeholder_done_button">Done</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -33,4 +34,14 @@
 The legendary Rocky Mountains stretch from old Mexico up through the United States and into Canada. The Rocky Mountains are over 3000 miles long, spanning parts of california, Colorado, Idaho, Montana, and Wyoming before continuing into Canada.</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="title_onboard">
+        <item>Só 5 minutos</item>
+        <item>Os livros vão até você</item>
+        <item>Escritores convidados</item>
+    </string-array>
+    <string-array name="description_onboard">
+        <item>As pessoas não leem por medo da quantidade das páginas dos livros. E é por isso, que vamos aos poucos e também para não atrapalhar sua rotina.</item>
+        <item>Não precisa ir a livraria, muito menos na biblioteca. Todos os dias uma boa história estará te esperando aqui. </item>
+        <item>Os autores que participarão do projeto, vão escrever um conteúdo e em formato exclusivo para o app.</item>
+    </string-array>
 </resources>
