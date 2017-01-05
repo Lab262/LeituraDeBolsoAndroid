@@ -10,10 +10,16 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import lab262.leituradebolso.Extensions.ActivityManager;
+import lab262.leituradebolso.LaunchScreenActivity;
+import lab262.leituradebolso.Login.InitialActivity;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
+import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
 public class OnBoardActivity extends FragmentActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
@@ -22,7 +28,8 @@ public class OnBoardActivity extends FragmentActivity implements View.OnClickLis
     private int numberViews = 3;
 
     private Button skipButton;
-    private ImageView arrowImageView, firstStepImageView, secondStepImageView, thirdStepImageView;
+    private ImageView firstStepImageView, secondStepImageView, thirdStepImageView;
+    private ImageButton arrowImageButton;
     private TextView doneTextView;
     private TransitionDrawable transitionSelect;
     private int TIME_ANIMATION = 500;
@@ -38,7 +45,7 @@ public class OnBoardActivity extends FragmentActivity implements View.OnClickLis
     private void getInstanceViews(){
         skipButton = (Button) findViewById(R.id.skipButton);
         pager = (ViewPager) findViewById(R.id.pager);
-        arrowImageView = (ImageView) findViewById(R.id.arrowImageView);
+        arrowImageButton = (ImageButton) findViewById(R.id.arrowImageButton);
         firstStepImageView = (ImageView) findViewById(R.id.firstStepImageView);
         secondStepImageView = (ImageView) findViewById(R.id.secondStepImageView);
         thirdStepImageView = (ImageView) findViewById(R.id.thirdStepImageView);
@@ -56,6 +63,8 @@ public class OnBoardActivity extends FragmentActivity implements View.OnClickLis
         adapter =  new OnBoardViewPagerAdapter(getSupportFragmentManager(),numberViews);
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(this);
+        arrowImageButton.setOnClickListener(this);
+        doneTextView.setOnClickListener(this);
     }
 
     private void crossfade(View viewToAppear, final View viewToDesapear) {
@@ -86,10 +95,25 @@ public class OnBoardActivity extends FragmentActivity implements View.OnClickLis
                 });
     }
 
+    private void changeActivity(){
+        if (DBManager.getCachedUser()==null || DBManager.getCachedUser().getToken()==null){
+            ActivityManager.changeActivityAndRemoveParentActivity(OnBoardActivity.this, InitialActivity.class);
+        }else {
+            ActivityManager.changeActivityAndRemoveParentActivity(OnBoardActivity.this, ReadingDayActivity.class);
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.skipButton:
+            case R.id.doneTextView:
+                changeActivity();
+                break;
+            case R.id.arrowImageButton:
+                int actualPage = pager.getCurrentItem();
+                actualPage++;
+                pager.setCurrentItem(actualPage,true);
                 break;
         }
     }
@@ -105,8 +129,8 @@ public class OnBoardActivity extends FragmentActivity implements View.OnClickLis
         switch (position){
             case 0:
                 doneTextView.setVisibility(View.GONE);
-                arrowImageView.setAlpha(1f);
-                arrowImageView.setVisibility(View.VISIBLE);
+                arrowImageButton.setAlpha(1f);
+                arrowImageButton.setVisibility(View.VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     secondStepImageView.setImageDrawable(getResources().getDrawable(R.drawable.bar_unselected_onboard,null));
                     thirdStepImageView.setImageDrawable(getResources().getDrawable(R.drawable.bar_unselected_onboard,null));
@@ -118,8 +142,8 @@ public class OnBoardActivity extends FragmentActivity implements View.OnClickLis
                 break;
             case 1:
                 doneTextView.setVisibility(View.GONE);
-                arrowImageView.setAlpha(1f);
-                arrowImageView.setVisibility(View.VISIBLE);
+                arrowImageButton.setAlpha(1f);
+                arrowImageButton.setVisibility(View.VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     firstStepImageView.setImageDrawable(getResources().getDrawable(R.drawable.bar_unselected_onboard,null));
                     thirdStepImageView.setImageDrawable(getResources().getDrawable(R.drawable.bar_unselected_onboard,null));
@@ -130,7 +154,7 @@ public class OnBoardActivity extends FragmentActivity implements View.OnClickLis
                 secondStepImageView.setImageDrawable(transitionSelect);
                 break;
             case 2:
-                crossfade(doneTextView,arrowImageView);
+                crossfade(doneTextView,arrowImageButton);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     firstStepImageView.setImageDrawable(getResources().getDrawable(R.drawable.bar_unselected_onboard,null));
                     secondStepImageView.setImageDrawable(getResources().getDrawable(R.drawable.bar_unselected_onboard,null));
