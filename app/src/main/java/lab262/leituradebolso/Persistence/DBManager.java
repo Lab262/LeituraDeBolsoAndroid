@@ -1,7 +1,11 @@
 package lab262.leituradebolso.Persistence;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
+import java.util.Set;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
@@ -15,6 +19,8 @@ import lab262.leituradebolso.Model.UserReadingModel;
  */
 
 public class DBManager {
+
+    private static String keyFirstTimeApp = "keyFirstTimeApp";
 
     public static void saveObject(RealmObject object){
         Realm realm = Realm.getDefaultInstance();
@@ -82,6 +88,21 @@ public class DBManager {
         realm.beginTransaction();
         realm.deleteAll();
         realm.commitTransaction();
+    }
+
+    public static Boolean isFirstTime(Context context){
+
+        SharedPreferences preferences = context.getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        int sizePreferences = preferences.getAll().size();
+
+        if (sizePreferences == 0) {
+            editor.putBoolean(keyFirstTimeApp, true);
+            editor.apply();
+            return true;
+        }
+        return false;
     }
 
 }

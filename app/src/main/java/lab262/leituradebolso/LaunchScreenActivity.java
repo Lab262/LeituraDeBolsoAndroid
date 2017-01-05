@@ -30,17 +30,21 @@ public class LaunchScreenActivity extends Activity {
         //Initialize LayoutManager
         new LayoutManager(this);
 
+        final Boolean isFirstTime = DBManager.isFirstTime(this);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
-//                if (DBManager.getCachedUser()==null || DBManager.getCachedUser().getToken()==null){
-//                    ActivityManager.changeActivity(LaunchScreenActivity.this, InitialActivity.class);
-//                }else {
-//                   ActivityManager.changeActivity(LaunchScreenActivity.this, ReadingDayActivity.class);
-//                }
-                ActivityManager.changeActivity(LaunchScreenActivity.this, OnBoardActivity.class);
+                if (isFirstTime){
+                    ActivityManager.changeActivity(LaunchScreenActivity.this, OnBoardActivity.class);
+                }else {
+                    if (DBManager.getCachedUser()==null || DBManager.getCachedUser().getToken()==null){
+                        ActivityManager.changeActivity(LaunchScreenActivity.this, InitialActivity.class);
+                    }else {
+                        ActivityManager.changeActivity(LaunchScreenActivity.this, ReadingDayActivity.class);
+                    }
+                }
                 finish();
 
             }
