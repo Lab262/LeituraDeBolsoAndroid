@@ -40,7 +40,7 @@ public class UserModel extends RealmObject {
     private static String keyModel = "user";
 
     private static int defaultTextSize = 14;
-    private static int defaultTimeInterval = 0;
+    public static int defaultTimeInterval = 0;
     private static int numberDaysLeapYear = 366;
     private static int numberDaysYear = 365;
 
@@ -92,7 +92,7 @@ public class UserModel extends RealmObject {
         setReciveNotification(true);
         setNoturneMode(false);
         setTextSize(defaultTextSize);
-        setHourNotification(0);
+        setHourNotification(defaultTimeInterval);
     }
 
     public String getId() {

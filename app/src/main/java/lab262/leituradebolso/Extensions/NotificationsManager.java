@@ -23,12 +23,7 @@ import lab262.leituradebolso.R;
 
 public class NotificationsManager {
 
-    public static void setReadingDaysNotifications(Context context, long hourNotification){
-        //Set Notification
-        setNewReadingDayNotification(context,hourNotification);
-    }
-
-    private static void setNewReadingDayNotification(Context context, long dateNotification) {
+    public static void setReadingDaysNotifications(Context context, long dateNotification) {
 
         //TODO: Mudar os textos das notificacoes
         Notification.Builder builder = new Notification.Builder(context);

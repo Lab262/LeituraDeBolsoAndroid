@@ -57,7 +57,11 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_reading_day);
         getInstanceViews();
         setPropertyView();
-        setNotifications();
+
+        if (DBManager.getCachedUser().getHourNotification()==UserModel.defaultTimeInterval){
+            NotificationsManager.setReadingDaysNotifications(this,System.currentTimeMillis());
+        }
+
         Bundle bundleExtras = getIntent().getExtras();
         if (bundleExtras!=null){
             String idReading = bundleExtras.getString(ReadingModel.keyModelSelected);
@@ -74,8 +78,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                 setLastReadingDay();
             }else {
                 getAllUserReadings();
-                NotificationsManager.cancelAllNotifications(this);
-                NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification());
             }
         }
     }
@@ -126,10 +128,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
         shareButton.setOnClickListener(this);
-    }
-
-    private void setNotifications(){
-        NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification());
     }
 
     private void hideHistoryButton(){
