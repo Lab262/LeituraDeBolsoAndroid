@@ -3,6 +3,7 @@ package lab262.leituradebolso.Configuration;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -97,7 +98,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         }
 
         currentCalendar = Calendar.getInstance();
-        currentCalendar.setTime(currentUser.getHourNotification());
+        currentCalendar.setTimeInMillis(currentUser.getHourNotification());
 
         hourReadingTextView.setText(getStringHourNotification());
         hourReadingTextView.setOnClickListener(this);
@@ -178,14 +179,14 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
 
         //Validation format hour
         switch (isAM){
-            case 1:
+            case 0:
                 stringFormatTime = " AM";
                 //Validation Hour
                 if (hours==0){
                     stringHours = "12";
                 }
                 break;
-            case 0:
+            case 1:
                 stringFormatTime = " PM";
                 break;
         }
@@ -217,7 +218,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
                 //Configure Layout Hour Reading
                 if (notificationSwitch.isChecked()){
                     showLayoutHourReceive();
-                    NotificationsManager.setReadingDaysNotifications(this,currentUser.getHourNotification().getTime());
+                    NotificationsManager.setReadingDaysNotifications(this,currentUser.getHourNotification());
                 }else {
                     hideLayoutHourReceive();
                     NotificationsManager.cancelAllNotifications(this);
@@ -253,13 +254,15 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, hour);
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND,0);
         currentCalendar = calendar;
-        currentUser.updateHourNotification(calendar.getTime());
+        currentUser.updateHourNotification(calendar.getTimeInMillis());
         hourReadingTextView.setText(getStringHourNotification());
         NotificationsManager.cancelAllNotifications(this);
-        NotificationsManager.setReadingDaysNotifications(this,currentUser.getHourNotification().getTime());
+        NotificationsManager.setReadingDaysNotifications(this,currentUser.getHourNotification());
     }
 
     @Override

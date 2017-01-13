@@ -1,6 +1,7 @@
 package lab262.leituradebolso;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.os.Handler;
 import android.os.Bundle;
 

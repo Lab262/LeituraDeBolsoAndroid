@@ -46,6 +46,7 @@
 
         <activity android:name=".OnBoard.OnBoardActivity"
             android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"></activity>
+        <receiver android:name=".Extensions.NotificationPublisher" android:enabled="true"> </receiver>
     </application>
 
 </manifest>

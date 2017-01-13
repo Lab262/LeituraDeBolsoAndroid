@@ -75,7 +75,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             }else {
                 getAllUserReadings();
                 NotificationsManager.cancelAllNotifications(this);
-                NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification().getTime());
+                NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification());
             }
         }
     }
@@ -129,7 +129,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setNotifications(){
-        NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification().getTime());
+        NotificationsManager.setReadingDaysNotifications(this,DBManager.getCachedUser().getHourNotification());
     }
 
     private void hideHistoryButton(){

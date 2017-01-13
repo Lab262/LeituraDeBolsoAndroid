@@ -30,7 +30,7 @@ public class UserModel extends RealmObject {
     private Boolean reciveNotification;
     private Boolean noturneMode;
     private int textSize;
-    private Date hourNotification;
+    private long hourNotification;
 
 
     public static String keyID = "_id";
@@ -92,7 +92,7 @@ public class UserModel extends RealmObject {
         setReciveNotification(true);
         setNoturneMode(false);
         setTextSize(defaultTextSize);
-        setHourNotification(new Date());
+        setHourNotification(0);
     }
 
     public String getId() {
@@ -127,11 +127,11 @@ public class UserModel extends RealmObject {
         this.lastSessionTimeInterval = lastSessionTimeInterval;
     }
 
-    public Date getHourNotification() {
+    public long getHourNotification() {
         return hourNotification;
     }
 
-    public void setHourNotification(Date hourNotification) {
+    public void setHourNotification(long hourNotification) {
         this.hourNotification = hourNotification;
     }
 
@@ -159,7 +159,7 @@ public class UserModel extends RealmObject {
         this.reciveNotification = reciveNotification;
     }
 
-    public void updateHourNotification(Date hourNotification) {
+    public void updateHourNotification(long hourNotification) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         this.hourNotification = hourNotification;
