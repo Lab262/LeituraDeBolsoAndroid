@@ -33,6 +33,8 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
     private DiscreteSeekBar discreteSeekBar;
     private Switch notificationSwitch, noturneModeSwitch;
     private static final int CONSTANT_PROGRESS_BAR = 2;
+    private static final int CONSTANTE_PROGRESS_BAR_MIN = 7;
+    private static final int CONSTANTE_PROGRESS_BAR_MAX = 14;
     private TextView receiveReadingTextView, mensageTextView, heightTextView, hourReadingTextView;
     private LinearLayout linearLayout;
     private Calendar currentCalendar;
@@ -78,6 +80,9 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
                 return value * CONSTANT_PROGRESS_BAR;
             }
         });
+
+        discreteSeekBar.setMin(CONSTANTE_PROGRESS_BAR_MIN);
+        discreteSeekBar.setMax(CONSTANTE_PROGRESS_BAR_MAX);
 
         setTitle(R.string.title_activity_configuration);
         notificationSwitch.setChecked(currentUser.getReciveNotification());

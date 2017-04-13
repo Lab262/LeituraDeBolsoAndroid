@@ -43,7 +43,7 @@ public class NotificationsManager {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, 0);
 
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, dateNotification, AlarmManager.INTERVAL_DAY, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, dateNotification, AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     public static void cancelAllNotifications(Context context){
