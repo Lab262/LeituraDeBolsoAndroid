@@ -13,12 +13,17 @@ public class LayoutManager {
     private static String fontQuicksandBold = pathFonts + "Quicksand-Bold.otf";
     private static String fontComfortaaRegular = pathFonts + "Comfortaa_Regular.ttf";
     private static String fontComfortaaThin = pathFonts + "Comfortaa_Thin.ttf";
+    private static String fontComfortaaBold = pathFonts + "Comfortaa_Bold.ttf";
+    private static String fontMerriweatherLight = pathFonts + "Merriweather Light.ttf";
+    private static String fontMerriweatherBold = pathFonts + "Merriweather-Bold.ttf";
 
     private static LayoutManager ourInstance = new LayoutManager();
 
     private Context context;
 
-    public Typeface typefaceQuicksandBold, typefaceComfortaaRegular, typefaceComfortaaThin;
+    public Typeface typefaceQuicksandBold;
+    public Typeface typefaceComfortaaRegular, typefaceComfortaaThin, typefaceComfortaaBold;
+    public Typeface typefaceMerriweatherLight, typefaceMerriweatherBold;
 
     private LayoutManager(){
     }
@@ -32,6 +37,9 @@ public class LayoutManager {
         sharedInstance().typefaceQuicksandBold = getTypeface(fontQuicksandBold);
         sharedInstance().typefaceComfortaaRegular = getTypeface(fontComfortaaRegular);
         sharedInstance().typefaceComfortaaThin = getTypeface(fontComfortaaThin);
+        sharedInstance().typefaceComfortaaBold = getTypeface(fontComfortaaBold);
+        sharedInstance().typefaceMerriweatherLight = getTypeface(fontMerriweatherLight);
+        sharedInstance().typefaceMerriweatherBold = getTypeface(fontMerriweatherBold);
     }
 
     private Typeface getTypeface(String nameFont){

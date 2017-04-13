@@ -128,6 +128,8 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         historyButton.setOnClickListener(this);
         configurationButton.setOnClickListener(this);
         shareButton.setOnClickListener(this);
+
+
     }
 
     private void hideHistoryButton(){
