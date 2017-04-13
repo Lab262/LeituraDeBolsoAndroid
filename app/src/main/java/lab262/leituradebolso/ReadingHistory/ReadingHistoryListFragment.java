@@ -116,7 +116,9 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
                 arrayFiltered.add(readingModel);
             }
         }
-        if (!arrayFiltered.isEmpty()){
+        if (arrayFiltered.isEmpty()){
+            adapter.updateData(new ReadingModel[0]);
+        }else {
             ReadingModel[] arrayFilteredReadingModels = new ReadingModel[arrayFiltered.size()];
             arrayFilteredReadingModels = arrayFiltered.toArray(arrayFilteredReadingModels);
             adapter.updateData(arrayFilteredReadingModels);
