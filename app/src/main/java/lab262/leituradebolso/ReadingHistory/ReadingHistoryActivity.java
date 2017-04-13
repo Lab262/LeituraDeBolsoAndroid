@@ -44,8 +44,8 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        configureActionBar();
         setContentView(R.layout.activity_reading_history);
+        configureActionBar();
         getInstanceViews();
         setPropertyView();
     }
@@ -57,6 +57,12 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+
+        //Customize Action Bar
+        TextView textView = (TextView) findViewById(R.id.titleActionBarTextView);
+        textView.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
+        textView.setText(R.string.title_activity_history_reading);
+        getSupportActionBar().setElevation(0);
     }
 
     private void getInstanceViews(){
@@ -69,12 +75,6 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
     }
 
     private void setPropertyView(){
-
-        //Customize Action Bar
-        TextView textView = (TextView) findViewById(R.id.titleActionBarTextView);
-        textView.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
-        textView.setText(R.string.title_activity_history_reading);
-        getSupportActionBar().setElevation(0);
 
         readingDayButton = (ImageButton) findViewById(R.id.leftButton);
         readingDayButton.setBackgroundResource(R.drawable.ic_reading_day);

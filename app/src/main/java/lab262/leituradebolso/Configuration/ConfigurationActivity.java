@@ -4,11 +4,13 @@ import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.SystemClock;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import java.util.Calendar;
 
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Extensions.FeedbackManager;
+import lab262.leituradebolso.Extensions.LayoutManager;
 import lab262.leituradebolso.Extensions.NotificationsManager;
 import lab262.leituradebolso.Login.InitialActivity;
 import lab262.leituradebolso.Model.UserModel;
@@ -48,6 +51,7 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
+        configureActionBar();
         getViews();
         setPropertyView();
     }
@@ -69,6 +73,23 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         viewLine1 = findViewById(R.id.viewLine1);
         viewLine2 = findViewById(R.id.viewLine2);
         viewLine3 = findViewById(R.id.viewLine3);
+    }
+
+    private void configureActionBar(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled (false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+
+        ImageButton leftButton = (ImageButton) findViewById(R.id.leftButton);
+        leftButton.setVisibility(View.GONE);
+        ImageButton rightButton = (ImageButton) findViewById(R.id.rightButton);
+        rightButton.setVisibility(View.GONE);
+        TextView textView = (TextView) findViewById(R.id.titleActionBarTextView);
+        textView.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
+        textView.setText(R.string.title_activity_configuration);
     }
 
     private void setPropertyView(){

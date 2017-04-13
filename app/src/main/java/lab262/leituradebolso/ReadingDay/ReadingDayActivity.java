@@ -53,8 +53,8 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        configureActionBar();
         setContentView(R.layout.activity_reading_day);
+        configureActionBar();
         getInstanceViews();
         setPropertyView();
 
@@ -99,6 +99,10 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+
+        TextView textView = (TextView) findViewById(R.id.titleActionBarTextView);
+        textView.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
+        textView.setText(R.string.title_activity_reading);
     }
 
     private void getInstanceViews(){
@@ -115,9 +119,6 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setPropertyView(){
-        TextView textView = (TextView) findViewById(R.id.titleActionBarTextView);
-        textView.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
-        textView.setText(R.string.title_activity_reading);
 
         historyButton = (ImageButton) findViewById(R.id.leftButton);
         configurationButton = (ImageButton) findViewById(R.id.rightButton);
