@@ -12,16 +12,16 @@
     android:background="@color/white">
 
     <Switch
-        android:text="Notificações"
         android:id="@+id/notificationSwitch"
         android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_weight="0.04"
+        android:fontFamily="sans-serif"
         android:paddingLeft="18dp"
         android:paddingRight="15dp"
-        android:textSize="16dp"
+        android:text="Notificações"
         android:textColor="@android:color/black"
-        android:fontFamily="sans-serif"
-        android:layout_height="60dp" />
+        android:textSize="17sp" />
 
     <View
         android:id="@+id/viewLine0"
@@ -41,21 +41,21 @@
         android:id="@+id/layoutHourReceive">
 
         <TextView
-            android:text="Receber a Leitura"
+            android:id="@+id/receiveReadingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/receiveReadingTextView"
-            android:textSize="16dp"
+            android:layout_weight="1"
+            android:text="Receber a Leitura"
             android:textColor="@android:color/black"
-            android:layout_weight="1" />
+            android:textSize="17sp" />
 
         <TextView
-            android:text="14:00"
-            android:layout_height="wrap_content"
+            android:id="@+id/hourReadingTextView"
             android:layout_width="wrap_content"
-            android:textSize="16dp"
+            android:layout_height="wrap_content"
+            android:text="14:00"
             android:textColor="@color/grey_label"
-            android:id="@+id/hourReadingTextView" />
+            android:textSize="17sp" />
     </LinearLayout>
 
     <View
@@ -65,31 +65,31 @@
         android:id="@+id/viewLayoutHourReceive" />
 
     <Switch
-        android:text="Modo Noturno"
+        android:id="@+id/noturneModeSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.04"
-        android:paddingRight="15dp"
-        android:paddingLeft="18dp"
-        android:textSize="16dp"
-        android:textColor="@android:color/black"
         android:fontFamily="sans-serif"
+        android:paddingLeft="18dp"
+        android:paddingRight="15dp"
         android:paddingTop="18dp"
-        android:id="@+id/noturneModeSwitch" />
+        android:text="Modo Noturno"
+        android:textColor="@android:color/black"
+        android:textSize="17sp" />
 
     <TextView
-        android:text="A sua tela ficará com o fundo preto e texto branco, tornando mais agradável sua leitura durante a noite."
+        android:id="@+id/mensageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/mensageTextView"
+        android:fontFamily="sans-serif-light"
         android:lines="2"
+        android:paddingBottom="12dp"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
         android:paddingTop="10dp"
-        android:textSize="14dp"
+        android:text="A sua tela ficará com o fundo preto e texto branco, tornando mais agradável sua leitura durante a noite."
         android:textColor="@android:color/black"
-        android:fontFamily="sans-serif-light"
-        android:paddingBottom="12dp" />
+        android:textSize="12sp" />
 
     <View
         android:layout_width="match_parent"
@@ -98,14 +98,14 @@
         android:id="@+id/viewLine1" />
 
     <TextView
-        android:text="Tamanho do Texto"
+        android:id="@+id/heightTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/heightTextView"
-        android:textSize="16dp"
-        android:textColor="@android:color/black"
+        android:paddingLeft="18dp"
         android:paddingTop="18dp"
-        android:paddingLeft="18dp" />
+        android:text="Tamanho do Texto"
+        android:textColor="@android:color/black"
+        android:textSize="17sp" />
 
     <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
         android:layout_width="match_parent"
@@ -142,16 +142,16 @@
 
 
         <Button
-            android:text="Logout"
+            android:id="@+id/logoutButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/logoutButton"
             android:layout_weight="1"
-            android:textAllCaps="false"
-            android:textSize="16dp"
             android:background="@android:color/transparent"
             android:fontFamily="sans-serif"
-            android:textColor="@android:color/black" />
+            android:text="Logout"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <View

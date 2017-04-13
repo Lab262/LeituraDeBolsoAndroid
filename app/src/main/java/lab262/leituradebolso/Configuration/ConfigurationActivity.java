@@ -116,6 +116,14 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         noturneModeSwitch.setOnCheckedChangeListener(this);
         discreteSeekBar.setOnProgressChangeListener(this);
 
+        notificationSwitch.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+        receiveReadingTextView.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+        hourReadingTextView.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+        noturneModeSwitch.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+        heightTextView.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+        logoutButton.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+        mensageTextView.setTypeface(LayoutManager.sharedInstance().typefaceMerriweatherLight);
+
         //Configure Noturne Mode
         if (currentUser.getNoturneMode()){
             setNoturneMode();
