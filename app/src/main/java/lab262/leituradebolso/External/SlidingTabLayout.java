@@ -17,6 +17,7 @@
 package lab262.leituradebolso.External;
 
         import android.content.Context;
+        import android.graphics.Color;
         import android.graphics.Typeface;
         import android.os.Build;
         import android.support.v4.view.PagerAdapter;
@@ -32,6 +33,9 @@ package lab262.leituradebolso.External;
         import android.widget.LinearLayout;
         import android.widget.TextView;
 
+        import org.w3c.dom.Text;
+
+        import lab262.leituradebolso.Extensions.LayoutManager;
         import lab262.leituradebolso.R;
 
 /**
@@ -229,15 +233,26 @@ public class SlidingTabLayout extends HorizontalScrollView {
             }
 
             //Customize view
-            typeface = Typeface.create("sans-serif-light",0);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                tabTitleView.setTextColor(getResources().getColor(R.color.white,null));
+
+            //First Element selected
+            if (i==0){
+                tabTitleView.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaBold);
+                tabTitleView.setTextSize(16);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tabTitleView.setTextColor(getResources().getColor(R.color.selector_color,null));
+                }else {
+                    tabTitleView.setTextColor(getResources().getColor(R.color.selector_color));
+                }
             }else {
-                tabTitleView.setTextColor(getResources().getColor(R.color.white));
+                tabTitleView.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+                tabTitleView.setTextSize(14);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tabTitleView.setTextColor(getResources().getColor(R.color.white,null));
+                }else {
+                    tabTitleView.setTextColor(getResources().getColor(R.color.white));
+                }
             }
 
-            tabTitleView.setTypeface(typeface);
-            tabTitleView.setTextSize(16);
             tabTitleView.setAllCaps(false);
         }
     }
@@ -314,7 +329,18 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 scrollToTab(position, 0);
             }
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                mTabStrip.getChildAt(i).setSelected(position == i);
+                TextView text = (TextView)  mTabStrip.getChildAt(i);
+                if (i==position){
+                    text.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaBold);
+                    text.setTextColor(getResources().getColor(R.color.selector_color));
+                    text.setTextSize(16);
+                }else {
+                    text.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+                    text.setTextSize(14);
+                    text.setTextColor(getResources().getColor(R.color.white));
+                }
+                text.setSelected(position==i);
+
             }
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageSelected(position);

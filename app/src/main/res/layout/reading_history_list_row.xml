@@ -33,33 +33,34 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/titleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Rocky Mountains"
-                    android:id="@+id/titleTextView"
-                    android:textSize="16dp"
-                    android:textColor="@color/abc_primary_text_disable_only_material_light" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/abc_primary_text_disable_only_material_light"
+                    android:textSize="19sp" />
 
                 <TextView
+                    android:id="@+id/emojiTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_marginLeft="7dp"
                     android:text=":D :( :D"
-                    android:id="@+id/emojiTextView"
-                    android:layout_marginLeft="7dp" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="19sp" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/authorTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Leandro OG"
-                android:id="@+id/authorTextView"
+                android:layout_marginTop="6dp"
                 android:fontFamily="sans-serif-light"
-                android:textSize="16dp"
+                android:text="Leandro OG"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/grey_light_font"
-                android:layout_marginTop="6dp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>

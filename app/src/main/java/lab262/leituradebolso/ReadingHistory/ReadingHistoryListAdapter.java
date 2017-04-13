@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import lab262.leituradebolso.Extensions.LayoutManager;
 import lab262.leituradebolso.Model.EmojiModel;
 import lab262.leituradebolso.Model.ReadingModel;
 import lab262.leituradebolso.Model.UserReadingModel;
@@ -63,6 +64,9 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
             row.authorTextView = (TextView) convertView.findViewById(R.id.authorTextView);
             row.emojiTextView = (TextView) convertView.findViewById(R.id.emojiTextView);
             row.alertImageView = (ImageView) convertView.findViewById(R.id.alertImageView);
+
+            row.titleTextView.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+            row.authorTextView.setTypeface(LayoutManager.sharedInstance().typefaceMerriweatherLight);
 
             convertView.setTag(row);
 
