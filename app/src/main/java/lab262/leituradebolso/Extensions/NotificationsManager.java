@@ -37,13 +37,14 @@ public class NotificationsManager {
         builder.setAutoCancel(true);
 
         Intent notificationIntent = new Intent(context, NotificationPublisher.class);
+
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, builder.build());
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, dateNotification, AlarmManager.INTERVAL_DAY, pendingIntent);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, dateNotification, AlarmManager.INTERVAL_FIFTEEN_MINUTES/15, pendingIntent);
     }
 
     public static void cancelAllNotifications(Context context){
