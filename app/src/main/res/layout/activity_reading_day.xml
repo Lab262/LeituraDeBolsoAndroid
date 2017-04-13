@@ -21,21 +21,23 @@
             android:layout_marginBottom="6dp">
 
             <TextView
+                android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Rocky Mountains"
-                android:id="@+id/titleTextView"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginRight="6dp"
-                android:textColor="@color/abc_primary_text_disable_only_material_light" />
+                android:text="Rocky Mountains"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/abc_primary_text_disable_only_material_light"
+                android:textSize="22sp" />
 
             <TextView
+                android:id="@+id/emojiTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=":D :D :)"
-                android:id="@+id/emojiTextView" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -45,35 +47,36 @@
             android:layout_marginLeft="21dp">
 
             <ImageView
+                android:id="@+id/imageView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView7"
-                android:src="@drawable/time_reading"
-                android:layout_marginRight="10dp" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/time_reading" />
 
             <TextView
+                android:id="@+id/timeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="5 min"
-                android:id="@+id/timeTextView"
-                android:textSize="14dp"
-                android:textColor="@color/grey_font" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/grey_font"
+                android:textSize="17sp" />
         </LinearLayout>
 
         <TextView
+            android:id="@+id/readingTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/placeholder_reading"
-            android:id="@+id/readingTextView"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="21dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/placeholder_reading"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/abc_primary_text_disable_only_material_light"
-            android:textSize="14dp"
-            android:fontFamily="sans-serif-light" />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"

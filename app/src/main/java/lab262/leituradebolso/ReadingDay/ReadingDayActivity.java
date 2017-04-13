@@ -129,6 +129,10 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         configurationButton.setOnClickListener(this);
         shareButton.setOnClickListener(this);
 
+        titleTextView.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaBold);
+        timeTextView.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
+        readingTextView.setTypeface(LayoutManager.sharedInstance().typefaceMerriweatherLight);
+        authorTextView.setTypeface(LayoutManager.sharedInstance().typefaceMerriweatherBold);
 
     }
 
