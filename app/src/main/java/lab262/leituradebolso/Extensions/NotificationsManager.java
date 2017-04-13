@@ -44,7 +44,7 @@ public class NotificationsManager {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, dateNotification, AlarmManager.INTERVAL_FIFTEEN_MINUTES/15, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, dateNotification, AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     public static void cancelAllNotifications(Context context){
