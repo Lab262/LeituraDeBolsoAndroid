@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@color/colorPrimary">
 
-    <ImageButton
+    <ImageView
+        android:id="@+id/leftImageView"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:id="@+id/leftButton"
         android:layout_marginRight="38dp"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"/>
+
+    <Button
+        android:id="@+id/leftButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="6dp"
+        android:background="@null" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,15 +30,25 @@
         android:textColor="#F2F2F2"
         android:id="@+id/titleActionBarTextView"
         android:textSize="20dp"
-        android:layout_toRightOf="@+id/leftButton"
-        android:layout_toEndOf="@+id/leftButton" />
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/leftImageView"
+        android:layout_toEndOf="@+id/leftImageView" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:id="@+id/rightButton"
+        android:id="@+id/rightImageView"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="12dp" />
+        android:layout_marginRight="12dp"/>
+
+    <Button
+        android:id="@+id/rightButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:background="@null" />
 
 </RelativeLayout>

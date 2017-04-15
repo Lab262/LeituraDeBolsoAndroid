@@ -3,7 +3,9 @@ package lab262.leituradebolso.ReadingHistory;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 
 import lab262.leituradebolso.Extensions.ActivityManager;
 import lab262.leituradebolso.Model.ReadingModel;
+import lab262.leituradebolso.Persistence.DBManager;
 import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
@@ -85,6 +88,15 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         ActivityManager.changeActivity(getContext(),ReadingDayActivity.class,bundleExtras);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (DBManager.getCachedUser().getNoturneMode()){
+            setNoturneMode();
+        }else {
+            resetNoturneMode();
+        }
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -132,5 +144,29 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
     public void refreshListView(Context context){
         adapter = new ReadingHistoryListAdapter(context, arrayReadingModels);
         readingListView.setAdapter(adapter);
+    }
+
+    private void setNoturneMode(){
+        ColorDrawable grey_10;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            grey_10 = new ColorDrawable(this.getResources().getColor(R.color.grey_line_layout_10_opc,null));
+
+        }else {
+            grey_10 = new ColorDrawable(this.getResources().getColor(R.color.grey_line_layout_10_opc));
+        }
+        readingListView.setDivider(grey_10);
+        readingListView.setDividerHeight(1);
+    }
+
+    private void resetNoturneMode(){
+        ColorDrawable grey;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            grey = new ColorDrawable(this.getResources().getColor(R.color.grey_line_layout,null));
+
+        }else {
+            grey = new ColorDrawable(this.getResources().getColor(R.color.grey_line_layout));
+        }
+        readingListView.setDivider(grey);
+        readingListView.setDividerHeight(1);
     }
 }

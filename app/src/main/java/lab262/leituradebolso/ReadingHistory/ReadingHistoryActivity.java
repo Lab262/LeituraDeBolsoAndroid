@@ -1,6 +1,7 @@
 package lab262.leituradebolso.ReadingHistory;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.view.MenuItemCompat;
@@ -21,6 +22,7 @@ import lab262.leituradebolso.R;
 import lab262.leituradebolso.ReadingDay.ReadingDayActivity;
 
 
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,7 +35,8 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
         ReadingHistoryListFragment.OnFragmentInteractionListener, SearchView.OnQueryTextListener{
 
 
-    private ImageButton rightButton, readingDayButton;
+    private Button rightButton, readingDayButton;
+    private ImageView rightButtonImage, readingDayButtonImage;
     private SearchView searchView;
 
     ReadingHistoryListFragment fragmentAllListView, fragmentTannedListView, fragmentNotReadListView;
@@ -76,12 +79,16 @@ public class ReadingHistoryActivity extends AppCompatActivity implements View.On
 
     private void setPropertyView(){
 
-        readingDayButton = (ImageButton) findViewById(R.id.leftButton);
-        readingDayButton.setBackgroundResource(R.drawable.ic_reading_day);
+        readingDayButton = (Button) findViewById(R.id.leftButton);
         readingDayButton.setOnClickListener(this);
+        readingDayButtonImage = (ImageView) findViewById(R.id.leftImageView);
+        readingDayButtonImage.setBackgroundResource(R.drawable.ic_reading_day);
 
-        rightButton = (ImageButton) findViewById(R.id.rightButton);
+        rightButton = (Button) findViewById(R.id.rightButton);
+        rightButtonImage = (ImageView) findViewById(R.id.rightImageView);
+
         rightButton.setVisibility(View.INVISIBLE);
+        rightButtonImage.setVisibility(View.INVISIBLE);
 
     }
 

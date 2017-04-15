@@ -8,7 +8,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -41,7 +43,9 @@ import lab262.leituradebolso.Requests.UserReadingRequest;
 
 public class ReadingDayActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageButton likeButton, historyButton, configurationButton, shareButton;
+    private ImageButton likeButton, shareButton;
+    private Button historyButton, configurationButton;
+    private ImageView historyButtonImage, configurationButtonImage;
     private Boolean likeReading;
     private TextView titleTextView, emojiTextView, timeTextView, readingTextView, authorTextView;
     private ReadingModel currentReadingModel;
@@ -106,6 +110,12 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getInstanceViews(){
+        historyButton = (Button) findViewById(R.id.leftButton);
+        configurationButton = (Button) findViewById(R.id.rightButton);
+
+        historyButtonImage = (ImageView) findViewById(R.id.leftImageView);
+        configurationButtonImage = (ImageView) findViewById(R.id.rightImageView);
+
         likeButton = (ImageButton) findViewById(R.id.likeButton);
         shareButton = (ImageButton) findViewById(R.id.shareButton);
 
@@ -120,10 +130,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
     private void setPropertyView(){
 
-        historyButton = (ImageButton) findViewById(R.id.leftButton);
-        configurationButton = (ImageButton) findViewById(R.id.rightButton);
-
-        configurationButton.setBackgroundResource(R.drawable.ic_configuration);
+        configurationButtonImage.setBackgroundResource(R.drawable.ic_configuration);
 
         likeButton.setOnClickListener(this);
         historyButton.setOnClickListener(this);
@@ -139,6 +146,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
     private void hideHistoryButton(){
         historyButton.setVisibility(View.INVISIBLE);
+        historyButtonImage.setVisibility(View.INVISIBLE);
     }
 
     private int differenceDaysEnter(){
@@ -412,9 +420,9 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         readingTextView.setTextSize(user.getTextSize());
 
         if (haveNotReadReading()){
-            historyButton.setBackgroundResource(R.drawable.ic_alert_history_reading);
+            historyButtonImage.setBackgroundResource(R.drawable.ic_alert_history_reading);
         }else {
-            historyButton.setBackgroundResource(R.drawable.ic_history_reading);
+            historyButtonImage.setBackgroundResource(R.drawable.ic_history_reading);
         }
 
         //Configure Noturne Mode

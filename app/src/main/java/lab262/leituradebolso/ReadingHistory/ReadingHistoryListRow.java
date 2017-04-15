@@ -11,6 +11,6 @@ public class ReadingHistoryListRow {
 
     ImageButton likeButton;
     TextView titleTextView, authorTextView, emojiTextView;
-    ImageView alertImageView;
+    ImageView alertImageView, arrowImageView;
 
 }

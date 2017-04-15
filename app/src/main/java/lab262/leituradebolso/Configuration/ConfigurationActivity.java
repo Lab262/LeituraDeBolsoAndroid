@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -83,10 +84,15 @@ TimePickerDialog.OnTimeSetListener, View.OnClickListener{
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
-        ImageButton leftButton = (ImageButton) findViewById(R.id.leftButton);
+        Button leftButton = (Button) findViewById(R.id.leftButton);
         leftButton.setVisibility(View.GONE);
-        ImageButton rightButton = (ImageButton) findViewById(R.id.rightButton);
+        Button rightButton = (Button) findViewById(R.id.rightButton);
         rightButton.setVisibility(View.GONE);
+        ImageView rightButtonImage = (ImageView) findViewById(R.id.rightImageView);
+        rightButtonImage.setVisibility(View.GONE);
+        ImageView leftButtonImage = (ImageView) findViewById(R.id.leftImageView);
+        leftButtonImage.setVisibility(View.GONE);
+
         TextView textView = (TextView) findViewById(R.id.titleActionBarTextView);
         textView.setTypeface(LayoutManager.sharedInstance().typefaceQuicksandBold);
         textView.setText(R.string.title_activity_configuration);

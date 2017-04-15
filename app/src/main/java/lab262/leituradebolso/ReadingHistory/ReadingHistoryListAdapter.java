@@ -64,6 +64,7 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
             row.authorTextView = (TextView) convertView.findViewById(R.id.authorTextView);
             row.emojiTextView = (TextView) convertView.findViewById(R.id.emojiTextView);
             row.alertImageView = (ImageView) convertView.findViewById(R.id.alertImageView);
+            row.arrowImageView = (ImageView) convertView.findViewById(R.id.arrowImageView);
 
             row.titleTextView.setTypeface(LayoutManager.sharedInstance().typefaceComfortaaRegular);
             row.authorTextView.setTypeface(LayoutManager.sharedInstance().typefaceMerriweatherLight);
@@ -90,9 +91,9 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
 
         //Configure Noturne Mode
         if (DBManager.getCachedUser().getNoturneMode()){
-            setNoturneMode(row.titleTextView);
+            setNoturneMode(row.titleTextView, row.arrowImageView);
         }else {
-            resetNoturneMode(row.titleTextView);
+            resetNoturneMode(row.titleTextView, row.arrowImageView);
         }
 
         row.titleTextView.setText(currentModel.title);
@@ -116,11 +117,13 @@ public class ReadingHistoryListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private void setNoturneMode(TextView titleTextView){
+    private void setNoturneMode(TextView titleTextView, ImageView imageView){
         titleTextView.setTextColor(Color.WHITE);
+        imageView.setImageResource(R.drawable.arrow_forward_grey);
     }
 
-    private void resetNoturneMode(TextView titleTextView){
+    private void resetNoturneMode(TextView titleTextView, ImageView imageView){
         titleTextView.setTextColor(Color.BLACK);
+        imageView.setImageResource(R.drawable.arrow_forward);
     }
 }
