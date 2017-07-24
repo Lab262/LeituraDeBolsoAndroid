@@ -46,10 +46,14 @@ public class FeedbackManager {
 
     }
 
-    static public void feedbackErrorResponse(Context context, ProgressDialog progressDialog, int statusCode, JSONObject errorResponse){
-        if (progressDialog!=null){
+    static public void dismissProgressDialog(ProgressDialog progressDialog) {
+        if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
+    }
+
+    static public void feedbackErrorResponse(Context context, ProgressDialog progressDialog, int statusCode, JSONObject errorResponse){
+        FeedbackManager.dismissProgressDialog(progressDialog);
         if (statusCode!=0){
             try {
                 JSONArray arrayErrors = errorResponse.getJSONArray(keyErrors);

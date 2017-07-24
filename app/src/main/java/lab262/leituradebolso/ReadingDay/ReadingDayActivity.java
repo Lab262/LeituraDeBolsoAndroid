@@ -252,9 +252,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
+                FeedbackManager.dismissProgressDialog(progressDialog);
                 try {
                     JSONArray jsonArray = (JSONArray) response.get(Requester.keyData);
 
@@ -443,5 +441,11 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
         }else {
             return false;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        FeedbackManager.dismissProgressDialog(progressDialog);
+        super.onDestroy();
     }
 }

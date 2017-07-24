@@ -58,9 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
+                FeedbackManager.dismissProgressDialog(progressDialog);
                 FeedbackManager.createToast(getApplicationContext(),getString(R.string.placeholder_success_register),false);
                 ActivityManager.changeActivityAndRemoveParentActivity(RegisterActivity.this, InitialActivity.class);
             }
@@ -83,5 +81,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        FeedbackManager.dismissProgressDialog(progressDialog);
+        super.onDestroy();
     }
 }
