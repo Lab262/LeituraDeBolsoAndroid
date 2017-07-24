@@ -32,7 +32,7 @@ public class NotificationsManager {
         builder.setSmallIcon(R.drawable.ic_reading_day);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(alarmSound);
-        builder.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+        builder.setDefaults(Notification.DEFAULT_VIBRATE);
         builder.setLights(0xFFFFA500, 800, 1000);
         builder.setAutoCancel(true);
 
