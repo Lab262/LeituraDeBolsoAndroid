@@ -67,7 +67,13 @@ public class ReadingModel extends RealmObject {
 
     public static ReadingModel[] getAllReadingData() {
         RealmResults<ReadingModel> realmResults = (RealmResults<ReadingModel>) DBManager.getAll(ReadingModel.class);
-        return getReadingsData(realmResults);
+
+        if (realmResults.size()>0){
+            return getReadingsData(realmResults);
+        }else {
+            return new ReadingModel[0];
+        }
+
     }
 
     public static ReadingModel[] getTannedReadingData() {
