@@ -36,6 +36,8 @@ public class FeedbackManager {
         if (!((Activity) context).isFinishing()){
             ProgressDialog dialog = new ProgressDialog(context);
             dialog.setMessage(message);
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             return dialog;
         }else{
