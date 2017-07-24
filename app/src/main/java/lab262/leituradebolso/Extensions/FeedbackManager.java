@@ -1,5 +1,6 @@
 package lab262.leituradebolso.Extensions;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.Toast;
@@ -32,10 +33,15 @@ public class FeedbackManager {
     }
 
     static public ProgressDialog createProgressDialog (Context context, String message){
-        ProgressDialog dialog = new ProgressDialog(context);
-        dialog.setMessage(message);
-        dialog.show();
-        return dialog;
+        if (!((Activity) context).isFinishing()){
+            ProgressDialog dialog = new ProgressDialog(context);
+            dialog.setMessage(message);
+            dialog.show();
+            return dialog;
+        }else{
+            return null;
+        }
+
     }
 
     static public void feedbackErrorResponse(Context context, ProgressDialog progressDialog, int statusCode, JSONObject errorResponse){

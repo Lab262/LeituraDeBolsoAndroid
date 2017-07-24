@@ -70,7 +70,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                progressDialog.dismiss();
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
                 FeedbackManager.createToast(getApplicationContext(),getString(R.string.placeholder_success_login),true);
 
                 //Create user with JSONObject
@@ -144,7 +146,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                progressDialog.dismiss();
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
                 try {
                     String message = response.getString(UserRequest.keyMessageForgotPassword);
                     FeedbackManager.createToast(getApplicationContext(),message,false);
