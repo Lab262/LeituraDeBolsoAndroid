@@ -1,5 +1,6 @@
 package lab262.leituradebolso.Login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
 
     private Button loginButton, registerButton, facebookButton;
     private CallbackManager callbackManager;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +79,15 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void loginWithFacebook(String emailFacebook, String  idFacebook){
+        progressDialog = FeedbackManager.createProgressDialog(this,getString(R.string.placeholder_progress_dialog));
         UserRequest.loginFacebookUser(emailFacebook,idFacebook, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
                 FeedbackManager.createToast(getApplicationContext(),getString(R.string.placeholder_success_login),true);
 
                 //Create user with JSONObject
