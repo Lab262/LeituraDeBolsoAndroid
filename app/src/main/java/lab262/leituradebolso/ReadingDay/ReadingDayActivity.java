@@ -130,6 +130,8 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
     private void setPropertyView(){
 
+        likeReading = false;
+
         configurationButtonImage.setBackgroundResource(R.drawable.ic_configuration);
 
         likeButton.setOnClickListener(this);
@@ -368,25 +370,29 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void shareReading(){
-        //TODO: Mudar os textos de compartilhar
-        Intent intentShare =new Intent(android.content.Intent.ACTION_SEND);
-        intentShare.setType("text/plain");
-        intentShare.putExtra(android.content.Intent.EXTRA_SUBJECT,"Leitura de Bolso");
-        intentShare.putExtra(android.content.Intent.EXTRA_TEXT, currentReadingModel.textReading);
-        startActivity(Intent.createChooser(intentShare,getString(R.string.placeholder_share_title)));
+        if (currentReadingModel!=null){
+            //TODO: Mudar os textos de compartilhar
+            Intent intentShare =new Intent(android.content.Intent.ACTION_SEND);
+            intentShare.setType("text/plain");
+            intentShare.putExtra(android.content.Intent.EXTRA_SUBJECT,"Leitura de Bolso");
+            intentShare.putExtra(android.content.Intent.EXTRA_TEXT, currentReadingModel.textReading);
+            startActivity(Intent.createChooser(intentShare,getString(R.string.placeholder_share_title)));
+        }
     }
 
     private void likeReading(){
-        if (likeReading){
-            likeReading = false;
-            likeButton.setBackgroundResource(R.drawable.like_circle);
-            currentUserReadingModel.updateIsFavorite(false);
-        }else {
-            likeReading = true;
-            likeButton.setBackgroundResource(R.drawable.liked_circle);
-            currentUserReadingModel.updateIsFavorite(true);
+        if (currentReadingModel!=null) {
+            if (likeReading) {
+                likeReading = false;
+                likeButton.setBackgroundResource(R.drawable.like_circle);
+                currentUserReadingModel.updateIsFavorite(false);
+            } else {
+                likeReading = true;
+                likeButton.setBackgroundResource(R.drawable.liked_circle);
+                currentUserReadingModel.updateIsFavorite(true);
+            }
+            updateUserReading();
         }
-        updateUserReading();
     }
 
     @Override

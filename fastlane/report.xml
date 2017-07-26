@@ -2,18 +2,35 @@
 <testsuites>
   <testsuite name="fastlane.lanes">
     
+    
+    
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000683">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.00605">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.010098">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.004721">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: gradle" time="1.676819">
+      <testcase classname="fastlane.lanes" name="2: gradle" time="55.399988">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: gradle" time="46.511772">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: supply" time="14.288564">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: slack" time="2.032581">
         
       </testcase>
     
