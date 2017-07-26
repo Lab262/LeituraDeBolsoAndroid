@@ -76,7 +76,7 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
                     DBManager.getAllByParameter(UserReadingModel.class,UserReadingModel.nameParameterIDReading,idReading);
             currentUserReadingModel = userReadingModelRealmResults.first();
             setReading();
-            hideHistoryButton();
+            //hideHistoryButton();
         }else {
             if (differenceDaysEnter()==0){
                 setLastReadingDay();
@@ -146,10 +146,10 @@ public class ReadingDayActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    private void hideHistoryButton(){
-        historyButton.setVisibility(View.INVISIBLE);
-        historyButtonImage.setVisibility(View.INVISIBLE);
-    }
+//    private void hideHistoryButton(){
+//        historyButton.setVisibility(View.INVISIBLE);
+//        historyButtonImage.setVisibility(View.INVISIBLE);
+//    }
 
     private int differenceDaysEnter(){
         UserModel user = DBManager.getCachedUser();

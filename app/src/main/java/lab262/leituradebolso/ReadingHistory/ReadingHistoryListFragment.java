@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class ReadingHistoryListFragment extends android.support.v4.app.Fragment 
         ReadingModel readingModel = (ReadingModel) adapter.getItem(i);
         Bundle bundleExtras = new Bundle();
         bundleExtras.putString(ReadingModel.keyModelSelected,readingModel.idReading);
-        ActivityManager.changeActivity(getContext(),ReadingDayActivity.class,bundleExtras);
+        ActivityManager.changeActivityAndRemoveParentActivity(getContext(),ReadingDayActivity.class,bundleExtras);
     }
 
     @Override
